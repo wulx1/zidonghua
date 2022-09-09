@@ -1,0 +1,20 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "StoreExtensionProto";
+
+
+message GetStoreInfoRequest {
+     
+}
+
+message GetStoreInfoReply {
+     
+}
+
+message StoreBuyRequest {
+    optional int32 id = 1; // 商品ID
+}
+
+message StoreBuyReply {
+    optional int32 changeId = 1;
+}
+

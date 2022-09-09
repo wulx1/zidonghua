@@ -1,0 +1,101 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "DecorationMatchExtensionProto";
+import "HouseExtension.proto";
+import "UserExtension.proto";
+
+//排行榜类型
+enum RankListType {
+    ALL = 1;        //全服排行榜
+    FRIEND_ = 2;     //好友排行榜
+}
+
+message JoinMatchReply {
+     
+}
+
+message ExchangeRewardReply {
+    optional int32 changeId = 1;
+}
+
+message GetDecorationInfoReply {
+    optional DecorationInfoNO decorationInfo = 1;
+    optional int32 votes = 2;              //票数
+    optional int32 rankingNum = 3;         //排名名次
+    optional int32 rankingPercent = 4;     //排名百分比
+    optional bool isGet = 5;               //是否获取过上一次的排名
+}
+
+message GetPKDecorationInfoReply {
+    repeated DecorationInfoNO decorationInfo = 1;
+    optional int32 votesFullTime = 3;       //票数回满时间
+    optional int32 getRewardVoteCount = 4;  //剩余领奖票数
+}
+
+message GetDecorationInfoRequest {
+    optional string userId = 1;
+}
+
+message ExchangeRewardRequest {
+    optional int32 exchangeItemId = 1;        //兑换物Id
+}
+
+message PersonDecorationInfoNO {
+    optional float posx = 1;
+    optional float posy = 2;
+    optional float posz = 3;
+    repeated int32 clothesId = 4;
+    optional string action = 5;
+    optional int32 modelId = 6;             //模型的Id
+}
+
+message VoteRequest {
+    required string userId = 1;
+    optional bool isFriendVote = 2;     //是否为好友投票
+}
+
+message GetRankListReply {
+    repeated RankInfoNO rankInfo = 1;
+    optional RankInfoNO userRankInfo = 2;
+}
+
+message GetRankListRequest {
+    optional RankListType type = 1;     //排行榜类型
+}
+
+message GetVoteRewardRequest {
+     
+}
+
+message GetVoteRewardReply {
+    optional int32 changeId = 1;
+}
+
+message RankInfoNO {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 votes = 2;       //票数
+    optional int32 rankingNum = 3;  //排名名次
+    optional bool isVote = 4;       //是否投过票给他
+    optional bool receiveVote = 5;  //是否收到过他的投票
+    optional int32 rankingPercent = 6;      //排名百分比
+}
+
+message JoinMatchRequest {
+    required DecorationInfoNO decorationInfo = 1;
+}
+
+message GetPKDecorationInfoRequest {
+     
+}
+
+message DecorationInfoNO {
+    optional string userId = 1;
+    optional HouseInfoNO houseInfo = 2;
+    optional PersonDecorationInfoNO personDecoration = 3;
+    optional string headIcon = 4;
+    optional string nickName = 5;
+}
+
+message VoteReply {
+    repeated DecorationInfoNO decorationInfo = 1;   
+}
+

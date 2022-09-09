@@ -1,0 +1,63 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "IslandBuildExtensionProto";
+
+
+message MemoryNO {
+    optional int32 id = 1;      //回忆杀Id
+    optional string num = 2;    //数据值(所有的数据都以字符串传输，npc给的是id，百分比乘了100精确到小数点后两位，时间传int位时间戳)
+}
+
+message GetMemoryReply {
+    repeated MemoryNO memorys = 1;
+}
+
+message GetBadgeInfoReply {
+    repeated RecordInfoNO records = 1;     //获取了的证章数组
+}
+
+message GetIslandLevelRewardsRecordReply {
+    repeated RecordInfoNO getLevelRewards = 1;     //领奖记录
+}
+
+message UpgradeQualificationRequest {
+     
+}
+
+message UpgradeQualificationReply {
+     
+}
+
+message UpgradeLicenseReply {
+     
+}
+
+message GetIslandRewardsRequest {
+    required int32 level = 1;   //领取奖品对应的等级
+}
+
+message GetIslandRewardsReply {
+    repeated RecordInfoNO records = 1;     //领取奖励信息
+    optional int32 changeId = 2;  //变更集
+}
+
+message GetMemoryRequest {
+    optional int32 qualification = 1;                            //查看的类型，不传默认全部查询
+}
+
+message RecordInfoNO {
+    required int32 startId = 1; //首位id
+    optional int32 record = 3;//奖励领取信息或图鉴获取信息，段记录每个int使用30位
+}
+
+message UpgradeLicenseRequest {
+     
+}
+
+message GetIslandLevelRewardsRecordRequest {
+     
+}
+
+message GetBadgeInfoRequest {
+    optional string uid = 1; //查看的角色id，暂时只能查看自己的可以不传这个参数
+}
+

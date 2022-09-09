@@ -1,0 +1,290 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "WerewolfExtensionProto";
+import "UserExtension.proto";
+
+message PrepareWerewolfGameRequest {
+     
+}
+
+message GetWerewolfRoomTimeOffsetReply {
+    optional int32 timeOffset = 1;
+}
+
+message CancelPrepareWerewolfGameRequest {
+     
+}
+
+message WerewolfTaskNO {
+    optional int32 taskId = 1;          //任务Id
+    optional int32 buildingId = 2;      //建筑Id
+    optional int32 timeOffset = 3;      //任务失败时间
+    optional int32 process = 4;         //任务进度
+    repeated string finishUser = 5;     //已完成的玩家
+}
+
+message WerewolfMessageNO {
+    optional int32 id = 1;          //消息唯一ID
+    optional int32 round = 2;       //第几轮会议的消息
+    optional int32 tid = 3;         //模板ID（角色聊天返回0）
+    optional string sender = 4;     //发送ID（系统发的是-1）
+    optional int32 type = 5;        //消息类型（1:角色消息，2:系统消息，3：投票结果）
+    optional string content = 6;    //内容（模板消息不发）
+    optional int32 sendTime = 7;    //发送时间
+    repeated string fills = 8;      //填充
+}
+
+message GetWerewolfRoomInfoReply {
+    optional int32 roomId = 1;
+}
+
+message JoinWerewolfRoomRequest {
+    optional int32 roomId = 1;
+}
+
+message QuickJoinCustomRoomReply {
+     
+}
+
+message WerewolfCustomRoomNO {
+    optional int32 roomId = 1;                  //房间ID
+    optional int32 roomType = 2;                //房间类型
+    optional int32 mapId = 3;                   //房间ID
+    repeated RoleSimpleInfoNO roleInfos = 4;    //房间成员信息
+}
+
+message WerewolfQuickJoinPush {
+    optional int32 state = 1;               //状态(1：成功快速加入，2：快速加入超时)
+    optional int32 quickJoinRoomId = 2;     //成功加入返回的房间ID
+}
+
+message ExitWerewolfMatchReply {
+     
+}
+
+message GetWerewolfRoomTimeOffsetRequest {
+     
+}
+
+message JoinWerewolfRoomReply {
+    optional int32 pushId = 1;
+    repeated WerewolfRoomInfoNO roomInfo = 2;
+    repeated WerewolfRoleInfoNO roleInfo = 3;
+    optional int32 nowOffetTime = 4;    //当前距房间创建时间的偏移时间
+    repeated WerewolfTaskNO taskInfo = 5;
+}
+
+message WerewolfMatchingStatePush {
+    optional int32 state = 1;               //推送状态(1:成功匹配，2:匹配超时，3:重新匹配)
+}
+
+message ReportDeadBodyRequest {
+    optional string targetId = 1;
+}
+
+message CompleteOperateBuildingReply {
+     
+}
+
+message JoinWerewolfMatchReply {
+    optional int32 punishEndTime = 1;               //惩罚结束时间
+}
+
+message GetWerewolfRoomMessageRequest {
+     
+}
+
+message ExitQuickJoinCustomRoomReply {
+     
+}
+
+message ConfirmJoinReply {
+    optional int32 punishEndTime = 1;              //结束惩罚时间
+}
+
+message ExitQuickJoinCustomRoomRequest {
+     
+}
+
+message ChooseWerewolfIdentityRequest {
+    optional int32 identity = 1;
+}
+
+message JoinWerewolfMatchRequest {
+    optional int32 type = 1;
+    optional int32 mapId = 2;
+}
+
+message CancelPrepareWerewolfGameReply {
+     
+}
+
+message WerewolfActionNO {
+    optional int32 id = 1;
+    repeated string params = 2;
+    optional bool instant = 3;
+}
+
+message CreateWerewolfRoomReply {
+    optional int32 roomId = 1;              //创建的房间ID
+}
+
+message WerewolfRoleInfoNO {
+    optional string userId = 1;
+    repeated WerewolfFieldNO fields = 2;
+    optional int32 pushId = 3;
+    optional bool leave = 4;
+}
+
+message WerewolfMoveInfoNO {
+    repeated WerewolfPosNO posNO = 1;
+    optional int32 moveType = 2;
+    optional int32 timeOffset = 3;
+}
+
+message SendWerewolfRoomMessageRequest {
+    optional int32 tid = 1;                             //模板ID
+    optional string content = 2;                        //文本
+    repeated string fills = 3;                          //填充
+}
+
+message ChooseWerewolfIdentityReply {
+     
+}
+
+message GetWerewolfCustomRoomListRequest {
+    required int32 page = 1;                                //页数
+    required int32 roomType = 2;                            //房间类型
+    required int32 mapId = 3;                               //地图ID
+}
+
+message WerewolfRoomInfoNO {
+    repeated WerewolfFieldNO field = 1;
+    optional int32 pushId = 2;
+}
+
+message GetWerewolfRoomMessageReply {
+    repeated WerewolfMessageNO messageInfos = 1;             //消息集合
+}
+
+message WerewolfTaskInfoPush {
+    repeated WerewolfTaskNO changeTask = 1;
+    repeated WerewolfTaskNO newTask = 2;
+}
+
+message WerewolfPosNO {
+    optional float posX = 1;
+    optional float posY = 2;
+    optional float posZ = 3;
+}
+
+message WerewolfBuildingInfoNO {
+    optional int32 buildingId = 1;
+    optional int32 state = 2;
+    repeated int32 params = 3;
+}
+
+message ExitWerewolfRoomReply {
+     
+}
+
+message GetWerewolfRoomInfoRequest {
+     
+}
+
+message ExitWerewolfMatchRequest {
+     
+}
+
+message WerewolfAttackRequest {
+    optional string targetId = 1;
+    optional WerewolfActionNO action = 2;
+}
+
+message WerewolfAttackReply {
+     
+}
+
+message SendWerewolfRoomMessageReply {
+     
+}
+
+message PrepareWerewolfGameReply {
+     
+}
+
+message StartWerewolfGameReply {
+     
+}
+
+message WerewolfMoveRequest {
+    optional WerewolfMoveInfoNO moveInfo = 1;
+}
+
+message CreateWerewolfRoomRequest {
+    required int32 roomType = 1;            //房间类型
+    required int32 mapId = 2;               //地图ID
+    required int32 openType = 3;            //开放类型(对应EnumDef.yaml WerewolfRoomOpenType)
+}
+
+message ExitWerewolfRoomRequest {
+     
+}
+
+message WerewolfFieldNO {
+    optional int32 type = 1;
+    optional bytes byteMsg = 2;
+    optional int32 intMsg = 3;
+    optional string stringMsg = 4;
+    optional bool boolMsg = 5;
+}
+
+message WerewolfMoveReply {
+     
+}
+
+message CompleteOperateBuildingRequest {
+    optional WerewolfActionNO action = 1;
+}
+
+message StartWerewolfGameRequest {
+     
+}
+
+message WerewolfInfoPush {
+    repeated WerewolfRoleInfoNO roleInfo = 1;
+    repeated WerewolfRoomInfoNO roomInfo = 2;
+}
+
+message StartOperateBuildingRequest {
+    optional int32 operateType = 1;
+    optional int32 buildingId = 2;
+    optional WerewolfActionNO action = 3;
+}
+
+message ConfirmJoinRequest {
+    required bool agree = 1;                       //是否同意加入
+}
+
+message StartOperateBuildingReply {
+     
+}
+
+message WerewolfMessagePush {
+    repeated WerewolfMessageNO messageInfos = 1;        //消息推送
+}
+
+message ReportDeadBodyReply {
+     
+}
+
+message GetWerewolfCustomRoomListReply {
+    repeated WerewolfCustomRoomNO customRoomList = 1;       //房间列表
+    optional int32 page = 3;                                //页数
+    optional int32 totalPage = 2;                           //总页数
+}
+
+message QuickJoinCustomRoomRequest {
+    required int32 roomType = 1;                        //房间类型
+    required int32 mapId = 2;                           //地图ID
+}
+

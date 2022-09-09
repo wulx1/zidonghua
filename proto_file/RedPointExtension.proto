@@ -1,0 +1,41 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "RedPointExtensionProto";
+
+
+message GetRedPointInfoReply {
+    repeated RedPointInfoNo redPointInfos = 1;
+}
+
+message ClearRedPointReply {
+     
+}
+
+message ClearRedPointRequest {
+    required int32 redPointType = 1;
+}
+
+message RedPointInfoNo {
+    required int32 redPointType = 1;    //红点类型 在RedPointTypeEnum中定义
+    repeated string stringParams = 2;   //string参数列表
+    repeated int32 intParams = 3;       //整型参数列表
+    optional bool flag = 4;    //新增红点为true 取消红点为false
+}
+
+message ClearRedPointParamsRequest {
+    required int32 redPointType = 1;        //红点
+    repeated int32 intParams = 2;           //整型参数
+    repeated string stringParams = 3;       //字符串参数
+}
+
+message RedPointPushNo {
+    repeated RedPointInfoNo redPointInfos = 1;  
+}
+
+message GetRedPointInfoRequest {
+     
+}
+
+message ClearRedPointParamsReply {
+     
+}
+

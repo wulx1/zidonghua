@@ -1,0 +1,12 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity110ExtensionProto";
+
+
+message GetFireworksPartyGiftReply {
+    optional int32 changeId = 1;
+}
+
+message GetFireworksPartyGiftRequest {
+    optional int32 npcId = 1;
+}
+

@@ -1,0 +1,85 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "RankExtensionProto";
+import "UserExtension.proto";
+
+message GetFriendRankRequest {
+    required int32 type = 1;    //获取的排行榜类型
+    optional int32 subType = 2; //获取的排行榜子类型
+    optional int32 regionType = 3;  //获取的排行榜区域类型
+}
+
+message GetUserClothesInfoReply {
+    repeated UserClothesInfo clothesInfo = 1;
+}
+
+message GetFriendIntimacyRankReply {
+    repeated IntimacyRankingInfoNO rankingInfos = 1;        //排行榜数据
+}
+
+message RankingInfoNO_1 {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 ranking = 2;
+    optional int32 score = 3;
+    optional int32 front = 4; //上一次的排名
+}
+
+message UserClothesInfo {
+    optional string id = 1;
+    repeated int32 clothes = 3;
+    repeated int32 defaultClothes = 9;                  //选择的所有默认装扮Id
+    optional int32 modelId = 4;                         //人模Id
+    optional int32 sex = 5;
+}
+
+message GetFriendIntimacyRankRequest {
+    required int32 page = 1;   //排行榜页数
+    required int32 num = 2;     //获取的排行榜数量
+    optional int32 regionType = 3;  //获取的排行榜区域类型
+}
+
+message GetIntimacyRankReply {
+    repeated IntimacyRankingInfoNO rankingInfos = 1;        //排行榜数据
+    optional RankingInfoNO_1 meRankInfo = 2;          //我的排行榜数据
+}
+
+message FriendRankInfoNo {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 score = 2;
+    optional int32 time = 3;
+}
+
+message GetUserClothesInfoRequest {
+    repeated string id = 1;     //需要查询的
+}
+
+message GetFriendRankReply {
+    repeated FriendRankInfoNo rankingInfos = 1;        //排行榜数据
+}
+
+message GetIntimacyRankRequest {
+    required int32 page = 1;   //排行榜页数
+    required int32 num = 2;     //获取的排行榜数量
+    optional int32 regionType = 3;  //获取的排行榜区域类型
+}
+
+message GetRankInfoRequest {
+    required int32 page = 1;   //排行榜页数
+    required int32 num = 2;     //获取的排行榜数量
+    required int32 type = 3;    //获取的排行榜类型
+    optional int32 subType = 4; //获取的排行榜子类型
+    optional int32 regionType = 5;  //获取的排行榜区域类型
+}
+
+message GetRankInfoReply {
+    repeated RankingInfoNO_1 rankingInfos = 1;        //排行榜数据
+    optional RankingInfoNO_1 meRankInfo = 2;          //我的排行榜数据
+}
+
+message IntimacyRankingInfoNO {
+    optional RoleSimpleInfoNO roleInfo1 = 1;
+    optional RoleSimpleInfoNO roleInfo2 = 2;
+    optional int32 ranking = 3;
+    optional int32 score = 4;
+    optional int32 time = 5;
+}
+

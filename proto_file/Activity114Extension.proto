@@ -1,0 +1,27 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity114ExtensionProto";
+
+
+message GetFirstChargeInfoReply {
+    optional int32 firstChargeCount = 1;    //单笔首充最大数目
+    repeated int32 drawSets = 2;            //已领取的奖励档次
+    required bool close = 3;                //是否关闭
+}
+
+message GetFirstChargeInfoRequest {
+     
+}
+
+message FirstChargeCountPush {
+    required int32 firstChargeCount = 1;    //充值数目
+}
+
+message DrawFirstChargeRewardRequest {
+    optional int32 minSelectId = 1;         //低档次选择套装ID
+}
+
+message DrawFirstChargeRewardReply {
+    optional int32 changeSetId = 1;         //结果集
+    optional bool close = 2;               //是否关闭
+}
+

@@ -1,0 +1,110 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ClothesExtensionProto";
+
+
+message GetChangeTimesRequest {
+     
+}
+
+message ChangeClothesRequest {
+    repeated int32 clothesId = 1;                           //请求穿戴的新装
+}
+
+message CollectCurrentClothesReply {
+    required ClothesCollectionNO collection = 1;            //装扮收藏成功后返回数据
+}
+
+message GetClothesShowInfoReply {
+    repeated ClothesShowNO clothesShows = 1;                //装扮收藏返回信息
+    required int32 openShowCells = 2;                       //已解锁的展示格子数
+}
+
+message EditClothesShowRequest {
+    repeated ClothesShowReq clothesShowReq = 1;             //装扮展示请求对象
+}
+
+message EditClothesShowReply {
+    repeated ClothesShowNO showNos = 1;                     //编辑完成后返回
+}
+
+message DeleteClothesCollectionsRequest {
+    repeated int32 uniqueIds = 1;                           //删除的装扮收藏唯一ID集合
+}
+
+message ClothesShowNO {
+    required int32 uniqueId = 1;                            //唯一展示ID
+    repeated int32 clothes = 2;                             //装扮
+    required int32 likes = 3;                               //点赞数
+    required bool isLike = 4;                               //是否点赞
+    required int32 model = 5;                               //模型(1:人模，2：熊模)
+}
+
+message ChangeClothesReply {
+     
+}
+
+message ChangeModelRequest {
+    required int32 modelId = 1;                             //更换的modelId
+    repeated int32 clothesId = 2;                           //现在要更换的衣服
+    optional int32 skinIndex = 3;                           //选择的皮肤
+}
+
+message LikeOrUnlikeClothesShowRequest {
+    required string likeUid = 1;                            //被点赞人的UID
+    required int32 uniqueId = 2;                            //点赞的展示ID
+}
+
+message GetClothesCollectionsReply {
+    repeated ClothesCollectionNO collections = 1;           //当前收藏的套装
+}
+
+message ClothesCollectionNO {
+    required int32 uniqueId = 1;                            //唯一收藏ID
+    repeated int32 clothes = 2;                             //装扮
+    required int32 model = 3;                               //模型(1:人模，2：熊模)
+    required int32 createTime = 4;                          //收藏创建时间
+}
+
+message GetClothesShowInfoRequest {
+    optional string uid = 1;                                //查看的角色UID(查看自己可以不传)
+}
+
+message ChangeModelReply {
+     
+}
+
+message CollectCurrentClothesRequest {
+    repeated int32 clothes = 1;                             //要保存的装扮ID集合
+    required int32 model = 2;                               //模型(1:人模，2：熊模)
+}
+
+message UnlockClothesShowReply {
+     
+}
+
+message GetChangeTimesReply {
+    required int32 changeModelTimes = 1;                    //已经更换模型的次数
+    required int32 changeSkinTimes = 2;                     //已经更换皮肤的次数
+}
+
+message LikeOrUnlikeClothesShowReply {
+     
+}
+
+message UnlockClothesShowRequest {
+     
+}
+
+message ClothesShowReq {
+    optional int32 showId = 1;                              //唯一展示ID(不传的时候是新增展示)
+    optional int32 collectionId = 2;                        //唯一收藏ID(新增展示的时候传)
+}
+
+message GetClothesCollectionsRequest {
+     
+}
+
+message DeleteClothesCollectionsReply {
+     
+}
+

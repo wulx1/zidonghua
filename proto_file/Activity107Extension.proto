@@ -1,0 +1,59 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity107ExtensionProto";
+import "UserExtension.proto";
+
+message GetHappyRankInfoRequest {
+     
+}
+
+message RankingInfoNO {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 ranking = 2;
+    optional int32 score = 3;
+}
+
+message DrawHappyBoxRewardRequest {
+    required int32 boxId = 1;                   //领取的宝箱ID
+}
+
+message GetHappyRefleshSceneRequest {
+     
+}
+
+message ExplosionRateGainNO {
+    required int32 itemId = 1;          //道具ID
+    required int32 count = 2;           //获得
+    required int32 rate = 3;            //爆率
+}
+
+message GetHappyFightMissionRequest {
+     
+}
+
+message HappyFightMissionNO {
+    required int32 systemId = 1;          //系统ID
+    required int32 todayTimes = 2;        //今天次数
+}
+
+message GetHappyFightMissionReply {
+    repeated HappyFightMissionNO missionNOs = 1;    //返回的任务详情
+}
+
+message GetHappyRankInfoReply {
+    repeated RankingInfoNO rankingInfos = 1;        //排行榜数据
+    optional RankingInfoNO meRankInfo = 2;          //我的排行榜数据
+}
+
+message ExplosionRateGainPush {
+    required int32 systemId = 1;
+    repeated ExplosionRateGainNO gainNo = 2;            //爆率推送
+}
+
+message DrawHappyBoxRewardReply {
+    optional int32 changeSetId = 1;             //结果集
+}
+
+message GetHappyRefleshSceneReply {
+    optional int32 sceneId = 1;           //哈皮刷新地点
+}
+

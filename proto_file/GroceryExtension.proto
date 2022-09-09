@@ -1,0 +1,61 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "GroceryExtensionProto";
+
+
+message GroceryGoodsInfoNo {
+    optional int32 goodsType = 1;        //杂货铺商品类型1:固定商品 2:随机商品
+    optional int32 cdTime = 2;           //购买冷却时间
+    optional int32 goodsId = 3;          //商品Id
+    optional int32 buyCount = 4;         //已购买次数(有限购次数的商品才会有这个字段)
+}
+
+message GroceryRefreshPush {
+     
+}
+
+message GroceryInfoNO {
+    required int32 groceryId = 1;                   //商店Id
+    repeated GroceryGoodsInfoNo fixedGoodsInfo = 2; //固定商品
+    repeated GroceryGoodsInfoNo randomGoodsInfo = 3;//随机商品
+}
+
+message RefreshAllRandomGoodsReply {
+    repeated GroceryGoodsInfoNo fixedGoodsInfo = 1;
+    repeated GroceryGoodsInfoNo randomGoodsInfo = 2;
+}
+
+message GetGroceryInfoRequest {
+    optional int32 groceryId = 1;
+}
+
+message RefreshGoodsCdTimeReply {
+     
+}
+
+message BuyGroceryGoodsRequest {
+    optional int32 goodsType = 1;
+    optional int32 index = 2;
+    required int32 goodsId = 3;
+    required int32 groceryId = 4;
+    optional int32 count = 5;
+}
+
+message GetGroceryInfoReply {
+    repeated GroceryInfoNO groceryInfo = 1;
+}
+
+message BuyGroceryGoodsReply {
+    optional int32 id = 1;//新的商品Id
+    optional int32 changeId = 2;
+}
+
+message RefreshAllRandomGoodsRequest {
+    required int32 groceryId = 1;
+}
+
+message RefreshGoodsCdTimeRequest {
+    optional int32 goodsType = 1;//商品类型
+    optional int32 index = 2;//所在商品队列索引
+    required int32 groceryId = 3;
+}
+

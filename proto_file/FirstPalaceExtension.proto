@@ -1,0 +1,118 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FirstPalaceExtensionProto";
+
+
+message GreenDiamondsCollectNO {
+    required int32 level = 1;                                   //关卡
+    required int32 count = 2;                                   //数量
+}
+
+message CostGreenDiamondsRequest {
+    required int32 amount = 1;                      //消耗个数
+}
+
+message BuyPowerReply {
+     
+}
+
+message EnterPalaceLevelRequest {
+    required int32 level = 1;                                   //进入的关卡
+}
+
+message SwitchNpcReply {
+    optional int32 npcId = 1;                       //npcID
+    optional int32 powerRemain = 2;                 //体力剩余
+}
+
+message SkipMapCellReply {
+    optional int32 powerRemain = 1;                             //体力值剩余
+    optional int32 eventId = 2;                                 //事件ID
+    optional int32 cell = 3;                                    //格子ID
+    optional int32 unlockCell = 4;                              //解锁的格子ID(buff有几率解锁)
+    optional bool skipTurntable = 5;                            //跳过转盘
+    optional int32 userState = 6;                               //最新状态值(覆盖)
+    optional int32 funcId = 7;                                  //客服端功能表ID
+}
+
+message BuyPowerRequest {
+     
+}
+
+message SwitchNpcRequest {
+    required int32 npcId = 1;                       //切换的NPC
+}
+
+message PalaceLevelRewardNO {
+    required int32 id = 1;                                      //奖励的物品ID
+    required int32 count = 2;                                   //数量
+}
+
+message ExitFirstPalaceLevelReply {
+    required bool success = 1;                              //是否成功通关
+}
+
+message TpCellDataNO {
+    required int32 tpCell = 1;                                  //传送的格子
+    required int32 tpEventId = 2;                               //传送的格子开启的事件
+    optional int32 funcId = 3;                                  //客服端功能表ID
+}
+
+message PalaceLevelMapCellDataNO {
+    required int32 cell = 1;                                    //格子唯一ID
+    required int32 cellType = 2;                                //格子类型ID
+    required int32 state = 3;                                   //格子状态(1:未激活,2:已激活未完成,3:已完成)
+    optional int32 eventId = 4;                                 //事件ID(已解锁才返回)
+}
+
+message EnterPalaceLevelReply {
+    required int32 powerRemain = 1;                             //体力值剩余
+    required int32 buyPowerTimes = 2;                           //购买体力次数
+    repeated PalaceLevelMapCellDataNO cells = 3;                //生成的关卡地图信息
+    repeated PalaceLevelRewardNO gains = 4;                     //当前关卡获得的奖励
+    required int32 currentCell = 5;                             //当前所处格子
+    required int32 greenDiamonds = 6;                           //关卡已获得的绿水晶
+    required int32 npcId = 7;                                   //选用的npcID
+    required int32 userState = 8;                               //角色状态(按位存，枚举FirstPalaceUserStateEnum)
+}
+
+message CostGreenDiamondsReply {
+    required int32 amount = 1;                      //消耗个数
+}
+
+message FinishCellEventReply {
+    repeated PalaceLevelRewardNO gains = 1;                         //获得的奖励
+    optional int32 powerChange = 2;                                 //体力值变化
+    optional int32 userState = 3;                                   //最新状态值(覆盖)
+    optional TpCellDataNO tpCellData = 4;                           //传送事件数据（TP事件触发）
+    required int32 cellSate = 5;                                    //事件状态
+    required int32 eventId = 6;                                     //事件ID
+    optional int32 changeSetId = 7;                                 //结果变更集
+    optional int32 greenDiamondsChange = 8;                         //绿水晶变化
+}
+
+message SkipMapCellRequest {
+    required int32 cell = 1;                                    //跳的格子（index）
+}
+
+message FinishCellEventRequest {
+    optional int32 state = 1;                                       //事件完成的状态(0:失败，1：成功)
+}
+
+message EnterFirstPalaceInfoRequest {
+     
+}
+
+message EnterFirstPalaceInfoReply {
+    repeated int32 unlockEvents = 1;                            //已解锁的事件
+    optional int32 currentLevel = 2;                            //当前在进行的关卡(没有就不返回)
+    optional int32 currentOpenLevel = 3;                        //当前开启的最大关卡
+    repeated GreenDiamondsCollectNO collectNO = 4;              //绿水晶收集详情
+    optional int32 useGreenDiamondsAmount = 5;                  //绿水晶使用数量
+    optional int32 hasPlayLevels = 6;                           //已玩关关
+    optional int32 hasPassLevels = 7;                           //已通关卡
+}
+
+message ExitFirstPalaceLevelRequest {
+     
+}
+

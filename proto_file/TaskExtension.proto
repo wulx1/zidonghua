@@ -1,0 +1,165 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "TaskExtensionProto";
+
+
+message UpdateIslanderEventProgressRequest {
+    required int32 taskId = 1;
+    repeated ExtraInfoNO extraInfos = 2;
+}
+
+message GiveUpIslanderEventRequest {
+    required int32 taskId = 1;
+}
+
+message IslanderEventInfoNO {
+    optional int32 eventType = 1;
+    optional int32 npcId = 2;
+    repeated int32 dayOfWeek = 3;
+}
+
+message IslanderEventInfoReply {
+    repeated IslanderEventInfoNO todayEvent = 1;
+    repeated IslanderEventInfoNO toWeekEvent = 2;
+}
+
+message TaskInfoRequest {
+    repeated int32 taskType = 1;                //任务类型({@like Enum里的TaskTypeEnum})
+}
+
+message ReceiveDailyTaskProcessAwardsRequest {
+    required int32 index = 1;                   //要领取那一个活跃度的奖励，从1开始
+}
+
+message TaskNO {
+    required int32 id = 1;                      //任务的Id
+    required int32 currentStep = 2;             //任务当前的步骤
+    repeated int32 finishedTargetCounts = 3;    //任务已经完成的目标数量
+    optional int32 startTime = 4;               //任务接受的时间
+    repeated ExtraInfoNO extraInfos = 5;        //任务步骤额外信息
+    optional int32 result = 6;                  //任务开启是否成功
+}
+
+message TaskCommandRequest {
+    required int32 taskStepId = 1;              //步骤Id
+    required int32 order = 2;                   //指令的order
+    repeated ExtraInfoNO extraInfos = 3;        //前端依托的额外参数
+}
+
+message ReceiveTaskChapterAwardsReply {
+    required int32 changeSetId = 1;
+}
+
+message FinishTaskNO {
+    required int32 taskId = 1;
+    required int32 changeSetId = 2;
+}
+
+message SubmitItemReply {
+     
+}
+
+message ReceiveTaskAwardsRequest {
+    required int32 taskId = 1;                  //要领取奖励的任务Id
+    repeated ExtraInfoNO extraInfos = 2;        //前端依托的额外参数
+}
+
+message IslanderEventInfoRequest {
+     
+}
+
+message ReceiveTaskAwardsReply {
+    required int32 changeSetId = 1;             //物品变动集的Id
+}
+
+message IncrTargetReply {
+     
+}
+
+message UpdateIslanderEventProgressReply {
+     
+}
+
+message GiveUpIslanderEventReply {
+     
+}
+
+message IncrTargetRequest {
+    required int32 stepId = 1;                  //步骤的Id
+    required int32 count = 2;                   //命令的Id
+    optional int32 index = 3;                   //第几个目标，从0开始
+    repeated ExtraInfoNO extraInfos = 4;        //前端依托的额外参数
+}
+
+message FinishStepReply {
+    optional TaskNO taskInfo = 1;               //跳转到下一步骤的信息，如果完成的已经是最后有一个步骤了，就没有这个字段
+    repeated ExtraInfoNO extraInfos = 2;        //前端依托的额外参数
+}
+
+message ExtraInfoNO {
+    required string key = 1;                     //自定义字符串的key
+    required string val = 2;                     //自定义字符串的value
+}
+
+message TaskQuickCompletionTargetRequest {
+    required int32 taskId = 1;                  //任务Id
+    required int32 taskStepId = 2;              //任务步骤Id
+    required int32 index = 3;                   //第几个目标，从0开始
+    repeated ExtraInfoNO extraInfos = 4;        //前端依托的额外参数
+}
+
+message TaskCommandReply {
+     
+}
+
+message SubmitItemRequest {
+    required int32 taskId = 1;                  //任务Id
+    required int32 stepId = 2;                  //任务步骤Id
+    required int32 index = 3;                   //第几个目标，从0开始
+    repeated ExtraInfoNO extraInfos = 4;        //要存储的前端依托存储的KV值
+}
+
+message TaskInfoReply {
+    repeated int32 finishedTaskId = 1;          //已完成任务
+    repeated TaskNO doingTasks = 2;             //进行中任务
+    optional int32 dailyGenId = 3;              //每日任务随机组的Id
+    optional bool dailyFinalAward = 4;          //是否领取了每日任务最近奖励
+    repeated int32 getAwardsChapter = 5;        //已经领奖的章节
+    optional int32 dailyTaskProcessValue = 6;   //每日任务的进度值
+    optional int32 dailyTaskProcessLevel = 7;   //每日任务的随机的等级
+    optional int32 dailyTaskGetRewardIndex = 8; //每日任务已经领取过的奖励，
+}
+
+message StartTaskRequest {
+    repeated int32 taskId = 1;                  //请求要开始任务的Id
+}
+
+message StartTaskReply {
+    repeated TaskNO task = 1;                   //返回任务信息
+}
+
+message FinishTaskRewardPush {
+    repeated FinishTaskNO finishTasks = 1;      //完成的任务，会附带一个变更集Id
+}
+
+message FinishStepRequest {
+    required int32 stepId = 1;                  //步骤的Id
+    optional int32 commandId = 2;               //命令的Id
+    repeated ExtraInfoNO extraInfos = 3;        //要存储的前端依托存储的KV值
+}
+
+message TaskQuickCompletionTargetReply {
+     
+}
+
+message UpdateTaskPush {
+    repeated TaskNO updatedTasks = 1;           //新开启的任务
+}
+
+message ReceiveTaskChapterAwardsRequest {
+    required int32 chapterId = 1;
+}
+
+message ReceiveDailyTaskProcessAwardsReply {
+    required int32 changeSetId = 1;             //物品变动集的Id
+}
+

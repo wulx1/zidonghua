@@ -1,0 +1,78 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "WishCloverExtensionProto";
+
+
+message LikeWishCloverRequest {
+    required int32 sceneId = 1; //场景ID
+    required int32 areaId = 2; //位置ID
+}
+
+message DeleteWishCloverReply {
+    optional WishCloverNO wishCloverInfo = 1; //删除后的四叶草
+}
+
+message GetWishCloverInfoRequest {
+    required int32 sceneId = 1; //场景ID
+}
+
+message LikeWishCloverReply {
+    optional WishCloverNO wishCloverInfo = 1; //点赞/取消的四叶草信息
+}
+
+message LeavingWishCloverReply {
+    optional WishCloverNO wishCloverInfo = 1; //留言的四叶草信息
+}
+
+message GetWishCloverInfoReply {
+    repeated WishCloverNO wishCloverInfo = 1; //已留言的四叶草数据
+}
+
+message WishCloverPush {
+    repeated WishCloverNO changeInfo = 1;  //信息变更的四叶草信息
+}
+
+message LeavingWishCloverRequest {
+    required int32 sceneId = 1; //场景ID
+    required int32 areaId = 2; //位置ID
+    required string content = 3; //内容
+}
+
+message CancelOwnWishCloverRequest {
+    required int32 sceneId = 1; //场景ID
+    required int32 areaId = 2; //位置ID
+}
+
+message OwnWishCloverReply {
+    optional string ownUId = 1; //占用人ID(没有占用不返回)
+    optional int64 ownExpireTime = 2; //占用解除时间(没有占用不返回)
+}
+
+message WishCloverRoleNO {
+    optional string id = 1;  //userId
+    optional string nickname = 2; //昵称
+    optional string headIcon = 3; //图标Id
+}
+
+message DeleteWishCloverRequest {
+    required int32 sceneId = 1; //场景ID
+    required int32 areaId = 2; //位置ID
+}
+
+message WishCloverNO {
+    optional int32 sceneId = 1; //场景ID
+    optional int32 areaId = 2; //位置ID
+    optional string content = 3; //内容
+    optional int64 outDateTime = 4; //过期时间
+    optional WishCloverRoleNO roleInfo = 5;//留言人信息
+    repeated string likeUserId = 6;//所有点赞的人
+}
+
+message CancelOwnWishCloverReply {
+     
+}
+
+message OwnWishCloverRequest {
+    required int32 sceneId = 1; //场景ID
+    required int32 areaId = 2; //位置ID
+}
+

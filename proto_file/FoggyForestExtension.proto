@@ -1,0 +1,78 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FoggyForestExtensionProto";
+import "SceneExtension.proto";
+
+message FoggyForestTrickItemReply {
+     
+}
+
+message FoggyForestTrickItemRequest {
+    required int32 trickType = 1;                       //触发类型(1:部件2:使用道具)
+    required int32 trickId = 2;                         //触发ID(部件是位置ID，道具是道具ID)
+    repeated string params = 3;                         //携带参数(前端用来转发一些信息)
+}
+
+message GetFoggyForestTeamIdReply {
+    optional int32 teamId = 1;                          //队伍ID
+}
+
+message FoggyForestRewardNO {
+    optional int32 id = 1;                                          //奖励ID
+    optional int32 count = 2;                                       //数量
+}
+
+message CancelFoggyForestStateReply {
+     
+}
+
+message FoggyForestBroadcastItemNO {
+    optional int32 itemId = 1;                                      //道具ID
+    repeated string params = 2;                                     //携带参数
+    optional int32 startTime = 3;                                   //开始时间
+}
+
+message FoggyForestRoleStateNO {
+    optional int32 state = 1;                                       //角色状态
+    repeated string params = 2;                                     //参数列表
+    optional int32 timeParam = 3;                                   //额外数值参数(火把面具结束时间，中毒开始时间)
+}
+
+message FoggyForestNO {
+    optional int32 mapId = 1;                                       //玩法地图ID
+    optional int32 endTime = 2;                                     //游戏结束时间
+    repeated FoggyForestFogNO fogInfos = 3;                         //迷雾集合
+    repeated FoggyForestMapItemNO mapItemNO = 4;                    //地图部件集合
+    repeated FoggyForestRewardNO rewardInfos = 5;                   //奖励集合
+    repeated FoggyForestMemberRoleStateNO roleStateInfos = 6;       //角色状态集合
+    optional FoggyForestBroadcastItemNO broadcastItem = 7;          //广播道具
+    optional bool change = 8;                                       //是否变更数据
+}
+
+message FoggyForestMemberRoleStateNO {
+    optional string uId = 1;                                        //角色ID
+    repeated FoggyForestRoleStateNO addStates = 2;                  //新增状态(进场景会全部下发)
+    repeated int32 removeStates = 3;                                //移除的状态(推送下发)
+}
+
+message FoggyForestFogNO {
+    optional string id = 1;                                         //位置ID
+    optional ScenePosNO initPos = 2;                                //初始位置
+    optional ScenePosNO targetPos = 3;                              //目标移动位置
+    optional int32  startMoveTime = 4;                              //开始移动时间
+}
+
+message FoggyForestMapItemNO {
+    optional int32  areaId = 1;                                     //位置ID
+    optional int32  mapItemId = 2;                                  //部件ID
+    optional ScenePosNO  pos = 3;                                   //部件坐标
+    repeated string extParams = 4;                                  //额外返回
+}
+
+message GetFoggyForestTeamIdRequest {
+     
+}
+
+message CancelFoggyForestStateRequest {
+    required int32 state = 1;                           //取消的状态
+}
+

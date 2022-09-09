@@ -1,0 +1,152 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ElfMagicExtensionProto";
+import "UserExtension.proto";
+import "ElfExtension.proto";
+
+message ElfMagicLevelInfoNO {
+    optional int32 magicId = 1;
+    optional int32 level = 2;
+}
+
+message GetElfFightDailyPrizeCountRequest {
+     
+}
+
+message GetElfFightRankingReply {
+    repeated ElfFightRankNO rankInfo = 1;
+    optional ElfFightRankNO mineRank = 2;
+}
+
+message ExitElfMagicFightMatchRequest {
+     
+}
+
+message GetElfFightDailyPrizeCountReply {
+    optional int32 prizeCount = 1;
+}
+
+message ElfHpChangeInfoNO {
+    optional int32 type = 1;//变动类型
+    optional int32 blood = 2;//血量变动
+    optional int32 shield = 3;//护盾变动
+    optional string targetId = 4;//血量变动的user
+    optional string sourceId = 5;//来源user
+    optional int32 id = 6;//魔法Id或buffId
+    optional bool critical = 7;//是否是暴击
+    optional int32 level = 8;//魔法的等级
+}
+
+message ElfFightSimpleInfoNO {
+    optional string userId = 1;
+    optional int32 elfId = 2;
+    optional string elfName = 3;
+    optional int32 blood = 4;
+    optional int32 level = 5;
+    optional bool isFirst = 6;
+}
+
+message ElfFightRankNO {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 rank = 2;
+    optional int32 score = 3;
+}
+
+message ElfChooseMagicInfoNO {
+    optional string targetId = 1;
+    optional int32 magicId = 2;
+    optional bool loopMagic = 3;
+    optional int32 level = 4;
+}
+
+message StudyElfMagicReply {
+    required int32 magicId = 1;
+    required int32 level = 2;
+}
+
+message ElfMagicFightInfoPush {
+    repeated ElfFightSimpleInfoNO elfInfo = 1;
+    repeated ElfMagicFightInfoNO fightInfo = 2;
+    repeated RoleSimpleInfoNO roleInfos = 3;
+    optional int32 winCount = 4;
+    optional int32 fightType = 5;
+    optional int32 changeId = 6;
+    optional int32 prizeCount = 7;
+    optional bool win = 8;
+    optional int32 score = 9;
+    optional int32 changeScore = 10;
+    repeated ElfInfoNO elfExp = 11;
+}
+
+message GetElfFightRankingRequest {
+    optional bool friend = 1;
+}
+
+message JoinElfMagicFightMatchReply {
+     
+}
+
+message JoinElfMagicFightMatchRequest {
+     
+}
+
+message ElfExpireBuffInfoNO {
+    optional string targetId = 1;
+    repeated int32 buffId = 2;
+}
+
+message StudyElfMagicRequest {
+    repeated int32 itemInfo = 1;
+}
+
+message GetElfMagicLevelInfoReply {
+    repeated ElfMagicLevelInfoNO infos = 1;
+}
+
+message ELfFlagEffectInfoNO {
+    optional string targetId = 1;
+    optional int32 flagId = 2;
+}
+
+message ElfFightBuffTriggerNO {
+    optional string targetId = 1;
+    optional int32 buffId = 2;
+}
+
+message ElfMagicFightInfoNO {
+    optional int32 type = 1;
+    optional bytes proto = 2;
+}
+
+message GetElfMagicLevelInfoRequest {
+     
+}
+
+message ElfRoundStartInfoNO {
+    optional string targetId = 1;
+    optional int32 round = 2;
+}
+
+message ElfFightBuffAddInfoNO {
+    optional string sourceId = 1;//发起
+    optional string targetId = 2;//目标
+    repeated int32 buffId = 3;
+}
+
+message ElfHitInfoNO {
+    optional string sourceId = 1;//发起
+    optional string targetId = 2;//目标
+    optional bool hit = 3;
+    optional int32 hitCount = 4;//命中次数
+    optional int32 magicId = 5;
+    optional int32 level = 6;
+}
+
+message ExitElfMagicFightMatchReply {
+     
+}
+
+message ElfFightGameEndInfoNO {
+    optional string userId = 1;
+    optional int32 endType = 2;
+}
+

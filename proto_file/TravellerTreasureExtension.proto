@@ -1,0 +1,64 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "TravellerTreasureExtensionProto";
+
+//宝物的状态
+enum TreasureState {
+    LOCK_ = 1;               //锁定状态
+}
+
+message TravellerTreasureInfoNO {
+    optional int32 id = 1;                      //宝物的唯一Id
+    optional int32 defineId = 2;                //宝物的定义Id
+    optional int32 level = 3;                   //宝物的当前等级
+    optional int32 exp = 4;                     //宝物的当前经验
+    optional int32 star = 5;                    //宝物的当前星级
+    optional int32 state = 6;                   //宝物的所有状态
+    optional int32 travellerId = 7;             //当前装备的旅行者的Id
+}
+
+message TravellerTreasureChangeStateRequest {
+    required int32 treasureId = 1;                  //宝物的Id
+    required int32 state = 2;                       //改变的状态（如果之前是指定状态，接收之后会取消状态）
+}
+
+message TravellerTreasureUpgradeStarReply {
+    optional TravellerTreasureInfoNO treasure = 1;  //宝物的信息，仅包含Id，等级，星级
+}
+
+message TravellerTreasureChangeStateReply {
+    optional TravellerTreasureInfoNO treasure = 1;  //宝物变动之后的信息（只有id，state字段）
+}
+
+message TravellerTreasureInfoPush {
+    repeated TravellerTreasureInfoNO treasure = 1;  //宝物的变动信息
+}
+
+message TravellerTreasureUpgradeLevelRequest {
+    required int32 treasureId = 1;                  //要升级的宝物的Id
+    repeated ConsumeMaterialInfoNO material = 2;    //消耗的通用材料信息
+    repeated int32 materialTreasureId = 3;          //要吞掉的宝物的Id
+}
+
+message TravellerTreasureUpgradeLevelReply {
+    optional int32 changeSetId = 1;                 //变动集的Id
+    optional TravellerTreasureInfoNO treasure = 2;  //变动之后的宝物
+                                                    //包含id，等级，经验
+}
+
+message GetTravellerTreasureInfoReply {
+    repeated TravellerTreasureInfoNO treasure = 1;      //宝物的信息
+}
+
+message ConsumeMaterialInfoNO {
+    required int32 id = 1;                      //消耗的通用材料的Id
+    required int32 num = 2;                     //消耗的通用材料的数量
+}
+
+message TravellerTreasureUpgradeStarRequest {
+    required int32 treasureId = 1;                  //宝物的Id
+}
+
+message GetTravellerTreasureInfoRequest {
+     
+}
+

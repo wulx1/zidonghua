@@ -1,0 +1,397 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "GMExtensionProto";
+import "ElfMagicExtension.proto";
+
+message CompleteFriendshipCheckLevelReply {
+     
+}
+
+message RefreshDailyTaskAndEventRequest {
+    optional int32 taskType = 1;
+}
+
+message GeneratePurikuraRequest {
+    required int32 count = 1;
+    required string imageId = 2;
+}
+
+message ItemInfo_ {
+    required int32 itemId = 1;     //物品Id
+    required int32 count = 2;          //数量
+}
+
+message AddMailReply {
+     
+}
+
+message ClearAct125DataRequest {
+     
+}
+
+message ModifyItemNO {
+    required int32 defineId = 1;                            //物品的模板Id
+    required int32 count = 2;                               //物品变动的数量
+    optional int32 useCount = 3;                            //物品使用的数量
+}
+
+message ClearFriendRelativeWishLimitReply {
+     
+}
+
+message ResetTradingCountReply {
+     
+}
+
+message TravellerMessageStateRequest {
+    required int32 travellerId = 1;         //旅行者ID
+    required int32 messageId = 2;           //留言ID
+    required bool like = 3;                 //true:点赞false:点灭
+    required int32 num = 4;                 //数量
+}
+
+message AddCouncilActivityReply {
+     
+}
+
+message AddWorkShopLevelReply {
+     
+}
+
+message ClearElfHatchCdReply {
+     
+}
+
+message AddMailRequest {
+    required int32 mailType = 1;    //邮件类型 0:自定义类型
+    repeated ItemInfo_ itemInfo = 2; //邮件发放的物品列表
+    optional string text = 3;       //邮件文本(自定义类型填)
+    optional string title = 4;      //邮件标题(自定义类型填)
+    optional int32 userId = 5;      //用户Id(为空时给自己添加邮件)
+    optional bool isExternalMail = 6; //是否是离线邮件
+}
+
+message UnlockAllAreaRequest {
+     
+}
+
+message GetBuffReply {
+    repeated BuffItemNO buffInfos = 1;          //buff信息对象集合
+}
+
+message FixProblemFurnitureReply {
+     
+}
+
+message ResetFishCountRequest {
+     
+}
+
+message DreamPalaceEntryReply {
+     
+}
+
+message RefreshDailyTaskAndEventReply {
+     
+}
+
+message AddBuffRequest {
+    repeated BuffItemNO reqBuffs = 1;           //要添加的buff
+}
+
+message AddCouncilActivityRequest {
+    required int32 addType = 1;         //1增加公共活跃度，2增加个人活跃度
+    required int32 num = 2;             //增加的活跃度数量
+}
+
+message ResetRegisterTimeRequest {
+     
+}
+
+message StartElfFightRequest {
+    optional string targetId = 1;
+    repeated ElfMagicLevelInfoNO targetMagic = 2;
+    repeated ElfMagicLevelInfoNO mineMagic = 3;
+}
+
+message StartElfFightReply {
+     
+}
+
+message GetBuffRequest {
+    optional int32 mainBuffId = 1;          //主BUFFID
+}
+
+message RechargeCallbackReply {
+     
+}
+
+message DissoluteAllCouncilReply {
+     
+}
+
+message AddElfExpRequest {
+    required int32 addType = 1;         //1,精灵大乱斗
+    required int32 expCount = 2;             //增加的经验数量
+}
+
+message TestSystemMarqueeMessageReply {
+     
+}
+
+message RepairArchiveReply {
+     
+}
+
+message TravellerLeaveMessageRequest {
+    required int32 travellerId = 1;         //需要加的旅行者ID
+    required int32 addNum = 2;              //加多少条
+    required string content = 3;            //在这个内容后面加数字
+}
+
+message AddFavorabilityRequest {
+    optional int32 npcId = 1; //NPC编号 + 17000000
+    optional int32 count = 2;
+}
+
+message UnlockAllAreaReply {
+     
+}
+
+message ResetTradingCountRequest {
+     
+}
+
+message BuffItemNO {
+    required int32 buffId = 1;                              //buffID
+    required int32 value = 2;                               //buff值
+}
+
+message ClearTaskStepReply {
+     
+}
+
+message AddFavorabilityReply {
+     
+}
+
+message ResetOrderCountRequest {
+     
+}
+
+message AddFriendshipCountReply {
+     
+}
+
+message ClearAllMomentReply {
+     
+}
+
+message VipResetReply {
+     
+}
+
+message SetIslandBuildInfoReply {
+     
+}
+
+message ClearElfHatchCdRequest {
+     
+}
+
+message ResetFishCountReply {
+     
+}
+
+message ModifyItemReply {
+    optional int32 changeSetId = 1;                         //变更结果集的Id
+}
+
+message TestSystemMarqueeMessageRequest {
+    required int32 marqueeId = 1;                       //测试发送的跑马灯ID
+}
+
+message RepairTaskRequest {
+     
+}
+
+message ClearAllMomentRequest {
+     
+}
+
+message DissoluteAllCouncilRequest {
+     
+}
+
+message ClearTaskStepRequest {
+    optional int32 taskId = 1;                              //任务的Id
+    optional int32 stepId = 2;                              //清除步骤的进度
+}
+
+message ClearAllMomentMessageBoardRequest {
+     
+}
+
+message DreamPalaceEntryRequest {
+    required int32 sceneId = 1;             //场景ID
+    required int32 areaId = 2;              //位置ID
+}
+
+message ClearAct125DataReply {
+     
+}
+
+message RepairTaskReply {
+     
+}
+
+message ClearBackpackAllItemsReply {
+    required int32 changeSetId = 1;                         //变更结果集的Id
+}
+
+message ForceStartTaskRequest {
+    required int32 taskId = 1;                              //强制开启的任务Id
+    optional int32 stepId = 2;                              //指定任务的步骤Id
+}
+
+message RepairHouseShowAreaRequest {
+     
+}
+
+message ModifyItemRequest {
+    repeated ModifyItemNO modifyItem = 1;                   //请求要变动的物品信息
+}
+
+message StartOrEndFoggyForestRequest {
+    required int32 type = 1;        //1开启2结束
+    optional int32 mapId = 2;       //指定地图ID
+}
+
+message ResetLotteryEggNumReply {
+     
+}
+
+message TravellerMessageStateReply {
+     
+}
+
+message FinishTaskRequest {
+    optional int32 taskId = 1;
+}
+
+message ResetRegisterTimeReply {
+     
+}
+
+message FinishTaskReply {
+     
+}
+
+message ResetAchievementRequest {
+     
+}
+
+message ResetAchievementReply {
+     
+}
+
+message ClearBackpackAllItemsRequest {
+     
+}
+
+message RechargeCallbackRequest {
+    required string orderId = 1;                        //游戏的订单号
+    required int32 goodsId = 2;                         //对应的购买礼包Id
+    required string callbackInfo = 3;                   //通传字段
+    required int32 money = 4;                           //充值的金额
+}
+
+message ForceLogoutRequest {
+    repeated string delRedisKey = 1;
+}
+
+message ForceLogoutReply {
+     
+}
+
+message ForceStartTaskReply {
+     
+}
+
+message RechargeCallbackAllReply {
+     
+}
+
+message ClearFriendRelativeWishLimitRequest {
+     
+}
+
+message FixProblemFurnitureRequest {
+     
+}
+
+message RechargeCallbackAllRequest {
+     
+}
+
+message RepairArchiveRequest {
+     
+}
+
+message ClearAllMomentMessageBoardReply {
+     
+}
+
+message AddFriendshipCountRequest {
+    optional int64 userId = 1;
+    optional int32 count = 2;
+}
+
+message TravellerLeaveMessageReply {
+     
+}
+
+message ResetOrderCountReply {
+     
+}
+
+message VipResetRequest {
+    required int32 type = 1;                //处理类型（1:重置vip，2:重置每日奖励）
+}
+
+message CompleteFriendshipCheckLevelRequest {
+    required int64 userId = 1;
+}
+
+message RepairHouseShowAreaReply {
+     
+}
+
+message ResetLotteryEggNumRequest {
+     
+}
+
+message AddBuffReply {
+     
+}
+
+message SetIslandBuildInfoRequest {
+    required int32 type = 1;   //设置类型（1，资质，2执照，3证章）
+    required int32 num = 2;     //设置的值（最好先看下配置表）
+}
+
+message AddWorkShopLevelRequest {
+    optional int32 workShopId = 1;
+}
+
+message AddElfExpReply {
+     
+}
+
+message GeneratePurikuraReply {
+     
+}
+
+message StartOrEndFoggyForestReply {
+     
+}
+

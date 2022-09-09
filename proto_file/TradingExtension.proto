@@ -1,0 +1,98 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "TradingExtensionProto";
+
+import "UserExtension.proto";
+
+enum SearchType {
+    UNIT_ONE = 1;                                               //单位数
+    UNIT_TEN = 2;                                               //以10为单位
+    UNIT_TWENTY = 3;                                            //以20为单位
+    UNIT_FIFTY = 4;                                             //以50为单位
+    UNIT_NINETY_NINE = 5;                                       //以99为单位
+}
+
+message SearchRegisteredGoodsReply {
+    repeated RegisteredGoodsNO goods = 1;                       //登记物品的信息
+}
+
+message RegisteredGoodsCountNO {
+    required int32 itemId = 1;                                  //登记物品的ID
+    required int32 count = 2;                                   //登记的数量
+}
+
+message ExpandSaleCountRequest {
+     
+}
+
+message CompleteTransactionReply {
+    required int32 changeSetId = 1;                             //物品变动集的ID
+}
+
+message RegisterSaleRequest {
+    required RegisteredGoodsNO goods = 1;                       //要注册登记的道具
+}
+
+message GetRegisteredGoodsReply {
+    repeated RegisteredGoodsNO goods = 1;                       //获取自己物品登记信息
+    optional int32 remainingPurchaseTimes = 2;                  //剩余的购买次数
+    optional int32 expandLevel = 3;                             //当前登记数量等级
+}
+
+message UnregisterSaleReply {
+    required int32 changeSetId = 1;                             //物品变动集的ID
+}
+
+message SearchRegisteredGoodsCountReply {
+    repeated RegisteredGoodsCountNO goods = 1;                  //登记的物品信息
+}
+
+message UnregisterSaleRequest {
+    required string uniqueId = 1;                               //取消登录的售卖物品
+}
+
+message RegisterSaleReply {
+    optional string uniqueId = 1;                               //登记物品的唯一ID
+}
+
+message SearchRegisteredGoodsRequest {
+    required int32 itemId = 1;                                  //登记物品的ID
+    optional SearchType searchType = 2 [default = UNIT_ONE];    //搜索类型
+}
+
+message SearchRegisteredGoodsCountRequest {
+    repeated int32 itemId = 1;                                  //模糊查找的道具ID列表
+}
+
+message CompleteTransactionRequest {
+    required string uniqueId = 1;                               //请求完成的交易的数量
+}
+
+message RegisteredGoodsNO {
+    required int32 itemId = 1;                                  //道具ID
+    required int32 count = 2;                                   //出售数量
+    required int32 price = 3;                                   //道具单价
+    optional int32 state = 4;                                   //登记的状态(1:登记 2:出售成功)
+    optional string uniqueId = 5;                               //唯一ID(只有上架了的道具才有这个)
+    optional RoleSimpleInfoNO register = 6;                     //登记人的信息
+    optional RoleSimpleInfoNO buyer = 7;                        //购买者的信息
+}
+
+message ExpandSaleCountReply {
+    required int32 expandLevel = 1;                             //当前登记数量等级
+}
+
+message GetRegisteredGoodsRequest {
+    optional string uId = 1;                                    //查看登记的物品信息
+}
+
+message PurchaseTransactionalGoodsRequest {
+    required string uId = 1;                                    //登记人的Id
+    required string uniqueId = 2;                               //购买的商品唯一Id
+    optional int32 itemId = 3;                                  //物品的模板Id
+}
+
+message PurchaseTransactionalGoodsReply {
+    required int32 remainingPurchaseTimes = 1;                  //剩余的购买次数
+    required int32 changeSetId = 2;                             //物品变动集的ID
+}
+

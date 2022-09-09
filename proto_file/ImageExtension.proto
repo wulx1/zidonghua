@@ -1,0 +1,48 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ImageExtensionProto";
+
+enum ImageType {
+    HEAD = 1;                                           //头像
+    SHARE = 2;                                          //分享
+    FEEDBACK = 3;                                       //反馈
+    ISLAND = 4;                                         //小岛快照
+    RELATIVE_WISH = 5;                                  //亲友祝福
+    PURIKURA = 6;                                       //大头贴
+    ATM = 7;                                            //ATM机签名
+}
+
+message GetDownloadUrlRequest {
+    required ImageType imageType = 1;                   //获取图片的类型
+    required string imageId = 2;                        //获取的图片的ID
+}
+
+message GetUploadTokenRequest {
+    required ImageType imageType = 1;                   //上传的图片类型
+    optional int32 num = 2;                             //获取多少张图片
+}
+
+message GetUploadTokenReply {
+    repeated string imageId = 1;                        //图片的唯一ID
+                                                        //个人的头像ID用h-所有的衣服组合起来的一个code
+                                                        //分享图片ID用的p-图片唯一ID构成
+                                                        //反馈图片ID用的f-图片唯一ID构成
+}
+
+message UploadSuccessRequest {
+    repeated ImageUploadSuccessInfo info = 1;           //上传成功的图片信息，可能多个
+}
+
+message GetDownloadUrlReply {
+    required string privateDownloadUrl = 1;             //带有权限token的下载链接
+}
+
+message ImageUploadSuccessInfo {
+    required ImageType imageType = 1;                   //图片类型
+    required string imageId = 2;                        //图片id
+    required string picUrl = 3;                         //图片url
+}
+
+message UploadSuccessReply {
+     
+}
+

@@ -1,0 +1,70 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "LotteryEggExtensionProto";
+
+//消耗的类型
+enum LotteryConsumeType{
+    COMMON = 1;                             // 常规
+    TICKET = 2;                             // 代券
+    FREE   = 3;                             // 免费
+}
+
+message LeGetDisplayRequest {
+     
+}
+
+message LeLotteryRequest {
+    optional int32 id  = 1; // 奖池ID
+    optional int32 num = 2; // 次数
+    optional LotteryConsumeType consumeType = 3;//消耗的类型
+}
+
+message BuyTicketsReply {
+    optional int32 changeId = 1; //变动集
+}
+
+message LeDisplayNO {
+    optional int32 id                 = 1; // 奖池ID
+    optional int32 todayRemainNum     = 2; // 今天剩余次数
+    optional int32 cdRemainTime       = 3; // 剩余冷却时间(单位秒)
+    optional int32 diamondLotteryNums = 4; // 钻石抽奖次数
+    optional int32 freeTimes          = 5; // 免费抽卡剩余次数
+    optional int32 guarantee1Times    = 6; // 保底1的累计次数
+    optional int32 guarantee2Times    = 7; // 保底2的累计次数
+    optional int32 guarantee3Times    = 8; // 保底3的累计次数
+}
+
+message LeLotteriedNO {
+    optional int32 id    = 1; // 物品ID
+    optional int32 num   = 2; // 物品数量
+    optional int32 cfgId = 3; // 配置表的ID
+    optional bool first = 4;  //是否首次获得
+}
+
+message CreditsExchangeRequest {
+    optional int32 id = 1;//配置表Id
+}
+
+message BuyTicketsRequest {
+    required int32 id = 1; //奖池id
+    required int32 num = 2; //兑换数量
+}
+
+message LeGetDisplayReply {
+    repeated LeDisplayNO displays = 1; // 各个奖池的数据
+    optional int32 diamondCredits = 2;//钻石抽奖积分
+}
+
+message CreditsExchangeReply {
+    optional int32 changId = 1;
+}
+
+message LeLotteryReply {
+    repeated LeLotteriedNO lotterieds = 1; // 抽奖得到的物品
+    optional int32 prizeNum = 2;//达到的钻石抽奖次数
+    optional int32 changeId = 3;//变动集的Id
+    optional int32 cdRemainTime = 4; // 如果是免费抽卡，那就附带一个CD时间
+    optional int32 guarantee1Times    = 5; // 保底1的累计次数
+    optional int32 guarantee2Times    = 6; // 保底2的累计次数
+    optional int32 guarantee3Times    = 7; // 保底3的累计次数
+}
+

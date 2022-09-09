@@ -1,0 +1,67 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ATMExtensionProto";
+
+
+message BuyFundRequest {
+    required int32 fundId = 1;
+    optional int32 num = 2;
+}
+
+message GetATMAccountInfoReply {
+    optional ATMAccountInfoNO accountInfo = 1;
+}
+
+message ATMAccountInfoNO {
+    required string showCardId = 1; //展示用的卡号
+    required int32 allMoney = 2;    //总存款
+    optional int32 fund = 3;        //理财的金币
+    optional int32 Debt = 4;        //欠款
+    optional string cardSignature = 5;     //签名
+    optional int32 creatTime = 6;   //开户时间
+    optional string showUserId = 7; //前端展示用的UserId
+}
+
+message CreatATMAccountRequest {
+     
+}
+
+message FundInfoNO {
+    optional int32 fundId = 1;
+    optional int32 time = 2;
+    optional int32 num = 3;
+}
+
+message CreatATMAccountReply {
+    optional ATMAccountInfoNO accountInfo = 1;
+}
+
+message RedeemFundRequest {
+    required int32 fundId = 1;
+}
+
+message BuyFundReply {
+    required int32 fundId = 1;
+    optional int32 num = 2;
+    optional int32 buyTime = 3;
+}
+
+message GetFundInfoRequest {
+     
+}
+
+message GetATMAccountInfoRequest {
+     
+}
+
+message GetFundInfoReply {
+    repeated FundInfoNO funInfo = 1;
+}
+
+message RedeemFundReply {
+    required int32 finalMoney = 1;
+    required int32 fundMoney = 2;
+    required int32 interestsMoney = 3;
+    required double interestsRate = 4;
+    required int32 fundId = 5;
+}
+

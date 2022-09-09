@@ -1,0 +1,107 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FoodExtensionProto";
+import "UserExtension.proto";
+
+// 访客食用料理权限
+enum VisitorAccessTag {
+    Access_Tag_Fan    = 1;  //关注者
+    Access_Tag_Friend = 2;  //好友
+}
+
+message CheckConsumerRequest {
+    required int32 uniqueId = 1;                    //查询的食物物件的屋内id
+}
+
+message FoodItemNO {
+    required int32 uniqueId = 1;                            //料理唯一ID
+    required int32 furnitureUniqueId    = 2;                //家具唯一ID，对应摆放系统
+    required int32 foodDefineId = 3;                        //家具配置ID
+    required int32 foodItemRemainingCount = 4;              //剩余使用次数
+    required int32 accessTag = 5;                           //食用权限
+}
+
+message FoodConsumerInfo {
+    required bool isNPC = 1;                        //是否NPC食用
+    optional RoleSimpleInfoNO roleInfo = 2;         //食用者信息
+}
+
+message ClearCDRequest {
+     
+}
+
+message ConsumeFoodItemReply {
+    optional int32 changeSetId = 1;                //结果变更集
+    optional FoodItemNO foodInfo = 2;      //更新食物信息
+}
+
+message InviteNPCReply {
+    optional int32 cdRemainTime = 1;                //NPC共享的剩余冷却结束时间戳
+    optional FoodItemNO foodInfo = 2;       //如果npc成功吃了，更新食物信息
+    optional int32 changeSetId = 3;                 //结果变更集
+}
+
+message ModifyFoodItemReply {
+     
+}
+
+message GetFoodItemCountRequest {
+    required int32 currentScene = 1;                //当前所在场景
+    required string uId = 2;                        //查看人角色ID
+}
+
+message GetFoodItemCountReply {
+    repeated FoodItemNO foodItem = 1;       //料理信息
+}
+
+message ModifyFoodItemRequest {
+    required VisitorAccessTag intendedTag = 1;      //想要应用的权限
+    required int32 uniqueId = 2;                    //应用新权限的食物物件id
+}
+
+message CleanEmptyFoodItemReply {
+    optional int32 changeSetId = 1;                 //奖励结果变更集
+}
+
+message CleanEmptyFoodItemRequest {
+    required int32 currentScene = 1;                //当前所在场景
+    repeated int32 uniqueId = 2;                    //准备清理的料理
+}
+
+message ConsumeFoodItemRequest {
+    required int32 uniqueId       = 1;             //准备吃的料理唯一ID
+    required string foodHostId    = 2;             //主人用户ID
+    required bool isNPC           = 3;             //是否吃NPC的料理
+}
+
+message RemoveFoodItemReply {
+     
+}
+
+message PullAvailableNPCListRequest {
+     
+}
+
+message PullAvailableNPCListReply {
+    repeated int32 NPCIds = 1;                      //解锁的NPC集合
+}
+
+message ClearCDReply {
+     
+}
+
+message CheckConsumerReply {
+    repeated FoodConsumerInfo consumer = 1;         //消费者信息
+    required int32 cdEndTimeStamp = 2;              //NPC共享的剩余冷却结束时间戳
+    required int32 currentRemainingCount = 3;       //料理当前剩余次数
+}
+
+message RemoveFoodItemRequest {
+    required int32 currentScene = 1;                //当前所在场景
+    required int32 uniqueId = 2;                    //准备移除的料理
+}
+
+message InviteNPCRequest {
+    required int32 NPCId = 1;                       //被邀请的NPC ID
+    required int32 foodUniqueId = 2;                //料理唯一ID
+}
+

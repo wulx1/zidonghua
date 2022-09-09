@@ -1,0 +1,30 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity131ExtensionProto";
+import "TinyGameExtension.proto";
+
+message GetFlowerCloudRewardRequest {
+    optional int32 processId = 1;
+}
+
+message GetFlowerCloudRewardInfoRequest {
+     
+}
+
+message GetFlowerCloudRewardReply {
+    optional int32 changeId = 1;
+}
+
+message GetFlowerCloudRewardInfoReply {
+    optional int32 score = 1;
+    repeated int32 getProcess = 2;
+}
+
+message SelectFlowerCloudRankingRequest {
+    optional bool isFriend = 1;
+}
+
+message SelectFlowerCloudRankingReply {
+    repeated FightRankingInfoNO rankInfo = 1;
+    optional FightRankingInfoNO userRankInfo = 2;    
+}
+

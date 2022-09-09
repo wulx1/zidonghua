@@ -1,0 +1,29 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "SceneGameExtensionProto";
+
+
+message StartSceneGameReply {
+     
+}
+
+message PassTimeBombRequest {
+    required string passUserNetId = 1;              //炸弹传到谁身上
+}
+
+message EndSceneGameReply {
+     
+}
+
+message StartSceneGameRequest {
+    optional int32 gameId = 1;      //游戏Id
+    repeated string parameter = 2;  //参数列表(十字泡泡的0-间隔时间， 1-每次掉落个数， 2-所有的泡泡生成位置信息)
+}
+
+message PassTimeBombReply {
+     
+}
+
+message EndSceneGameRequest {
+     
+}
+

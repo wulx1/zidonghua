@@ -1,0 +1,40 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity122ExtensionProto";
+import "UserExtension.proto";
+
+message GetGameReportRequest {
+     
+}
+
+message GetRankReply {
+    repeated UserRankInfoNO rankings = 1;           //排行榜信息
+    optional UserRankInfoNO mineRank = 2;           //没有时返回rank=-1,显示999+,0显示未参与游戏
+    optional int32 rankingType = 3;                 //9
+    optional int32 dailyGetTickets = 4;             //今日已经获取的游戏点数量
+}
+
+message RemoteErrorPush {
+     
+}
+
+message GameReportInfoNO {
+    optional int32 gameId = 1;                    //游戏id
+    optional int32 playCount = 2;                 //玩本游戏次数
+    optional int32 score = 3;                     //本游戏累计积分
+    optional int32 tickets = 4;                   //本游戏获取的游戏点数
+}
+
+message GetRankRequest {
+    optional int32 rankingType = 1;                 //第9种排名榜
+}
+
+message UserRankInfoNO {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 rank = 2;                      //玩家名次
+    optional int32 score = 3;                     //玩家分数
+}
+
+message GetGameReportReply {
+    repeated GameReportInfoNO gameReport = 1;
+}
+

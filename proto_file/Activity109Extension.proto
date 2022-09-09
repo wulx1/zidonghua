@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity109ExtensionProto";
+
+
+message GetActivityLoginRewardRequest {
+    required int32 id = 1;                  //奖励的Id
+}
+
+message GetActivityLoginInfoReply {
+    optional int32 loginDays = 1;           //已经登录的天数
+    optional int32 awardMark = 2;           //已经领取的奖励（按位，第一个奖励就在第一位，第二个在第二位）
+}
+
+message GetActivityLoginRewardReply {
+    optional int32 changeSetId = 1;         //奖励的变动集Id
+}
+
+message GetActivityLoginInfoRequest {
+     
+}
+

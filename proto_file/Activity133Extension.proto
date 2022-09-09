@@ -1,0 +1,59 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity133ExtensionProto";
+import "UserExtension.proto";
+
+message GodFlowerMissionNO {
+    required int32 systemId = 1;          //系统ID
+    required int32 todayTimes = 2;        //今天次数
+}
+
+message RankingInfoNO_ {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 ranking = 2;
+    optional int32 score = 3;
+}
+
+message GetGodFlowerRefleshSceneReply {
+    optional int32 sceneId = 1;           //哈皮刷新地点
+}
+
+message GetGodFlowerRefleshSceneRequest {
+     
+}
+
+message GetGodFlowerRankInfoRequest {
+     
+}
+
+message GetGodFlowerRankInfoReply {
+    repeated RankingInfoNO_ rankingInfos = 1;        //排行榜数据
+    optional RankingInfoNO_ meRankInfo = 2;          //我的排行榜数据
+}
+
+message GetGodFlowerMissionReply {
+    repeated GodFlowerMissionNO missionNOs = 1;    //返回的任务详情
+}
+
+message DrawGodFlowerRewardReply {
+    optional int32 changeSetId = 1;             //结果集
+}
+
+message GodFlowerExplosionRateGainNO {
+    required int32 itemId = 1;          //道具ID
+    required int32 count = 2;           //获得
+    required int32 rate = 3;            //爆率
+}
+
+message GetGodFlowerMissionRequest {
+     
+}
+
+message DrawGodFlowerRewardRequest {
+    required int32 boxId = 1;                   //领取的宝箱ID
+}
+
+message GodFlowerExplosionRateGainPush {
+    required int32 systemId = 1;
+    repeated GodFlowerExplosionRateGainNO gainNo = 2;            //爆率推送
+}
+

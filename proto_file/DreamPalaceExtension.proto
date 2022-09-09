@@ -1,0 +1,23 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "DreamPalaceExtensionProto";
+
+
+message GetDreamPalaceInfoRequest {
+     
+}
+
+message BuyEnterTicketsRequest {
+     
+}
+
+message GetDreamPalaceInfoReply {
+    optional int32 hasEnterTimes = 1;                           //已进入宫殿次数
+    optional int32 buyTicketTimes = 2;                          //购买门票次数
+    optional int32 currentPalace = 3;                           //当前进行的宫殿
+    optional bool open = 4;                                     //是否开启
+}
+
+message BuyEnterTicketsReply {
+    required int32 changeSetId = 1;                             //结果变更集
+}
+

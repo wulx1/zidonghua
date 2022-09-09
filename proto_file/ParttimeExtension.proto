@@ -1,0 +1,30 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ParttimeExtensionProto";
+
+
+message ParttimeInfoNO {
+    optional int32 id = 1;
+    optional int32 level = 2;
+    optional int32 count = 3;//总打工次数
+    optional int32 todayCount = 4;//今日打工次数
+}
+
+message CompleteParttimeRequest {
+    optional int32 id = 1;
+}
+
+message GetParttimeInfoReply {
+    repeated ParttimeInfoNO parttimeInfos = 1; //已解锁的打工点信息
+    optional int32 totalCount = 2;  //今日已打工次数
+}
+
+message GetParttimeInfoRequest {
+     
+}
+
+message CompleteParttimeReply {
+    repeated ParttimeInfoNO parttimeInfos = 1; //已解锁的打工点信息
+    optional int32 totalCount = 2;  //今日已打工次数
+    optional int32 changeId = 3;
+}
+

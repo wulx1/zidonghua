@@ -1,0 +1,12 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity135ExtensionProto";
+
+
+message GetAct135GiftRequest {
+    optional int32 id = 1;
+}
+
+message GetAct135GiftReply {
+    optional int32 changeId = 1;
+}
+

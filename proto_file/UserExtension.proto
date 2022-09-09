@@ -1,0 +1,381 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "UserExtensionProto";
+import "PetExtension.proto";
+import "ElfExtension.proto";
+
+//设备的系统类型
+enum PlatformType {
+    Android = 1;        //对应安卓平台
+    IOS = 2;            //对应IOS平台
+}
+
+//外显的模型类型
+enum ModelType {
+    MODEL_HUMAN = 1;    //人模Id
+    MODEL_BEAR = 2;     //熊模Id
+}
+
+message GetRoleInfoRequest {
+     
+}
+
+message ThunderRealNameInfoNO {
+    required int32 isGuest = 1;                         //0：非游客 1：游客
+    required int32 auth = 2;                            //0：已实名认证未成年 1：已实名认证成年人 2：未实名认证
+    optional int32 onlineTime = 3;                      //在线时长（单位：秒）
+    optional int32 timestamp = 4;                       //当前时间戳（单位：秒）
+    optional int32 limitTime = 5;                       //限制时长（单位：秒）
+    optional int32 usableTime = 6;                      //剩余可用时长（单位：秒）
+    optional int32 isHoliday = 7;                       //1：节假日 2：非节假日
+}
+
+message SurveyRewardPush {
+    required string id = 1;                              //领取奖励的问卷Id
+}
+
+message ClientReportInfoNO {
+    required string key = 1;                            //客户端打点数据上行参数
+    required string value = 2;                          //客户端打点数据上行参数值
+}
+
+message ChangeHeadWindowsRequest {
+    required int32 headWindows = 1;
+}
+
+message HeartBeatReply {
+     
+}
+
+message ModifyNickNameRequest {
+    optional bool useItem = 1;                          //是否使用道具
+    required string nickName = 2;                       //要修改的名字
+}
+
+message HeartBeatRequest {
+     
+}
+
+message SyncServerTimeReply {
+    required int32 serverTime = 1;                      //服务器当前时间(秒)
+    required int32 serverRunningMillis = 2;             //服务器已经运行了多长时间(毫秒)
+    optional int32 timeOffset = 3;                      //服务器与UTC标准时的差值(毫秒)，用于前端计算时区
+}
+
+message ModifyInformationCardReply {
+    optional RoleInformationCardNO infomationCard = 1;              //更新之后的信息
+}
+
+message LogoutRequest {
+     
+}
+
+message RoleInformationCardNO {
+    optional string location = 1;                       //城市信息
+    repeated int32 birthday = 2;                        //生日(数组应为长度3,顺序是年月日)
+    optional string likeDesc = 3;                       //爱好
+    optional string idealDesc = 4;                      //理想
+    optional string signature = 5;                      //个性签名
+    optional string age = 6;                            //年龄(前端可指定也可不指定)
+    repeated int32 labels = 7;                          //自己的个性标签
+    optional string voiceUrl = 8;                       //语音地址
+    optional int32 voiceType = 9;                       //语音变声
+    optional int32 voiceDuration = 10;                  //语音时长
+}
+
+message RealNameFinishReply {
+    required RealNameInfoNO realNameInfo = 1;           //实名之后的信息
+}
+
+message ForbidSpeakPush {
+    required string forbidSpeakCause = 1;                //禁言提示文本
+}
+
+message GetRoleInformationCardReply {
+    optional RoleSimpleInfoNO roleSimpleInfo = 1;       //角色的简要信息
+    optional int32 registerDay = 2;                     //岛龄
+    optional RoleInformationCardNO InformationCard = 3; //可设置的面板信息
+    optional int32 relation = 4;                        //这一个人与我什么关系(低位到高位分别表示: 是否好友 是否关注 是否粉丝)
+    optional int32 fanNum = 5;                          //粉丝数
+    repeated string momentImageId = 6;                  //奥比圈的几张图
+    optional int32 titleId = 7;                         //称号Id
+    optional PetInfoNO followPet = 8;                   //跟随的宠物
+    optional int32 firstCharge = 9;                     //是否首充0:否1:是
+    optional bool online = 10;                          //当前账号是否在线
+    repeated int32 archivePropInfo = 11;                //图鉴的属性信息
+    optional int32 receiveFlowerScore = 12;             //百花园收花值
+    optional string councilName = 13;                   //家族名字
+    optional int32 councilBadge = 14;                  //家族徽章
+}
+
+message LogoutReply {
+     
+}
+
+message ServerRefreshPush {
+    required int32 serverTime = 1;                      //服务器当前时间(秒)
+    required int32 serverRunningMillis = 2;             //服务器已经运行了多长时间(毫秒)
+    optional int32 timeOffset = 3;                      //服务器与UTC标准时的差值(毫秒)，用于前端计算时区
+}
+
+message ReportPlatformInfoRequest {
+    required ClientInfoNO clientInfo = 1;               //前端使用的设备信息
+}
+
+message RoleSimpleInfoNO {
+    optional string id = 1;                             //userId
+    optional string nickname = 2;                       //昵称
+    optional int32 sex = 3;                             //性别0:男1:女
+    optional int32 modelId = 4;                         //人模Id
+    optional int32 level = 5;                           //等级
+    optional int32 exp = 6;                             //经验值
+    optional int32 vipLevel = 7;                        //VIP等级
+    repeated int32 clothes = 8;                         //装扮信息
+    repeated int32 defaultClothes = 9;                  //选择的所有默认装扮Id
+    optional string headIcon = 10;                      //图标Id
+    optional string showId = 11;                        //角色的展示的UserId
+    optional int32 headWindows = 12;                    //头像框
+    optional int32 friendshipPower = 13;                //亲和力
+    optional int32 vipCardType = 14;                    //Vip卡类型(1:月卡2:季卡3:年卡)
+    optional bool isOnline = 15;                        //是否在线
+    optional int32 fanNum = 16;                         //粉丝数
+    optional int32 popular = 17;                        //人气
+    optional string desc = 18;                          //个人简介标签描述
+    optional int32 rechargeCount = 19;                  //玩家累计充值的金额（分）
+    optional int32 qualification = 20;                  //岛建资质
+    optional int32 license = 21;                        //执照等级
+    optional int32 islandRacial = 22;                   //群岛种族
+}
+
+message RealNameFinishRequest {
+     
+}
+
+message GetSurveyReply {
+    repeated SurveyInfoNO surveyInfo = 1; //所有在有效期内的问卷
+}
+
+message ClientReportRequest {
+    required string evtId = 1;                          //前端上传的事件Id
+    repeated ClientReportInfoNO clientReportInfo = 2;   //客户端打点数据
+}
+
+message CreateRoleRequest {
+    required int32 sex = 1;                             //角色的性别0:男1:女
+    required string nickName = 2;                       //角色的名字
+    repeated int32 clothesIndex = 3;                    //装扮信息,选择的部位索引
+    required int32 modelId = 4 [default = 1];           //选择的模型Id，现在只有人模1，熊模2
+                                                        //类型对应ModelType中的值
+}
+
+message ModifyInformationCardRequest {
+    optional RoleInformationCardNO InformationCard = 1;             //设置的信息面板
+}
+
+message GetIslandRacialInfoReply {
+    repeated IslandRacialNO  islandRacials= 1;    //群岛种族人数信息
+}
+
+message FeedbackRequest {
+    required int32 type = 1;                            //1:建议 2:BUG
+    required string content = 2;                        //内容
+    repeated string imageId = 3;                        //有那些图片Id
+}
+
+message ChangeTitleRequest {
+    optional int32 titleId = 1;
+}
+
+message SelectRoleInfoByUserIdReply {
+    repeated RoleSimpleInfoNO roleInfo = 1;
+}
+
+message ClientInfoNO {
+    optional string terminal = 1;                       //对应的设备类型。使用的是PlatformType的值
+    optional string imei = 2;                           //设备的序列号
+    optional string imsi = 3;                           //sim卡的唯一标识
+    optional string phoneModel = 4;                     //设备的型号
+    optional string phoneSysVersion = 5;                //设备的系统版本号
+    optional string densityDpi = 6;                     //手机的屏幕密度
+    optional string displayScreenWidth = 7;             //手机屏幕的宽度
+    optional string displayScreenHeight = 8;            //手机屏幕的高度
+    optional string networkInfo = 9;                    //网络类型：WIFI/3G/4G/5G
+    optional string gameVersionCode = 10;               //游戏版本号
+    optional string platformIdSecond = 11;              //二级渠道Id
+    optional string sdkVersion = 12;                    //sdk的版本
+    optional string sdkType = 13;                       //sdkType（我也不知道是干什么用的）
+    optional string gameCode = 14;                      //雷霆log-gameCode
+    optional string channel = 15;                       //雷霆log-渠道号
+    optional string media = 16;                         //雷霆log-media
+    optional string osVer = 17;                         //雷霆log-系统版本
+    optional string terminInfo = 18;                    //雷霆log-手机设备型号
+    optional string mac = 19;                           //雷霆log-mac
+    optional string extend = 20;                        //雷霆log-extend
+    optional string androidId = 21;                     //雷霆安卓id
+    optional string serialNO = 22;                      //设备序列号
+    optional string oaid = 23;                          //移动安全标识Id
+    optional string ip = 24;                            //雷霆的前端IP
+    optional string ydDeviceId = 25;                    //易盾设备指纹Id
+}
+
+message GetAllHeadWindowsReply {
+    repeated int32 headWindows = 1;
+}
+
+message GMCloseSystemPush {
+    repeated int32 closeSystemEnum = 10;                 //GM黑产关闭的系统枚举 
+}
+
+message CreateRoleReply {
+    required bool isInit = 1;                           //当前账号是否创建好了角色，false的话，请先显示创角界面
+    optional RoleInfoNO roleInfo = 2;                   //角色信息，如果初始化操作标记是true，才会有这个字段下发
+}
+
+message ChangeHeadWindowsReply {
+     
+}
+
+message ModifyNickNameReply {
+    required string nickName = 1;                       //新的名字
+}
+
+message ChangeTitleReply {
+     
+}
+
+message ReportUserReply {
+     
+}
+
+message ReportPlatformInfoReply {
+     
+}
+
+message GetUserIsOnlineReply {
+    required bool isOnline = 1;                         //是否在线
+}
+
+message SurveyInfoNO {
+    required string id = 1;                             //问卷的Id
+    required string name = 2;                           //问卷的名字
+    required string url = 3;                            //问卷的地址信息
+    optional int32 minLevel = 4;                        //最小等级
+    optional int32 maxLevel = 5;                        //最大等级
+    optional int32 minRechargeCount = 6;                //最小的充值金额（分）
+    optional int32 maxRechargeCount = 7;                //最大的充值金额（分）
+    optional int32 startTime = 8;                       //开始时间（秒）
+    optional int32 endTime = 9;                         //结束时间（秒）
+}
+
+message ReportUserRequest {
+    required string beReportUId = 1;                    //被举报人的角色UID
+    required string reportType = 2;                     //举报类型
+    required string cause = 3;                          //举报原因
+    required string content = 4;                        //举报内容
+    required int32 reportSource = 5;                    //举报来源(对应EnumDef枚举)
+}
+
+message GetUserIsOnlineRequest {
+    optional string uId = 1;                            //查看的角色UID
+}
+
+message GetIslandRacialInfoRequest {
+     
+}
+
+message RealNameInfoNO {
+    required int32 userType = 1;                        //用户的类型（0：游客 99：非游客）
+    required int32 realNameState = 2;                   //实名状态（0：未实名，1：实名）
+    optional bool speakLimit = 3;                       //发言是否受限制
+    optional bool onlineLimit = 4;                      //在线时长是否受限
+    optional string onlineLimitTime = 5;                //限制登录的时间段（小时:分-小时:分）
+    optional int32 onlineLimitMinute = 6;               //限制在线时长（分钟）
+    optional int32 lastOnlineSecond = 7;                //已经在线的时长（秒）
+}
+
+message GetRoleInfoReply {
+    required bool isInit = 1;                                   //当前账号是否创建好了角色，false的话，请先显示创角界面
+    optional RoleInfoNO roleInfo = 2;                           //角色信息，如果初始化操作标记是true，才会有这个字段下发
+    optional string imageURL = 3;                               //上传和下载头像的URL
+    optional RealNameInfoNO realNameInfo = 4;                   //实名信息
+    optional int32 serverTime = 5;                              //返回一下服务器的当前时间
+    optional int32 timeOffset = 6;                              //服务器与UTC标准时的差值(毫秒)，用于前端计算时区
+    optional int32 friendshipPrizeProcess = 7;                  //好友亲和力奖励领取进度
+    optional ThunderRealNameInfoNO thunderRealNameInfo = 8;     //雷霆实名信息
+    optional string forbidSpeakCause = 9;                       //禁言提示文本
+    repeated int32 closeSystemEnum = 10;                        //GM黑产关闭的系统枚举 
+}
+
+message GetRoleInformationCardRequest {
+    optional string userId = 1;                         //要查看信息面板的UserId
+}
+
+message RoleLevelOrExpChangePush {
+    optional int32 level = 1;                           //角色等级
+    optional int32 exp = 2;                             //角色经验
+    optional int32 changeSetId = 3;                     //奖励的信息
+}
+
+message ClientReportReply {
+     
+}
+
+message GetSurveyRequest {
+     
+}
+
+message IslandRacialNO {
+    optional int32 racialId = 1;
+    optional string numString = 2;
+}
+
+message ExchangeActiveCodeRequest {
+    required string code = 1;                           //兑换码
+}
+
+message ExchangeActiveCodeReply {
+     
+}
+
+message FeedbackReply {
+     
+}
+
+message GetAllHeadWindowsRequst {
+     
+}
+
+message RoleInfoNO {
+    optional RoleSimpleInfoNO roleSimpleInfo = 1;      //角色的简要信息
+    optional int32 fanNum = 2;                         //粉丝数
+    optional int32 visiterNum = 3;                     //访客数
+    optional int32 titleId = 4;                        //称号id
+    optional int32 firstCharge = 5;                    //是否首充0:否1:是
+    optional int32 selectElfEgg = 6;                   //是否已选取精灵蛋0:未选取1:已选取
+    optional int32 registerTime = 7;                   //注册时间
+    optional string loginTime = 8;                     //登录时间
+    optional string lastLogoutTime = 9;                //上次登出时间
+    repeated string firstExchangeRec = 10;             //首次兑换记录(货币类型_档次)
+    optional string councilId = 11;                    //加入的理事会ID（没有返回空字符串）
+}
+
+message ChooseIslandRacialRequest {
+    required int32 islandRacialId = 1;      //群岛种族id
+}
+
+message ChooseIslandRacialReply {
+     
+}
+
+message ServerShutdownPush {
+    required int32 tipCodeId = 1;                       //提示的Id
+    required int32 leftSecond = 2;                      //关服倒计时的剩余秒数
+}
+
+message SyncServerTimeRequest {
+     
+}
+
+message SelectRoleInfoByUserIdRequest {
+    repeated string userId = 1;
+}
+

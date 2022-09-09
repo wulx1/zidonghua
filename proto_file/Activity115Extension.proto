@@ -1,0 +1,31 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity115ExtensionProto";
+
+
+message SevenDayNO {
+    required int32 day = 1;                     //第几天
+    required int32 rechargeCount = 2;           //充值金额
+    required bool draw = 3;                     //是否领取
+}
+
+message GetSevenDayChargeInfoReply {
+    repeated SevenDayNO chargeInfo = 1;     //已充值数据
+    required bool drawSeven = 2;            //是否已经领取七天大奖
+}
+
+message DrawSevenDayChargeRewardReply {
+    optional int32 changeSetId = 1;         //结果集
+}
+
+message GetSevenDayChargeInfoRequest {
+     
+}
+
+message SevenDayChargePush {
+    required SevenDayNO chargeInfo = 1;     //充值后的最新数据
+}
+
+message DrawSevenDayChargeRewardRequest {
+    required int32 day = 1;                 //领取的天数(传0直接领取大奖)
+}
+

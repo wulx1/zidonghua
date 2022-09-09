@@ -1,0 +1,74 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "AchievementExtensionProto";
+
+//没有成就完成时，查询最后完成的成就返回的Id
+enum AchievementState {
+    IS_NULL = -1;
+}
+
+message AchievementInfoNO {
+    optional int32 achievementId = 1;
+    optional int32 progress = 2;//成就完成进展
+    optional bool prizeIsGet = 3;//奖励是否领取
+    optional int32 completeTime = 4;//完成时间
+}
+
+message GetAchievementInfoRequest {
+    required int32 tabId = 1;
+}
+
+message SwitchShowAchievementReply {
+     
+}
+
+message GetLastCompleteAchievementRequest {
+     
+}
+
+message GetAchievementSimpleInfoRequest {
+    optional string userId = 1;                         //要查看成就的userId
+}
+
+message AchievementPercentNO {
+    required int32 tabId = 1;                           // 类型
+    required int32 percent = 2;                         // 占比（百分正值，例：10%此值为10）
+}
+
+message GetAchievementPrizeRequest {
+    required int32 achievementId = 1;
+}
+
+message GetAchievementPointPrizeRequest {
+    required int32 tabId = 1;                           //成就类型
+    required int32 pointId = 2;                         //成就点数id
+}
+
+message GetLastCompleteAchievementReply {
+    optional int32 achievementId = 1;
+}
+
+message SwitchShowAchievementRequest {
+    required int32 index = 1;           //替换的位置，从0开始，最大为6
+    required int32 achievementId = 2;   //使用的成就
+}
+
+message GetAchievementPointPrizeReply {
+     
+}
+
+message GetAchievementPrizeReply {
+    optional int32 changeId = 1;
+}
+
+message GetAchievementInfoReply {
+    repeated AchievementInfoNO achievement = 1;
+    optional int32 achievementValue = 2;//成就点数
+    repeated int32 pointId = 3; //领取了奖励的成就点id
+}
+
+message GetAchievementSimpleInfoReply {
+    repeated AchievementPercentNO percent = 1;          // N星图各自占比
+    required int32 achievementPoint = 2;                // 成就点数
+    repeated int32 achievementShowId = 3;               // 展示的成就Id
+}
+

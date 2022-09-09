@@ -1,0 +1,30 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity130ExtensionProto";
+
+
+message LightUpActivity130PartialReply {
+    optional int32 changeSetId = 1;                         //物品变动集的Id
+}
+
+message GetActivity130DataReply {
+    required int32 targetFinishMark = 1;                    //目标的完成标记，这里是按位来标记
+    required int32 useTimes = 2;                            //已经使用了多少次
+    optional int32 openDay = 3;                             //当前是活动的第几天
+}
+
+message GetActivity130CollectionReply {
+    optional int32 changeSetId = 1;                         //物品变动集的Id
+}
+
+message GetActivity130CollectionRequest {
+     
+}
+
+message LightUpActivity130PartialRequest {
+    required int32 partialIndex = 1;                        //点亮的部位
+}
+
+message GetActivity130DataRequest {
+     
+}
+

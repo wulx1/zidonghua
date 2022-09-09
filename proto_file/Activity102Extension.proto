@@ -1,0 +1,28 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity102ExtensionProto";
+
+
+message DrawAobiBankReply {
+    optional int32 changeSetId = 1;                         //变更集ID
+}
+
+message DrawAobiBankRequest {
+    required int32 id = 1;                                  //领取ID
+    required bool extreme = 2;                              //是否领取极品奖励
+}
+
+message GetAobiBankInfoRequest {
+     
+}
+
+message GetAobiBankInfoReply {
+    required bool normalInvest = 1;                         //是否普通投资
+    required bool extremeInvest = 2;                        //是否极品投资
+    repeated int32 normalDraws = 3;                         //已领取的普通奖励
+    repeated int32 extremeDraws = 4;                        //已领取的加倍奖励
+}
+
+message AobiBankInvestPush {
+    optional bool extremeInvest = 1;                        //是否额外投资(true 额外投资，false 普通投资)
+}
+

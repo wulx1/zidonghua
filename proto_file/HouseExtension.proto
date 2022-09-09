@@ -1,0 +1,161 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "HouseExtensionProto";
+import "FoodExtension.proto";
+import "UserExtension.proto";
+import "TravellerExtension.proto";
+
+message DecorateHouseRequest {
+    required HouseInfoNO houseInfo = 1;                 //装扮之后的小屋
+    repeated int32 sellingFurnitures = 2;               //想卖掉的家具
+}
+
+message GetAllHouseInfoRequest {
+    optional string userId = 1;                         //要访问的小屋主人的Id，不发送就是进入自己的小屋
+}
+
+message ChangeHouseRequest {
+    optional int32 areaId = 1;     //小屋卡位Id(Id定义在HouseShowEnum中)
+    optional int32 houseId = 2;    //使用的小屋Id(由后端分配的Id) houseId为0时表示收回小屋
+}
+
+message ChangeHouseReply {
+     
+}
+
+message TakeHeartDrop {
+    optional int32 id = 1;                              //家具唯一ID
+    optional int32 dropId = 2;                          //掉落物品ID
+    optional int32 dropCount = 3;                       //掉落物品数量
+}
+
+message HouseShowAreaInfo {
+    required int32 areaId = 1;                          //卡位Id
+    optional string areaName = 2;                       //卡位名字
+    optional int32 houseId = 3;                         //正在使用的小屋id
+    optional int32 level = 4;                           //小屋等级
+}
+
+message HouseFurnitureChangeClothesReply {
+     
+}
+
+message ComfortValueNO {
+    optional int32 plus = 1;                            //正值(也叫总舒适度)
+    optional int32 minus = 2;                           //负值(也叫总消耗)
+    optional int32 grid = 3;                            //已占用的格子数
+}
+
+message GetAllUnlockHouseRequest {
+     
+}
+
+message DecorateHouseReply {
+    repeated FurnitureInfoNO furnitureInfo = 1;         //装扮小屋后所有家具
+    repeated FoodItemNO     foodItemInfos  = 2;         //所有料理
+        
+}
+
+message RoomInfoNO {
+    required int32 roomId = 1;                          //房间Id
+    optional int32 floor = 2;                           //地板信息（默认地板不会发这个字段）
+    optional int32 wallpaper = 3;                       //墙纸信息（默认墙纸不会发这个字段）
+}
+
+message GetAllHouseInfoReply {
+    repeated HouseInfoNO houseInfo = 1;
+    optional bool isAllowToEat = 2;                     //今天是否吃过食物
+    repeated HouseShowAreaInfo houseShowArea = 3;       //小屋展示卡位信息
+}
+
+message GetHouseInfoRequest {
+    optional int32 houseId = 1;                         //小屋Id id为空时获取主岛的信息
+    optional string userId = 2;                         //要访问的小屋主人的Id，不发送就是进入自己的小屋
+    optional bool npc = 3;                              //是否NPC
+}
+
+message SetHouseNameReply {
+     
+}
+
+message SetHouseNameRequest {
+    required int32 areaId = 1;
+    required string newName = 2;
+}
+
+message HouseUpgradeRequest {
+    optional int32 houseId = 1;                         //小屋Id(由后端分配的Id)
+}
+
+message HouseFurnitureChangeClothesRequest {
+    required int32 houseId = 1;         //小屋id
+    required int32 id = 2;              //家具唯一ID
+    repeated int32 clothes = 3;         //装扮Id
+}
+
+message GetAllUnlockHouseReply {
+    repeated HouseShowAreaInfo houseShowArea = 1;
+}
+
+message HouseUpgradeReply {
+     
+}
+
+message FurnitureInfoNO {
+    optional int32  id          = 1;    // 唯一ID
+    optional int32  furnitureId = 2;    // 家具Id
+    optional sint32 posX        = 3;    // 横坐标
+    optional sint32 posY        = 4;    // 纵坐标
+    optional sint32 rotation    = 5;    // 角度（1：正向，-1：镜像）
+    //料理
+    optional int32 accessTag    = 11;   // 食用权限
+    //小屋
+    optional int32  areaId      = 21;   // 小屋才会有卡位Id
+    //模型家具
+    repeated int32 clothes      = 22;   // 模型家具的装扮Id        
+}
+
+message HouseInfoNO {
+    required int32 houseId = 1;                         //小屋Id(由后端分配的Id)
+    repeated RoomInfoNO rooms = 2;                      //房间信息（没有自定义地板，墙纸情况下是不会有这个内容的）
+    repeated FurnitureInfoNO furniture = 3;             //小屋内的所有家具
+    optional int32 background = 4;                      //背景
+    optional int32 level = 5;                           //小屋等级
+    optional int32 houseType = 7;                       //小屋的类型
+    repeated FoodItemNO foodItemInfos = 8;              //小屋上面的料理信息
+}
+
+message HouseChangedPush {
+    optional HouseInfoNO    houseInfo = 1; // 新的小屋信息, 如果没有这个字段则表示该卡位的小屋被撤下了
+    optional ComfortValueNO comfort   = 2; // (仅自己会收到)舒适度相关数值
+}
+
+message HouseTakeHeartReply {
+    optional int32 heart = 1;                           //爱心数量
+    repeated TakeHeartDrop drops = 2;                   //各个家具分别掉落什么物品
+}
+
+message UnlockHouseReply {
+    optional int32 changeId = 1;
+    optional int32 houseId = 2;
+}
+
+message GetHouseInfoReply {
+    optional HouseInfoNO houseInfo = 1;                 //小屋信息
+    optional RoleInfoNO roleInfo = 2;                   //玩家的信息
+    optional ComfortValueNO comfort = 3;                //(仅访问自己家会返回)舒适度相关数值
+    repeated int32 sectors = 4;                         //(仅访问自己家会返回)已解锁的区域ID
+    optional bool heart = 10;                           //是否可领爱心
+    optional bool isAllowToEat = 11;                    //今日是否吃过
+    repeated TravellerNO travellerInfos = 12;           //上小屋的旅行者ID集合
+    optional bool takePhoto = 13;                       //是否需要拍照上报
+}
+
+message UnlockHouseRequest {
+    optional int32 areaId = 1;    //小屋卡位Id(Id定义在HouseShowEnum中)
+}
+
+message HouseTakeHeartRequest {
+    optional string userId = 1;                         //领谁的爱心
+    optional bool npc = 2;                              //是否NPC
+}
+

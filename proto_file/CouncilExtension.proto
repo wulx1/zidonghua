@@ -1,0 +1,371 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "CouncilExtensionProto";
+import "UserExtension.proto";
+
+message CouncilSimpeInfo {
+    required string id = 1;                                    //家族ID
+    optional string name = 2;                                  //家族名称
+    optional int32 level = 3;                                  //等级
+    optional int32 prestige = 4;                               //声望
+    optional int32 activeCount = 5;                            //周活跃
+    optional int32 donateLevel = 6;                            //捐献等级
+    optional int32 reservefund = 7;                            //储备金
+    optional int32 donateExp = 8;                              //捐献经验
+    optional int32 donateValue = 9;                            //奖励生成进度
+}
+
+message SupplyMemberShopGoodsReply {
+    optional CouncilMemberShopGoodsNO goodsInfo = 1;        //更新的商品数据
+}
+
+message CouncilMemberShopGoodsNO {
+    optional int32 goodsId = 1;                             //商品ID
+    optional int32 goodsSupplements = 2;                    //商品剩余供货
+    optional int32 todayBuyCounts = 3;                      //今天购买数
+}
+
+message CouncilItemNO {
+    required int32 itemId = 1;                  //物品ID
+    required int32 type = 2;                    //类型
+    required int32 count = 3;                   //数量
+}
+
+message CouncilItemValueRewardsNO {
+    optional int32 rewardsLevel = 1;                        //奖励等级
+    optional bool isGetRewards = 2;                         //是否领取了奖励
+}
+
+message GetCouncilLogRequest {
+     
+}
+
+message SubmitCouncilOrderRequest {
+    required int32 councilOrderId = 1;                      //订单ID
+    required int32 submitBoxes = 2;                         //提交的箱子数
+}
+
+message GetActivityRewardsRequest {
+    optional int32 rewardsLevel = 1;                //需要领取的奖励等级
+}
+
+message SearchCouncilInfoRequest {
+    optional string id = 1;                     //检索的ID
+    optional string name = 2;                   //检索的名称
+    optional int32 page = 3;                    //页码
+}
+
+message GetCouncilMemeberInfoListReply {
+    optional int32 currentPage = 1;             //当前页码
+    optional int32 totalPage = 2;               //总页数
+    repeated CouncilMemberNO memberInfos = 3;   //公会成员数据
+    optional int32 totalMemberNums = 4;         //理事会总人数
+}
+
+message GetCouncilBackpackInfoReply {
+    repeated CouncilItemNO councilItemInfos = 1;            //理事会物品集合
+}
+
+message GetActivityAndRewardStatusRequest {
+     
+}
+
+message CouncilItemChangePush {
+    repeated CouncilItemNO changeCouncilItemInfos = 1;                    //理事会变更物品集合
+}
+
+message GetCouncilSpaRewardsReply {
+    repeated RewardNO rewardInfos = 1;                      //奖励
+    optional int32 caculateTime = 2;                        //结算时间点
+    optional int32 remainRewardTimes = 3;                   //剩余奖励次数
+}
+
+message CouncilNO {
+    optional CouncilSimpeInfo simpleInfo = 1;                   //家族简要信息
+    optional string showId = 2;                                 //理事会展示ID
+    optional int32 type = 3;                                    //派别
+    optional RoleSimpleInfoNO leaderInfo = 4;                   //会长信息
+    optional int32 memberNum = 5;                               //当前人数
+    optional int32 headIcon = 6;                                //头像徽章
+    optional string declaration = 7;                            //宣言
+    optional bool isNeedReviewApply = 8;                        //是否需要审核
+    optional int32 applyLevel = 9;                              //申请等级门槛
+    optional bool impeach = 10;                                 //是否可以弹劾
+    repeated string titleInfos = 11;                            //头衔（没有返回读默认）
+    optional int32 DonateRewardsTimes = 12;                     //生成单人奖励次数
+    optional int32 DonateShareRewardsNeedTimes = 13;            //生成多人奖励需要的奖励生成次数
+    optional int32 leaderOfflineDays = 14;                      //会长离线天数
+}
+
+message GetUserCouncilInfoReply {
+    optional CouncilSimpeInfo councilSimpleInfo = 1;                //返回的理事会信息
+    optional CouncilMemberNO memberInfo = 2;                        //我的成员信息
+}
+
+message UnlockCouncilAreaReply {
+    optional CouncilAreaNO areaInfo = 1;                //解锁的区域信息
+}
+
+message CouncilMemberNO {
+    optional RoleSimpleInfoNO roleSimpleInfo = 1;           //角色简要信息
+    optional int32 role = 2;                                //理事会角色
+    optional int32 prestige = 3;                            //声望
+    optional int32 activeCount = 4;                         //本周活跃
+    optional int32 memberLevel = 5;                         //会员等级
+    optional int32 lastLoginTime = 6;                       //上次登录时间
+    optional int32 DonateItemValue = 7;                     //捐献物品值
+    optional int32 DiamondsDonateTimes = 8;                 //晶钻捐献次数
+}
+
+message CouncilOrderActivityNO {
+    optional int32 activityRemainTime = 1;              //活动剩余时间(s)
+    optional int32 activityId = 2;                      //订单活动ID
+    repeated CouncilOrderItemNO orderInfos = 3;         //限时订单数据
+}
+
+message GetCouncilInfoRequest {
+    optional string id = 1;                                         //要获取信息的理事会ID（不传查询自己的理事会）
+}
+
+message DecorateCouncilAreaRequest {
+    repeated CouncilAreaReqNO decorateArea = 1;            //要装扮的区域数据
+}
+
+message GetCouncilBackpackInfoRequest {
+     
+}
+
+message GetCouncilApplicationRequest {
+    required int32 page = 1;                                //页码
+}
+
+message ApplyCouncilReply {
+    repeated string applyCouncIds = 1;          //申请加入的理事会ID集合
+}
+
+message GetRecommendInfoListReply {
+    repeated CouncilNO councilInfos = 1;        //返回的理事会信息集合
+    repeated string applyCouncIds = 2;          //已申请加入的理事会ID集合
+}
+
+message DonateReply {
+    repeated DonateRewardsItemNo changeItems = 1;          //物品变化，包括物品值变化和物品值奖励变化。
+}
+
+message BuyMemberShopGoodsRequest {
+    required int32 goodsId = 1;                             //商品ID
+    required int32 buyCounts = 2;                           //购买数量
+}
+
+message GetCouncilAreaDecorationsRequest {
+     
+}
+
+message GetCouncilAreaInfoReply {
+    repeated CouncilAreaNO areaInfos = 1;                   //解锁的区域信息集合
+}
+
+message GetCouncilSpaRewardsRequest {
+    required bool isReward = 1;                            //是否领取奖励
+}
+
+message SupplyMemberShopGoodsRequest {
+    required int32 goodsId = 1;                             //商品ID
+    required int32 count = 2;                               //补货数量
+}
+
+message GetActivityRewardsReply {
+    optional int32 changeLevel = 1;
+    optional int32 changeSetId = 2;                 //领取奖励，背包变动集
+}
+
+message GetCouncilDonateInfoReply {
+    repeated CouncilDonateRewardsNO rewardsStatus = 1;  //存在的礼包状态
+}
+
+message RewardNO {
+    optional int32 id = 1;                                  //奖励ID
+    optional int32 count = 2;                               //数量
+}
+
+message GetCouncilLogReply {
+    repeated CouncilLogNO logInfos = 1;         //理事会日志数据集合
+    optional bool notNotice = 2;                 //是否不提示
+}
+
+message GetCouncilApplicationReply {
+    optional int32 currentPage = 1;                         //当前页码
+    optional int32 totalPage = 2;                           //总页数
+    repeated RoleSimpleInfoNO roleSimpleInfo = 3;           //申请人角色简要信息
+    optional int32 totalMemberNums = 4;                     //理事会总人数
+    optional bool cancelRedPointed = 5;                     //是否取消红点(true 前端飘字)
+}
+
+message CouncilChangePush {
+    optional int32 changeType = 1;                      //变更类型(1：加入 2：被踢 3：信息变更推送)
+    optional CouncilSimpeInfo councilInfo = 2;          //变化的理事会
+    optional CouncilMemberNO memberInfo = 3;            //变化得理事会会员信息
+}
+
+message SearchCouncilInfoReply {
+    repeated CouncilNO councilInfos = 1;        //返回的理事会信息集合
+    optional int32 currentPage = 2;             //当前页码
+    optional int32 totalPage = 3;               //总页数
+    repeated string applyCouncIds = 4;          //已申请加入的理事会ID集合
+}
+
+message GetActivityAndRewardStatusReply {
+    repeated CouncilSelfActicityRewardsNO  selfRewardsInfo = 1;     //个人奖励信息
+}
+
+message GetCouncilInfoReply {
+    optional CouncilNO councilInfo = 1;                             //返回的理事会信息
+    optional CouncilMemberNO myMemberInfo = 2;                      //我的理事会成员信息
+    optional CouncilOrderActivityNO orderActivityInfo = 3;          //限时订单活动详情
+    optional CouncilMemberShopNO shopInfo = 4;                      //会员商店详情
+    optional string foggyForestTeamId = 5;                          //迷雾森林队伍ID(重连用，没有返回空)
+}
+
+message ManageCouncilRequest {
+    required int32 opType = 1;                  //管理类型(EnumDef.yaml CouncilOperateType)
+    optional string oldParam = 2;               //前端参数
+    repeated string params = 3;                 //参数
+}
+
+message DonateRewardsItemNo {
+    optional int32 defineId = 1;                            //变更物品id
+    optional int32 count = 2;                               //变更数量
+}
+
+message DonateRequest {
+    required int32 type = 1;                                //捐献类型，晶钻捐献为1，物品捐献为2，（晶钻捐献只用传这个参数）
+    optional int32 definedId = 2;                           //捐献物品的id
+    optional int32 count = 3;                               //捐献数量
+}
+
+message BuyMemberShopGoodsReply {
+    optional int32 changeSetId = 1;                         //结果变更集
+    optional CouncilMemberShopGoodsNO goodsInfo = 2;        //更新的商品数据
+}
+
+message CreateCouncilReply {
+    optional CouncilNO councilInfo = 1;         //创建后返回的公会信息
+}
+
+message CouncilLogNO {
+    optional int32 operateId = 1;               //操作ID
+    repeated string fills = 2;                  //填充内容
+    optional int32 time = 3;                    //时间
+}
+
+message CouncilAreaNO {
+    required int32 areaId = 1;                              //区域ID
+    repeated int32 decorations = 2;                         //位置信息集合
+}
+
+message CouncilSelfActicityRewardsNO {
+    optional int32 rewardsLevel = 1;                        //奖励等级
+    optional bool isGetRewards = 2;                         //是否领取了奖励
+}
+
+message CouncilMemberShopNO {
+    repeated CouncilMemberShopGoodsNO goodsInfos = 1;       //会员商店商品集合
+}
+
+message UnlockCouncilAreaRequest {
+    required int32 areaId = 1;                          //要解锁的区域ID
+}
+
+message CouncilDonateRewardsChangePush {
+    repeated CouncilDonateRewardsNO donateRewards = 1;                  //理事会捐献礼包信息
+}
+
+message GetRecommendInfoListRequest {
+     
+}
+
+message UnlockCouncilAreaDecorationRequest {
+    required int32 decorationId = 1;                    //要解锁的基地部件ID
+}
+
+message CouncilDonateShareRewardsItemChangePush {
+    repeated DonateRewardsItemNo rewardsItems = 1;                    //理事会变更物品集合
+}
+
+message GetUserCouncilInfoRequest {
+     
+}
+
+message GetCouncilAreaInfoRequest {
+     
+}
+
+message UnlockCouncilAreaDecorationReply {
+     
+}
+
+message GetSingleRewardsReply {
+    repeated DonateRewardsItemNo changeItems = 1;            //礼包存在情况变更
+}
+
+message DecorateCouncilAreaReply {
+     
+}
+
+message ApplyCouncilRequest {
+    repeated string ids = 1;                    //要加入的理事会ID集合
+}
+
+message GetCouncilMemberInfoListRequest {
+    required int32 page = 1;                    //页码
+}
+
+message GetSingleRewardsRequest {
+    required string rewardsId = 1;                           //奖励唯一id
+}
+
+message ManageCouncilReply {
+    optional CouncilNO councilInfo = 1;         //更新的理事会信息
+    optional int32 opType = 2;                  //管理类型
+}
+
+message CreateCouncilRequest {
+    required string name = 1;                   //理事会名称
+    required int32 type = 2;                    //派别
+    required string declaration = 3;            //宗旨
+    required int32 headIcon = 4;                //头像徽章
+}
+
+message CouncilDonateRewardsNO {
+    required string rewardsId = 1;                           //奖励礼包唯一id
+    required int32 rewardsPos = 2;                          //礼包所在的位置
+    required int32 rewardsLevel = 3;                        //礼包等级
+    required int32 rewardsTime = 4;                         //礼包过期时间(转成int格式)
+    required int32 type = 5;                                //礼包种类（1.普通个人，2.特殊多人）
+    optional bool isGetRewards = 6;                         //是否领取了奖励，多人奖励会用到
+}
+
+message CouncilAreaReqNO {
+    required int32 areaId = 1;                              //区域ID
+    required int32 posId = 2;                               //位置ID
+    required int32 decoration = 3;                          //装扮ID
+}
+
+message GetCouncilAreaDecorationsReply {
+    repeated int32 decorations = 1;                     //已解决的基地部件信息
+}
+
+message CouncilOrderItemNO {
+    optional int32 councilOrderId = 1;                  //订单ID
+    optional int32 submitCounts = 2;                    //提交数量
+    optional int32 myTodaySubmitCounts = 3;             //我的提交数量
+}
+
+message SubmitCouncilOrderReply {
+    optional int32 changeSetId = 1;                         //结果集
+    optional CouncilOrderItemNO orderItemInfo = 2;          //更新的订单
+}
+
+message GetCouncilDonateInfoRequest {
+     
+}
+

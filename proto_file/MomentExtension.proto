@@ -1,0 +1,195 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "MomentExtensionProto";
+import "UserExtension.proto";
+
+//获取的动态类型
+enum MomentType{
+    PERSONAL = 10;                                          //个人动态
+    RELATION_ALL = 1;                                       //所有有关系的动态
+    RELATION_FRIEND = 2;                                    //好友动态
+    RELATION_IDOL = 4;                                      //关注动态
+}
+
+message LikeMomentRequest {
+    required string uId = 1;                                //角色的Id
+    required string momentId = 2;                           //动态的Id（没点赞就是点赞，有过点赞就是取消）
+}
+
+message GetMessageBoardReply {
+    repeated MessageInfoNO msg = 1;                         //获取到的留言信息
+}
+
+message GetMomentMessageTipsReply {
+    repeated MomentMessageTipInfoNO tip = 1;                //消息提示
+}
+
+message LeaveMessageRequest {
+    required string uId = 1;                                //给谁留言（留言板的归属玩家Id）
+    optional string msgId = 2;                              //对那条留言进行回复
+    required string content = 3;                            //留言的内容
+}
+
+message JumpMessageReply {
+    required string uId = 1;                                //要跳转到谁的留言板
+    repeated MessageInfoNO msg = 2;                         //以跳转的留言作为第一条
+    required int32 index = 3;                               //留言处于留言板中的索引
+}
+
+message GetMomentsRequest {
+    optional string uId = 1;                                //查看谁的动态，自己的不需要发这个参数
+    optional int32 pageOffset = 2;                          //分页起始索引(从0开始)
+    optional int32 pageCount = 3;                           //本页数量
+    optional MomentType type = 4 [default = PERSONAL];      //动态类型，默认是个人。非个人动态可以不需要uId参数
+}
+
+message MomentMessageTipInfoNO {
+    required string tipId = 1;                              //消息提示的Id
+    required int32 type = 2;                                //提示类型
+    optional string imageId = 3;                            //动态关联的图片Id
+    optional string content = 4;                            //动态的内容
+    optional string replay = 5;                             //回复的内容
+    optional RoleSimpleInfoNO roleInfo = 6;                       //角色信息(暂时只有头像+名字+Id)
+    optional int32 time = 7;                                //时间点
+    optional string attachment = 8;                         //附加的内容
+}
+
+message LeaveMomentCommentRequest {
+    required string uId = 1;                                //对谁的动态留言（动态的归属玩家Id）
+    required string momentId = 2;                           //对那条动态进行回复
+    optional string commentId = 3;                          //对那条评论进行回复
+    required string content = 4;                            //评论的内容
+}
+
+message MessageInfoNO {
+    required string msgId = 1;                              //消息的Id
+    optional RoleSimpleInfoNO commenter = 2;                      //发起留言人的信息
+    optional RoleSimpleInfoNO receiver = 3;                       //留言接受者的信息
+    optional string content = 4;                            //留言的消息的内容
+    optional int32 time = 5;                                //留言的时间
+    optional string linkMsgId = 6;                          //关联的消息Id
+}
+
+message GetMomentDetailRequest {
+    required string uId = 1;                                //角色的Id
+    required string momentId = 2;                           //动态的Id
+    optional int32 pageOffset = 3;                          //分页的起始索引(从0开始。如果是偏移是从0开始，才会附带点赞的人)
+    optional int32 pageCount = 4;                           //本页数量
+}
+
+message PublishMomentReply {
+    optional MomentInfoNO moment = 1;                       //动态的内容
+}
+
+message GetMomentsReply {
+    repeated MomentInfoNO moments = 1;                      //获取到的动态信息
+}
+
+message DeleteMomentOrCommentReply {
+     
+}
+
+message GetAllMomentMessageTipIdsReply {
+    repeated string tipId = 1;
+}
+
+message GetMomentDetailReply {
+    repeated MomentLikeInfoNO likes = 1;                    //点赞人的名字(只有从0开始加载，才会有点赞人的信息)
+    repeated MomentInfoNO msg = 2;                          //评论
+}
+
+message DeleteMomentOrCommentRequest {
+    optional string uId = 1;                                //动态的归属玩家Id，自己的不需要发这个参数
+    required string momentId = 2;                           //动态的Id
+    repeated string commentId = 3;                          //要删除的评论的Id。如果删除的是动态，不需要传递这个参数
+}
+
+message MomentLikeInfoNO {
+    optional string uId = 1;                                //点赞人的Id
+    optional string nickName = 2;                           //点赞人的名字
+}
+
+message GetMomentMessageTipsRequest {
+    repeated string tipId = 1;
+}
+
+message MomentMessageInfoPush {
+    repeated MomentInfoNO msg = 1;                         //推送一下当前收到的评论
+}
+
+message GetMessageBoardRequest {
+    optional string uId = 1;                                //查看谁的留言板，自己的不需要发这个参数
+    optional int32 pageOffset = 2;                          //分页起始索引(从0开始)
+    optional int32 pageCount = 3;                           //本页数量
+}
+
+message JumpMessageRequest {
+    required string tipId = 1;                              //提示消息的Id
+    required int32 pageCount = 2;                           //每页显示的个数
+}
+
+message JumpMomentReply {
+    required string uId = 1;                                //要跳到谁的动态
+    required MomentInfoNO moment = 2;                       //动态的主信息
+    repeated MomentLikeInfoNO likes = 3;                    //点赞的人信息
+    repeated MomentInfoNO firstPageMsg = 4;                 //第一页的评论信息
+    repeated MomentInfoNO includePageMsg = 5;               //评论消息所在的页
+    optional int32 pageIndex = 6;                           //包含跳转中评论所在的页码(从0开始)。在第一页中时，就不会有includePageMsg
+    optional int32 msgIndex = 7;                            //评论处于包含页的第几条
+}
+
+message DeleteMessageRequest {
+    repeated string msgId = 1;                              //要删除那些留言
+}
+
+message MomentInfoNO {
+    required string momentId = 1;                           //动态的Id
+    optional RoleSimpleInfoNO commenter = 2;                      //发起留言人的信息
+    optional RoleSimpleInfoNO receiver = 3;                       //评论接受者的信息
+    optional string content = 4;                            //动态/评论的消息的内容
+    optional int32 time = 5;                                //动态/评论的时间
+    optional string linkMomentId = 6;                       //关联的动态Id
+    optional string linkImageId = 7;                        //关联的图片Id，如果为nil或者为空，就是没有图片(评论是没有图片的)
+    optional int32 likesNum = 8;                            //点赞的数量
+    optional int32 commentNum = 9;                          //评论数量
+    optional int32 shareNum = 10;                           //分享数量
+    optional int32 mark = 11;                               //动态的标签
+    optional bool hadLiked = 12;                            //自己是否点过赞       
+    optional string attachment = 13;                        //附加的内容
+}
+
+message LikeMomentReply {
+     
+}
+
+message PublishMomentRequest {
+    optional string content = 1;                            //动态的内容
+    optional string imageId = 2;                            //动态的图片Id
+    optional int32 mark = 3;                                //动态的标签
+    optional string attachment = 4;                         //附加的内容
+}
+
+message LeaveMessageReply {
+    optional MessageInfoNO msg = 1;                         //留言信息
+}
+
+message GetAllMomentMessageTipIdsRequest {
+     
+}
+
+message JumpMomentRequest {
+    required string tipId = 1;                              //提示消息的Id
+    required int32 pageCount = 2;                           //单页加载多少个
+}
+
+message DeleteMessageReply {
+     
+}
+
+message LeaveMomentCommentReply {
+    optional MomentInfoNO msg = 1;                          //评论的内容
+}
+
+message MessageInfoPush {
+    repeated MessageInfoNO msg = 1;                         //推送一下当前收到的留言
+}
+

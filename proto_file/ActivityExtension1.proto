@@ -1,0 +1,85 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ActivityExtension1Proto";
+
+//活动的状态
+enum ActivityState {
+    STATE_OPEN = 1;     //活动开启
+    STATE_SHOW = 2;     //活动展示
+    STATE_CLOSE = 3;    //活动结束
+}
+
+message ActivityInfoRefreshPush {
+     
+}
+
+message LoginGiftPush {
+    optional int32 gId = 1;                                 //当前的组Id
+    optional int32 day = 2;                                 //现在是第几天登录
+    optional int32 state = 3;                               //1:刚领取 2:领取完成 （@Deprecated 3:全部领取完成）
+    optional bool loop = 4;                                 //是否是循环奖励（首次7日登陆的话，这个值就是false）
+    optional int32 rewardIndex = 5;                         //前端选择的是那个奖励，从0开开始，领取完成才会有个索引
+}
+
+message SignRequest {
+     
+}
+
+message GetLoginGiftRequest {
+    required int32 rewardIndex = 1;                         //前端选择要领取的奖励,从0开始
+}
+
+message LoginGiftReply {
+    optional int32 gId = 1;                                 //当前的组Id
+    optional int32 day = 2;                                 //现在是第几天登录
+    optional int32 state = 3;                               //1:刚领取 2:领取完成 （@Deprecated 3:全部领取完成） 4:前端手动领奖
+    optional int32 changeSetId = 4;                         //物品变动集的Id
+    optional bool loop = 5;                                 //是否是循环奖励（首次7日登陆的话，这个值就是false）
+    optional int32 rewardIndex = 6;                         //前端选择的是那个奖励，从0开开始，领取完成才会有个索引
+}
+
+message GetOpenActivityInfoRequest {
+     
+}
+
+message GetOpenActivityInfoReply {
+    repeated ActivitySimpleInfoNO activitySimpleInfos = 1;  //当前开启的全部的活动
+    optional int32 registerTime = 2;
+}
+
+message GetLoginGiftReply {
+    optional int32 changeSetId = 1;                         //物品变动集的Id
+}
+
+message ActivityChangeStatePush {
+    repeated ActivitySimpleInfoNO startInfos = 1;           //开启的集合
+    repeated ActivitySimpleInfoNO endInfos = 2;             //结束的集合
+    repeated ActivitySimpleInfoNO modifyInfos = 3;          //内容修改的集合
+}
+
+message SignPush {
+    optional int32 day = 1;                                 //现在是签到的那一天(如果前端需要做动画表现，就向前推一天，再来打对勾)
+    optional int32 state = 2;                               //1:刚领取 2:领取完成
+}
+
+message LoginGiftRequest {
+     
+}
+
+message SignReply {
+    optional int32 day = 1;                                 //现在是签到的那一天(如果前端需要做动画表现，就向前推一天，再来打对勾)
+    optional int32 state = 2;                               //1:刚领取 2:领取完成
+    optional int32 changeSetId = 3;                         //物品变动集的Id
+}
+
+message ActivitySimpleInfoNO {
+    optional int32 activityId = 1;                          //活动的唯一Id（运营后台标识的）
+    optional int32 activityDefineId = 2;                    //活动的模版Id
+    optional string activityName = 3;                       //活动的名字（运营后台自定义标识的。如果没有的话，就读取配置表里的）
+    optional int32 startTime = 4;                           //活动的开始时间
+    optional int32 endTime = 5;                             //活动的结束时间
+    optional int32 showStartTime = 6;                       //活动的展示开始时间（有些活动虽然没开始，但是已经是先展示给玩家可以看了，如果是0就说明活动开始时间就是展示开始时间）
+    optional int32 showEndTime = 7;                         //活动的展示结束时间（有些活动虽然结束了，只是不能做活动内容，但是可以展示结果。如果是0说明活动结束时间就是展示结束时间）
+    optional int32 openDays = 8;                            //活动的开启天数（相对于开始时间而定，如果已经到了endTime，就永远是活动的最后一天）
+    optional int32 configId = 9;                            //配置ID（默认为0，某些活动多开存在多个配置）
+}
+

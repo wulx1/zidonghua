@@ -1,0 +1,352 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FriendExtensionProto";
+import "UserExtension.proto";
+
+// 好友申请的处理动作
+enum FriendAskHandled {
+    FRIEND_ASK_AGREE  = 1; // 同意
+    FRIEND_ASK_IGNORE = 2; // 忽略
+}
+
+// 查询列表的页签
+enum GetFriendInfoTab {
+    FRIEND_TAB_FRIEND  = 1; // 好友列表
+    FRIEND_TAB_IDOL    = 3; // 关注列表
+    FRIEND_TAB_FAN     = 4; // 粉丝列表(需要传分页)
+    FRIEND_TAB_VISITOR = 5; // 拜访列表(需要传分页)
+    FRIEND_TAB_ASK     = 6; // 申请列表
+    FRIEND_TAB_BLACK   = 7; // 黑名单
+    FRIEND_TAB_RELATIVE = 8;// 亲友列表
+    FRIEND_TAB_ASK_RELATIVE = 9;// 亲友申请列表
+}
+
+message ToggleFollowIdolReply {
+     
+}
+
+message AskFriendReply {
+    optional FriendNO friend = 1; // 推荐一个好友（如果是加的推荐的人）
+    optional bool isApply = 2;
+}
+
+message RelativeInfoNo {
+    optional string friends = 1;
+    optional int32 index = 2;
+    optional int32 tag = 3;
+}
+
+message ToggleStarFriendReply {
+     
+}
+
+message HandleRelativeAskReply {
+    repeated string removeId = 1;
+}
+
+message GetFriendInfoBeforeShareReply {
+    repeated FriendNO friends = 1; // 好友列表(userId/userName/level/headIcon/headWindows/online)
+}
+
+message BatchHandleFriendAskRequest {
+    optional FriendAskHandled handled = 1; // 处理动作
+}
+
+message FanAddedPush {
+     
+}
+
+message AddBlackRequest {
+    optional string userId = 1; // 用户ID
+}
+
+message RelativeWishSendInfoNO {
+    optional string userId = 1;
+    optional bool newAdd = 2;
+    optional bool canSend = 3;
+}
+
+message RecommandUserRequest {
+    optional bool refresh = 1; // 是否刷新缓存
+}
+
+message HandleRelativeAskRequest {
+    optional string friendId = 1;
+    optional FriendAskHandled handle = 2;//处理动作
+}
+
+message FriendshipCountChangePush {
+    optional string friendId = 1;
+    optional int32 friendshipCount = 2;         //当前好友的亲密度变动
+    optional int32 addType = 3;                 //亲密度增加类型， 亲密度减少类型为-1
+    optional int32 level = 4;
+}
+
+message UnlockFriendshipPoseReply {
+     
+}
+
+message ToggleFollowIdolRequest {
+    optional string userId = 1; // 用户ID
+    optional bool isFollow = 2; //是否是关注
+}
+
+message CloakAskRequest {
+    optional bool cloaked = 1; // 是否屏蔽
+}
+
+message CloseFriendTabRequest {
+     
+}
+
+message RecommandUserReply {
+    repeated FriendNO results = 1; // 推荐结果
+}
+
+message FriendAskAddedPush {
+    optional FriendNO ask = 1; // 好友申请
+}
+
+message RelativeAskAddPush {
+    optional string userId = 1;
+}
+
+message GetFriendshipPowerPrizeRequest {
+     
+}
+
+message ReceiveRelativeWishRequest {
+    optional string friendId = 1;
+}
+
+message GetFriendInfoBeforeShareRequest {
+     
+}
+
+message GetFriendDetailInfoRequest {
+    optional GetFriendInfoTab tab         = 1; // 页签
+    optional int32            pageOffset  = 2; // 分页起始索引(从0开始)
+    optional int32            pageCount   = 3; // 本页数量
+    optional bool             queryFanPop = 4; // 是否需要查询粉丝和人气数
+    optional bool             slide       = 5; //是否是下滑
+}
+
+message GetFriendDetailInfoReply {
+    repeated FriendNO friends = 1; // 列表
+    optional int32    fanNum  = 2; // 粉丝数
+    optional int32    popular = 3; // 人气(拜访人数)
+    repeated FriendNO npcs    = 4; // NPC列表(只在查询关注页签的时候有返回)
+    optional bool     cloaked = 5; // 是否屏蔽好友申请(只在查询申请页签的时候有返回)
+}
+
+message GetAllRelativeWishRequest {
+     
+}
+
+message RemoveFriendRequest {
+    optional string userId = 1; // 用户ID
+}
+
+message AskAddRelativeReply {
+     
+}
+
+message FriendRemovedPush {
+    optional string friendUserId = 1; // 用户ID
+    optional bool isRemoveRelative = 2; // 是否是删除亲友
+}
+
+message GetBlackInfoRequest {
+     
+}
+
+message RemoveRelationReply {
+    optional string friendId = 1;
+}
+
+message CloseFriendTabReply {
+     
+}
+
+message UnlockFriendshipPoseRequest {
+    optional string friendId = 1;
+    optional int32 poseId = 2;
+}
+
+message GetFriendshipPowerPrizeReply {
+    optional int32 changeId = 1;
+}
+
+message SendRelativeWishReply {
+    optional string friendId = 1;
+}
+
+message RelativeWishInfoNO {
+    optional string userId = 1;
+    optional string picture = 2;
+    optional int32 index = 3;
+}
+
+message SearchUserRequest {
+    optional string key        = 1; // 搜索文本
+    optional int32  pageOffset = 2; // 分页起始索引(从0开始)
+    optional int32  pageCount  = 3; // 本页数量
+}
+
+message ToggleStarFriendRequest {
+    optional GetFriendInfoTab tab     = 1; // 页签(只支持好友/关注)
+    repeated string           userIds = 2; // 用户ID
+}
+
+message FriendAddedPush {
+    repeated FriendNO friend = 1; // 好友(只有userId/userName)
+}
+
+message AskFriendRequest {
+    optional string userId = 1; // 用户ID
+}
+
+message GetSendWishInfoRequest {
+     
+}
+
+message HandleFriendAskRequest {
+    optional string           userId  = 1; // 用户ID
+    optional FriendAskHandled handled = 2; // 处理动作
+}
+
+message AskAddRelativeRequest {
+    optional string friendUserId = 1;
+    optional int32 tag = 3;
+}
+
+message RemoveRelativeRequest {
+    optional string friendId = 1;
+}
+
+message RemoveFriendReply {
+     
+}
+
+message FriendRelativeAddPush {
+    optional RelativeInfoNo relativeInfo = 1;
+}
+
+message GetFriendSummaryInfoRequest {
+     
+}
+
+message GetUnlockedFriendshipPoseReply {
+    repeated int32 poseIds = 1;
+}
+
+message GetSendWishInfoReply {
+    repeated RelativeWishSendInfoNO sendInfo = 1;
+}
+
+message SendRelativeWishPush {
+    optional RelativeWishInfoNO friendId = 1;
+}
+
+message BatchHandleFriendAskReply {
+    repeated string agreeds = 1; // 同意了哪些申请
+}
+
+message GetBlackInfoReply {
+    repeated FriendNO blacks = 1; // 列表
+}
+
+message VisitorInfoNO {
+    optional int32 eventType = 1;
+    optional int32 id = 2;
+}
+
+message SearchUserReply {
+    repeated FriendNO results = 1; // 搜索结果
+}
+
+message ReceiveRelativeWishReply {
+    optional int32 changeId = 1;
+    optional bool haveWish = 2;
+    optional string friendId = 3;
+}
+
+message GetFriendInfoRequest {
+    optional bool friendRelative = 1;//是否只拿亲友信息
+}
+
+message HandleFriendAskReply {
+     
+}
+
+message GetRelativeWishInfoReply {
+    optional RelativeWishInfoNO wishInfo = 1;
+}
+
+message GetUnlockedFriendshipPoseRequest {
+    optional string fiendId = 1;
+}
+
+message GetFriendInfoReply {
+    repeated FriendNO friends = 1;
+}
+
+message RemoveBlackRequest {
+    optional string userId = 1; // 用户ID
+}
+
+message FriendNO {
+    optional int32  offline    = 5;  // 0表示当前在线, 正数表示离线时间(单位小时).
+    optional string desc       = 6;  // 个人描述
+    optional bool   star       = 8;  // 是否有星标
+    optional int32  fanNum     = 9;  // 粉丝数
+    optional int32  popular    = 10; // 今日人气
+    optional bool   heart      = 11; // 是否有爱心可领
+    optional bool   food       = 12; // 是否有料理可领
+    optional int32  visitedMe  = 13; // 多少天前拜访过我
+    optional int32  relation   = 20; // 这一个人与我什么关系, 0陌生人1好友2关注3粉丝4互相关注
+    optional bool   newlyAdded = 21; // 这一个人是否新增的
+    optional int64  addedTime  = 22; // 这一个人加入到这个列表的时刻(UNIX时间戳)
+    repeated VisitorInfoNO visitorInfo = 25;//拜访信息
+    optional int32 visitorId = 26;//拜访记录Id
+    optional RoleSimpleInfoNO roleInfo = 27;//角色简要信息
+    optional int32 friendshipLevel = 28;//亲密度等级
+    optional int32 friendshipCount = 29;//亲密度
+    optional bool isRelative = 30;//是否是亲友
+    optional int32 relativeIndex = 31;//亲友位置index
+    optional int32 tag = 32;//亲友标签
+}
+
+message CloakAskReply {
+     
+}
+
+message GetAllRelativeWishReply {
+    repeated RelativeWishInfoNO friendId = 1;
+}
+
+message GetRelativeWishInfoRequest {
+    optional string friendId = 1;
+}
+
+message RemoveBlackReply {
+     
+}
+
+message SendRelativeWishRequest {
+    optional RelativeWishInfoNO wishInfo = 1;
+}
+
+message AddBlackReply {
+     
+}
+
+message GetFriendSummaryInfoReply {
+    repeated FriendNO friends   = 1; // 好友列表(只有userId/userName/headIcon/headwindows/friendshipLevel/friendshipCount/)
+    repeated FriendNO blacks    = 2; // 黑名单(只有userId/userName/headIcon/)
+    repeated FriendNO idols     = 3; // 关注列表(只有userId/userName/headIcon/)
+    optional bool     asking    = 4; // 是否有未处理的好友申请
+    optional bool     newFan    = 5; // 是否有新的粉丝
+    optional bool     newFriend = 6; // 是否有新的好友
+    optional bool     relativeAsk = 7; // 是否有未处理的亲友申请
+}
+

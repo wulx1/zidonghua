@@ -1,0 +1,84 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ArchiveExtensionProto";
+
+
+message ArchiveDataNO {
+    required int32 id = 1;                          //图鉴ID
+    required int32 reward = 2;                      //是否已经领奖(0:未领取,1:领取)
+    optional int32 progress = 3;                    //进度（等级/阶数之类的）
+}
+
+message GetArchiveRewardRequest {
+    required int32 archiveId = 1;
+    required int32 progress = 2;
+}
+
+message DrawArchiveDataRewardRequest {
+    required int32 archiveId = 1;            //领取的图鉴ID
+    optional int32 progress = 2;            //领取的进度
+}
+
+message GetArchiveSimpleInfoReply {
+    repeated ArchiveNumInfoNO numInfo = 1;              //图鉴的数量信息
+    repeated ArchiveQualityNumInfoNO qualityInfo = 2;   //图鉴的品质信息
+}
+
+message ArchiveQualityNumInfoNO {
+    required int32 quality = 1;                         //图鉴品质
+    required int32 num = 2;                             //数量
+}
+
+message ArchiveNumInfoNO {
+    required int32 archiveType = 1;                     //图鉴类型
+    required int32 num = 2;                             //当前已经获得的总数量
+    optional int32 totalNum = 3;                        //当前图鉴的总数量
+}
+
+message GetArchiveDataInfosRequest {
+    optional int32 archiveType = 1;                 //图鉴类型(对应EnumDef的ArchiveField)
+}
+
+message GetArchiveRewardReply {
+    optional int32 changeId = 1;
+}
+
+message GetArchiveSuiteInfoReply {
+    repeated ArchiveInfoNO archiveInfo = 1;
+}
+
+message GetArchiveItemReply {
+    repeated int32 item = 1;
+}
+
+message ArchiveDataInfoNo {
+    required int32 archiveType = 1;                 //图鉴类型(对应EnumDef的ArchiveField)
+    repeated ArchiveDataNO archiveDatas = 2;        //类别图鉴集合
+}
+
+message GetArchiveSimpleInfoRequest {
+    optional string userId = 1;                         //要查看图鉴的userId
+}
+
+message GetArchiveDataInfosReply {
+    repeated ArchiveDataInfoNo archiveDataInfos = 1;    //图鉴数据
+}
+
+message ArchiveInfoNO {
+    required int32 archiveId = 1;
+    optional int32 progress = 2;//按套件配置中的单件Id递增排序后的index取对应位 为单件是否获取过
+    optional int32 gainReward = 3;//按收集数量取对应位 为奖励是否领取
+            
+}
+
+message GetArchiveSuiteInfoRequest {
+     
+}
+
+message DrawArchiveDataRewardReply {
+    optional int32 changeSetId = 1;         //结果变更集
+}
+
+message GetArchiveItemRequest {
+    optional int32 itemType = 1;//物品类型EnumDef中的ItemType
+}
+

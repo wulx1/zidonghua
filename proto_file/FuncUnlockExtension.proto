@@ -1,0 +1,33 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FuncUnlockExtensionProto";
+
+
+message FuncUnlockPush {
+    required int32 funcId = 1;
+}
+
+message SelectLockFuncRequest {
+     
+}
+
+message SelectLockFuncReply {
+    repeated int32 funcId = 1;
+    repeated int32 plotData = 2;                        //剧情的索引信息
+                                                        //多逼逼几句，这里比较特殊
+                                                        //剧情信息是按位存的
+                                                        //假设我们有64个剧情，有64个bit
+                                                        //假设第62个剧情是0，剩下的都是1
+                                                        //那么下发的数据会是一个长度为3的数组
+                                                        //[0] = 0011 0111 1111 1111 1111 1111 1111 1111
+                                                        //[1] = 0011 1111 1111 1111 1111 1111 1111 1111
+                                                        //[2] = 0000 0000 0000 0000 0000 0000 0000 1111
+}
+
+message ClientPlotReportRequest {
+    required int32 index = 1;                           //节点索引
+}
+
+message ClientPlotReportReply {
+     
+}
+

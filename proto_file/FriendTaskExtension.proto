@@ -1,0 +1,143 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FriendTaskExtensionProto";
+
+import "UserExtension.proto";
+
+// 亲密任务状态
+enum FriendTaskInvitationState {
+    INVITE = 1;             //邀请
+    RECEIVE = 2;            //被邀请
+    MATCH = 4;              //匹配上了（就是接受/被接受）
+    CANCEL = 8;             //被发起者取消了（这个状态不会显示给玩家看）
+}
+
+message FriendTaskReceiveAwardRequest {
+    required int32 taskId = 1;                  //要领取奖励的任务Id
+    required string targetUserId = 2;           //领取的搭档Id列表
+}
+
+message FriendTaskInvitationReceiveRequest {
+    required string targetUserId = 1;                   //接受邀请的玩家的Id
+    required int32 taskId = 2;                          //接受邀请的哪个任务
+}
+
+message FriendTaskIncrTargetRequest {
+    required int32 stepId = 1;                  //步骤的Id
+    required int32 count = 2;                   //命令的Id
+    optional int32 index = 3;                   //第几个目标，从0开始
+    repeated string targetUserId = 4;           //搭档的Id列表
+}
+
+message UpdateFriendTaskInfoPush {
+    repeated FriendTaskInfoNO updatedFriendTask =1;            //推送亲密任务
+}
+
+message GetFriendTaskInfoReply {
+    repeated FriendTaskFinishInfoNO finishTask = 1;     //已完成任务
+    repeated FriendTaskInfoNO doingTask = 2;            //进行中任务
+}
+
+message FriendTaskInvitationInfoPush {
+    repeated FriendTaskInvitationInfoNO friendTaskInvitationInfo = 1;       //推送了那些消息修改
+}
+
+message GetFriendTaskInvitationInfoReply {
+    repeated FriendTaskInvitationInfoNO friendTaskInvitationInfo = 1;           //亲密任务信息
+    optional int32 inviteTimes = 2;                         //邀请的次数
+    optional int32 receiveTimes = 3;                        //接受的次数
+}
+
+message FriendTaskInvitationInviteReply {
+    optional FriendTaskInvitationInfoNO friendTaskInvitationInfo = 1;             //产生新的任务信息
+}
+
+message FriendTaskFinishInfoNO {
+    required int32 taskId = 1;                  //任务的Id
+    required string targetUserId = 2;           //任务的搭档Id
+}
+
+message GetFriendTaskInfoRequest {
+     
+}
+
+message FriendTaskInfoNO {
+    required int32 taskId = 1;                  //任务的Id
+    required string targetUserId = 2;           //任务的搭档Id
+    required int32 currentStep = 3;             //任务当前的步骤
+    repeated int32 finishedTargetCounts = 4;    //任务已经完成的目标数量
+    optional int32 startTime = 5;               //任务接受的时间
+}
+
+message FriendTaskFinishStepRequest {
+    required int32 stepId = 1;                  //步骤的Id
+    optional int32 commandId = 2;               //命令的Id
+    repeated string targetUserId = 3;           //搭档的Id列表
+}
+
+message FriendTaskSubmitItemRequest {
+    required int32 taskId = 1;                  //任务Id
+    repeated string targetUserId = 2;           //搭档的id
+    required int32 stepId = 3;                  //任务步骤Id
+    required int32 index = 4;                   //第几个目标，从0开始
+}
+
+message FriendTaskInvitationInviteRequest {
+    required string inviteUserId = 1;                   //邀请的好友Id
+    required int32 taskId = 2;                          //邀请的任务Id
+    optional string content = 3;                        //感谢语
+}
+
+message FriendTaskSubmitItemReply {
+     
+}
+
+message FriendTaskInvitationCancelRequest {
+    required string targetUserId = 1;                   //取消的是哪个玩家
+    required int32 taskId = 2;                          //取消的是哪个任务
+}
+
+message GetFriendTaskInvitationInfoRequest {
+    optional bool needInvitationInfo = 1;
+}
+
+message FriendTaskInvitationReceiveReply {
+    optional FriendTaskInvitationInfoNO friendTaskInvitationInfo = 1;             //更新的任务信息
+}
+
+message FriendTaskInvitationInfoNO {
+    optional string targetUserId = 1;           //目标玩家的Id
+    optional int32 taskId = 2;                  //对应任务的Id
+    optional int32 state = 3;                   //对应的状态
+    optional string content = 4;                //对应的感谢文本
+    optional int32 time = 5;                    //时间点
+    optional RoleSimpleInfoNO simpleInfo = 6;   //搭档的简要信息
+    optional bool new = 7;
+}
+
+message FriendTaskReceiveAwardReply {
+    required int32 changeSetId = 1;             //物品变动集的Id
+}
+
+message FriendTaskQuickCompletionTargetReply {
+     
+}
+
+message FriendTaskFinishStepReply {
+    optional FriendTaskInfoNO taskInfo = 1;         //跳转到下一步骤的信息，如果完成的已经是最后有一个步骤了，就没有这个字段
+}
+
+message FriendTaskQuickCompletionTargetRequest {
+    required int32 taskId = 1;                  //任务Id
+    required int32 taskStepId = 2;              //任务步骤Id
+    required int32 index = 3;                   //第几个目标，从0开始
+    repeated string targetUserId = 4;           //搭档的Id列表
+}
+
+message FriendTaskIncrTargetReply {
+     
+}
+
+message FriendTaskInvitationCancelReply {
+     
+}
+

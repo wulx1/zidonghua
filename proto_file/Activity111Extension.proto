@@ -1,0 +1,56 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity111ExtensionProto";
+
+
+message GetAobiLifeInfoReply {
+    optional int32 exp = 1;                         //溢出的经验(总经验=当前等级经验+溢出经验)
+    optional int32 level = 2;                       //等级
+    optional int32 unlockExtreme = 3;               //解锁精装(1:普通解锁2:辅助解锁)
+    repeated AobiLifeLevelNO levelInfo = 4;         //等级详情
+}
+
+message DrawAobiLifeLevelRewardRequest {
+    required bool all = 1;                          //是否一键领取
+    optional int32 level = 2;                       //领取的等级
+    optional bool extreme = 3;                      //是否领取精装
+}
+
+message AobiLifeThemeTaskRefleshPush {
+     
+}
+
+message AobiLifeLevelNO {
+    required int32 level = 1;               //等级
+    required bool normal = 2;               //是否领取普通奖励
+    required bool extreme = 3;              //是否领取精装奖励
+}
+
+message BuyAobiLifeLevelReply {
+     
+}
+
+message DrawAobiLifeLevelRewardReply {
+    optional int32 changeSetId = 1;                 //结果集
+}
+
+message BuyAobiLifeLevelRequest {
+    required int32 count = 1;                       //购买次数
+}
+
+message GetAobiLifeInfoRequest {
+     
+}
+
+message BuyAobiLifeExtremeReply {
+    optional int32 changeSetId = 1;                 //结果集
+}
+
+message BuyAobiLifeExtremeRequest {
+    optional bool noraml = 1;                       //是否普通解锁购买，传false是辅助加等级的
+}
+
+message AobiLifeAddExpPush {
+    required int32 exp = 1;                         //溢出的经验
+    required int32 level =2;                        //等级
+}
+

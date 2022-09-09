@@ -1,0 +1,94 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "PartyExtensionProto";
+
+import "UserExtension.proto";
+
+enum GetPartyInfoTab{
+    HOT = 1;                                        //需要传分页
+    NEWER = 2;                                      //需要传分页
+    FRIEND = 3;                                     //无需传分页，直接返回全部还有相关派对
+}
+
+message StrewFlowerReply {
+    optional int32 changeSetId = 1;                 //物品变动集Id
+}
+
+message GetPartyPrizeReply {
+    optional int32 changeId = 1;
+}
+
+message GetPartyPrizeRequest {
+     
+}
+
+message PartyStatePush {
+    optional PartyInfoNO partyInfo = 1;             //派对数据(结束时无此内容)
+    optional bool end = 2;                          //派对结束只推送
+}
+
+message GetHostPartyRequest {
+     
+}
+
+message GetPartyDetailInfoReply {
+    optional PartyInfoNO partyInfo = 1;             //派对详情
+    optional bool hasStrewFlower = 2;               //是否已经在派对中撒过花
+}
+
+message EndPartyRequest {
+     
+}
+
+message StrewFlowerRequest {
+     
+}
+
+message CreateNewPartyRequest {
+    required int32 partyTheme = 1;                  //派对的主题
+    optional string desc = 2;                       //派对描述/宣言
+    optional bool friendOnly = 3;                   //是否只有好友可以访问
+}
+
+message CreateNewPartyReply {
+     
+}
+
+message GetPartyInfoReply {
+    repeated PartyInfoNO partyInfo = 1;             //派对的信息
+    optional int32 pageCount = 2;                   //总页码数量
+}
+
+message GetPartyDetailInfoRequest {
+    optional string uId = 1;                        //派对创建者的Id
+}
+
+message GetHostPartyReply {
+    required bool host = 1;                         //当前是举办了一场派对
+}
+
+message PartyInfoNO {
+    required int32 num = 5;                         //当前的人数
+    required int32 time = 6;                        //创建的时间
+    optional string desc = 7;                       //派对描述/宣言
+    required int32 partyTheme = 8;                  //派对的主题
+    optional bool friendOnly = 9;                   //是否只有好友可以访问
+    optional int32 strewFlowerNum = 10;             //撒花人数
+    optional int32 busyDegree = 11;                 //热闹值
+    optional RoleSimpleInfoNO roleInfo = 12;
+}
+
+message StrewFlowerPush {
+    optional RoleSimpleInfoNO roleInfo = 1;               //撒花人的信息
+}
+
+message EndPartyReply {
+     
+}
+
+message GetPartyInfoRequest {
+    required GetPartyInfoTab tabType = 1;           //请求的页签类型(1:热门,2:最新,3:好友)
+    optional int32 partyTheme = 2;                  //派对主题(不带这个就按照总的进行数据拉取)
+    optional int32 pageIndex = 3;                   //页码(从0开始)
+    optional int32 count = 4;                       //单页请求的数量
+}
+

@@ -1,0 +1,52 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FavorabilityExtensionProto";
+
+
+message GiveGiftToNpcRequest {
+    optional int32 itemId = 1;//礼物物品Id
+    optional int32 npcId = 2;//npcId
+    optional int32 count = 3;//礼物数量
+}
+
+message GiveGiftToNpcReply {
+     
+}
+
+message FavorabilityInfo {
+    required int32 defineId = 1;
+    required int32 level = 2;//好感度等级
+    required int32 exp = 3;//好感度经验
+    repeated int32 isGetLevel = 4;//领取奖励的等级
+}
+
+message GetPrizeReply {
+    optional int32 changeId = 1;
+}
+
+message FavorabilityPushInfo {
+    optional int32 npcId = 1;//npc的编号
+    optional int32 level = 2;//等级
+    optional int32 exp = 3;//好感度增加的数量
+}
+
+message ChatWithNpcReply {
+     
+}
+
+message GetFavorabilityInfoRequest {
+     
+}
+
+message GetFavorabilityInfoReply {
+    repeated FavorabilityInfo favorabilityInfo = 1;
+}
+
+message GetPrizeRequest {
+    optional int32 defineId = 1;//NPC好感度的编号 17000000 + npcId
+    optional int32 level = 2;//要领取的等级
+}
+
+message ChatWithNpcRequest {
+    optional int32 npcId = 1;
+}
+

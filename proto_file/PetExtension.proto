@@ -1,0 +1,241 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "PetExtensionProto";
+
+//宠物的状态
+enum PetState {
+    IN_HOME = 0;                                        //在家中
+    FOLLOW = 1;                                         //跟随中
+    LOCK = 2;                                           //锁定中
+    MARK = 4;                                           //标记中
+    EXPLORE = 8;                                        //探索中
+}
+
+message PetReleaseRequest {
+    required int32 petId = 1;                           //宠物的Id
+}
+
+message CatchPetReply {
+    optional PetInfoNO petInfo = 1;                     //捕捉成功的宠物信息
+    optional int32 changeSetId = 2;                     //如果放弃了会将放生奖励下发
+}
+
+message StartPetExpeditionReply {
+     
+}
+
+message StartPetExpeditionRequest {
+    required int32 sceneId = 1;
+    repeated int32 teamMember = 2;
+}
+
+message RefreshPetExpeditionSceneRequest {
+    optional int32 sceneId = 1;
+}
+
+message DimensionsInfoNO {
+    optional int32 dimensionsId = 1;
+    optional int32 value = 2;
+}
+
+message ClearFeedPetCdTimeRequest {
+    required int32 petId = 1;                           //宠物的Id
+}
+
+message LurePetReply {
+    repeated LurePetInfoNO nonCatchPetInfo = 1;         //之前未处理的宠物（如果有之前诱捕，但是因为掉线未处理的宠物，就会返回这个，不扣诱捕道具）
+    optional LurePetInfoNO lurePetInfo = 2;             //随机出来的诱捕宠物的信息
+}
+
+message FeedPetRequest {
+    required int32 foodId = 1;                          //选取的饲料Id
+    repeated int32 petId = 2;                           //要喂养的宠物的Id
+}
+
+message GetPetInfoReply {
+    repeated PetInfoNO petInfo = 1;                     //返回所有的宠物
+    optional int32 expandLevel = 2;                     //当前背包扩展的等级
+    optional bool canTakeHeart = 3;                     //是否有爱心可以领取
+}
+
+message ReceiveExpeditionAwardsRequest {
+    optional int32 sceneId = 1;
+}
+
+message PetInfoNO {
+    optional int32 petId = 1;                           //宠物的Id
+    optional int32 defineId = 2;                        //宠物的模板Id
+    optional int32 level = 3;                           //宠物的等级
+    optional int32 exp = 4;                             //宠物的等级
+    optional int32 homeIndex = 5;                       //宠物在家里的第几屏
+    optional int32 state = 6;                           //宠物当前的标签。标签是按位存储
+                                                            //0：在家中
+                                                            //1：跟随中
+                                                            //2：锁定中
+                                                            //4：标记中
+    optional int32 moodValue = 7;                       //心情值
+    optional int32 lastHarvestTime = 8;                 //上次拾取的时间
+    optional int32 lastFeedTime = 9;                    //上次喂食的开始时间
+    optional int32 foodId = 10;                         //上次喂食的食物Id
+    optional string petName = 11;                       //宠物的自定义名字。没有修过名字的话，不下发这个字段
+    optional int32 harvestRewardId = 12;                //宠物的拾取奖励Id（如果是配置里配置好的，这里会是0）
+    optional int32 releaseRewardId = 13;                //宠物的放生奖励Id
+    optional int32 harvestItemIndex = 14;               //拾获的物品的索引
+    optional string ownerId = 15;                       //归属
+    optional int32 modifyNameTimes = 16;                //修改名字的次数
+    optional bool isVariated = 17;                      //是否变异
+    optional int32 useSkinId = 18;                      //当前使用皮肤ID(缺省为0)
+    repeated DimensionsInfoNO dimensionsInfo = 19;      //五维属性
+}
+
+message ExpandPetCapacityReply {
+    optional int32 expandLevel = 1;                     //扩展后的等级
+}
+
+message ModifyPetNameRequest {
+    required int32 petId = 1;                           //要修改那一只宠物
+    required string name = 2;                           //修改的新的名字
+}
+
+message PetHarvestReply {
+    required int32 changeSetId = 1;                     //物品变动的Id
+    optional int32 harvestItemIndex = 2;                //拾获的物品的索引
+}
+
+message CatchPetRequest {
+    required bool success = 1;                          //是否捕捉成功
+    optional bool release = 2;                          //放弃成功捉到的宠物
+    optional int32 petId = 3;                           //宠物的唯一Id（对于断线之后的宠物，才会有这个唯一Id）
+}
+
+message PetReleaseReply {
+    required int32 changeSetId = 1;                     //物品变动的Id
+}
+
+message TakePetHeartReply {
+    optional int32 changeSetId =  1;                    //物品变动的Id
+}
+
+message GetPetExpeditionSceneInfoRequest {
+     
+}
+
+message PetExpeditionSceneInfo {
+    required int32 sceneId = 1;                         //远征场景Id
+    optional int32 state = 2;                           //场景状态
+    optional int32 endExploreTime = 3;                //开始探索时间
+    optional int32 exploreCount = 4;                    //今日探索次数
+    repeated int32 teamMember = 5;                      //探索成员
+    optional int32 haveFreeRefreshTimes = 6;             //剩余免费刷新次数
+}
+
+message PetChangeStateRequest {
+    required int32 petId = 1;                           //宠物的Id
+    required PetState state = 2;                        //切换的状态
+}
+
+message GetNonCatchPetReply {
+    repeated LurePetInfoNO nonCatchPetInfo = 1;         //未处理的宠物列表
+}
+
+message PetInfoPush {
+    repeated PetInfoNO petInfo = 1;                     //更新的宠物信息
+}
+
+message ClearFeedPetCdTimeReply {
+     
+}
+
+message GetNonCatchPetRequest {
+     
+}
+
+message PetEvolutionRequest {
+    required int32 petId = 1;                           //宠物的Id
+    optional int32 evolutionBranch = 2;                 //宠物的进化的分支
+}
+
+message RecallPetExpeditionTeamReply {
+     
+}
+
+message PetHarvestRequest {
+    required int32 petId = 1;                           //宠物的Id
+}
+
+message RefreshPetExpeditionSceneReply {
+    optional int32 changeId = 1;
+    repeated PetExpeditionSceneInfo sceneInfo = 2;
+}
+
+message PetEvolutionReply {
+     
+}
+
+message PetSwitchHomeIndexReply {
+     
+}
+
+message ModifyPetNameReply {
+     
+}
+
+message ChangePetSkinRequest {
+    required int32 petId = 1;                    //切换皮肤的宠物
+    required int32 skinId = 2;                   //皮肤ID
+}
+
+message ChangePetSkinReply {
+     
+}
+
+message PetChangeStateReply {
+     
+}
+
+message ReceiveExpeditionAwardsReply {
+    optional int32 changeSetId = 1;
+    optional PetExpeditionSceneInfo sceneInfo = 2;      //刷新的远征场景
+}
+
+message PetSwitchHomeIndexRequest {
+    required int32 petId = 1;                           //要拖动的宠物的Id
+    required int32 homeIndex = 2;                       //要拖动到第几屏
+}
+
+message GetPetInfoRequest {
+    optional string uId = 1;                            //要获取谁的宠物，自己的不需要发这个字段
+}
+
+message LurePetInfoNO {
+    optional int32 petId = 1;                           //宠物的唯一Id（对于断线之后的宠物，才会有这个唯一Id）
+    optional int32 defineId = 2;                        //宠物的模板Id
+    optional int32 harvestRewardId = 3;                 //宠物的拾取奖励Id
+    optional int32 releaseRewardId = 4;                 //宠物的放生奖励Id
+    repeated DimensionsInfoNO dimensionsInfo = 5;       //宠物五维属性
+}
+
+message FeedPetReply {
+    repeated int32 petId = 1;                           //大成功的宠物的Id
+    repeated PetInfoNO petInfo = 2;                     //更新的宠物信息
+}
+
+message GetPetExpeditionSceneInfoReply {
+    repeated PetExpeditionSceneInfo sceneInfo = 1;
+}
+
+message TakePetHeartRequest {
+    required string uId = 1;                            //领取谁家的宠物爱心
+}
+
+message RecallPetExpeditionTeamRequest {
+    optional int32 sceneId = 1;
+}
+
+message ExpandPetCapacityRequest {
+     
+}
+
+message LurePetRequest {
+    required int32 itemId = 1;                          //诱惑宠物的道具
+}
+

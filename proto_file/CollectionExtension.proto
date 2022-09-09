@@ -1,0 +1,68 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "CollectionExtensionProto";
+
+
+message GetAllSceneCollectionInfoReply {
+    repeated SceneCollectionInfoNO sceneCollection = 1;
+}
+
+message CollectionItemInfoNo {
+    required int32 type = 1;
+    optional int32 leftCdTime = 2;
+    optional int32 count = 3;
+}
+
+message CollectionItemRequest {
+    required int32 index = 1;                                   //采集点
+    optional bool isSuccess = 3;                                //彩蛋玩法是否成功
+}
+
+message CleanCollectionCdReply {
+     
+}
+
+message GetAllSceneCollectionInfoRequest {
+     
+}
+
+message GetAllCollectionPointReply {
+    repeated CollectionPointInfoNO collectionInfo = 1;          //场景里的所有采集点
+}
+
+message SceneCollectionPointPush {
+    repeated CollectionPointInfoNO collectionInfo = 1;          //场景里采集点的变化信息
+}
+
+message GetCollectionInfoRequest {
+    required int32 index = 1;
+}
+
+message GetCollectionInfoReply {
+    optional CollectionPointInfoNO collectionInfo = 1;
+}
+
+message CollectionItemReply {
+    optional int32 changeSetId = 1;                             //物品变动集Id（如果开始采集，就会不下发这个字段）
+    optional CollectionPointInfoNO collectionInfo = 2;          //采集点状态变化
+}
+
+message CleanCollectionCdRequest {
+    required int32 index = 1;
+}
+
+message SceneCollectionInfoNO {
+    optional int32 sceneId = 1;
+    repeated CollectionItemInfoNo collection = 2;
+}
+
+message GetAllCollectionPointRequest {
+     
+}
+
+message CollectionPointInfoNO {
+    required int32 index = 1;                                   //采集点
+    optional int32 leftCdTime = 2;                              //剩余时间(秒。采集完成剩余时间/距离可采集剩余的时间)
+    optional bool isSpecialPlay = 4;
+    optional int32 count = 5;
+}
+

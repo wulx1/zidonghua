@@ -1,0 +1,40 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "GoFishingExtensionProto";
+
+
+message PutFishIntoSeaAreaReply {
+     
+}
+
+message StartFishingRequest {
+    required int32 fishingArea = 1;         //钓鱼区域ID
+}
+
+message CompleteFishingRequest {
+    required int32 batId = 1;               //鱼饵
+    required int32 area = 2;                //0白色区（失败），1浅蓝区，2深蓝区
+    required int32 weather = 3;             //天气
+}
+
+message PutFishIntoSeaAreaRequest {
+    required int32 fishId = 1; //鱼ID
+}
+
+message CompleteFishingReply {
+    optional int32 changeId = 1;            //物品变更信息
+    optional bool fishKing = 2;             //是否鱼王
+    optional bool first = 3;                //是否首次
+}
+
+message GetFishInfoRequest {
+    optional string uId = 1;    //查看人ID(查看自己不用传)
+}
+
+message GetFishInfoReply {
+    repeated int32 fishIds = 1; //海域里面的鱼类id集合
+}
+
+message StartFishingReply {
+    optional bool fishKing = 1;             //是否鱼王
+}
+

@@ -1,0 +1,414 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "SceneExtensionProto";
+import "PetExtension.proto";
+import "ElfExtension.proto";
+import "UserExtension.proto";
+
+//Npc的控制权的类型
+enum NpcControlType {
+    RANDOM_MOVE_CONTROL = 1;                            //随机行走的控制权
+    FORCE_MOVE_CONTROL = 2;                             //强行获取的控制权
+    PLAY_MOVE_CONTROL = 3;                              //演奏移动的控制权
+}
+
+enum SceneChangeType {
+    JOIN_ROLE_INFO = 1;                                 //加入场景的变动
+    CHANGE_ROLE_INFO = 2;                               //角色信息的变动
+    LEAVE_SCENE = 3;                                    //离开场景
+}
+
+message BroadcastStateRequest {
+    required BroadcastStateInfoNO state = 1;            //主动广播的状态，服务器不留痕
+}
+
+message MakeBubbleRequest {
+     
+}
+
+message CancelSceneRoleStateInfoNO {
+    required string id = 1;                             //userId
+    repeated int32 state = 2;                           //结束的状态
+}
+
+message SceneTeammateNO {
+    optional string uId = 1;                                        //队员角色ID
+    optional int32 state = 2;                                       //队员状态(1：在线，2：离开)
+}
+
+message BroadcastStateInfoNO {
+    optional string uId = 1;                            //userId，由后端负责填充
+    optional string key = 2;                            //key
+    optional int32 type = 3;                            //类型
+    repeated int32 custom = 4;                          //自定义数组
+    repeated string params = 5;                         //自定义的参数
+}
+
+message TinyGameStateInfo {
+    optional ScenePosNO scenePosNo = 1;
+    optional int32 startTime = 2;
+    repeated TinyGameTeamInfo teamInfo = 3;
+    optional int32 state = 4;               //游戏状态
+    optional string creatorId = 5;
+}
+
+message SceneShareRequest {
+    required int32 state = 1;                           //请求分享的状态
+    repeated string params = 2;                         //分享带的参数
+                                                        //状态1:分享披萨/烟花，参数是披萨/烟花道具Id
+                                                        //状态2:分享表情，参数是表情图片Id(服务器不做校验，只负责转发)
+                                                        //状态3:抢占凳子，参数是要坐的(凳子的Id,朝向)，一个凳子只能一个人坐
+}
+
+message GetCurrentSceneReply {
+    optional int32 sceneDefineId = 1;                   //当前所在的场景Id
+    optional int32 channelId = 2;                       //当前场景的线，不分线的场景，这一个字段是0
+    optional string uId = 3;                            //如果是个人场景，还需要带上是那个玩家的Id
+    repeated SceneRoleInfoNO sceneRoleInfos = 4;        //当前场景里的有那些人
+    repeated SceneStateInfoNO sceneStateInfo = 5;       //场景状态信息
+    optional bool isNpc = 6;                            //是否是NPC
+}
+
+message JoinSceneReply {
+    required int32 channelId = 1;                       //所在的场景频道Id
+    required int32 sceneDefineId = 2;                   //场景的频道Id
+    required ScenePosNO pos = 3;                        //进入场景的位置
+    repeated SceneRoleInfoNO sceneRoleInfos = 4;        //当前场景里的有那些人
+    repeated SceneStateInfoNO sceneStateInfo = 5;       //场景状态信息
+    optional int32 uniqueId = 6;                        //自编的场景唯一Id
+    optional SceneEntryInfoNO sceneEntryInfo = 7;       //场景入口
+    optional string ownerId = 8;
+}
+
+message SceneRoleInfoNO {
+    required string id = 1;                             //userId
+    repeated SceneRoleInfoFieldNO roleInfoField = 2;    //同步的角色属性字段列表
+    repeated int32 delType = 3;                         //要清除掉的字段
+}
+
+message SceneChangePush {
+    required int32 uniqueId = 1;                        //场景的唯一Id
+    repeated SceneChangeInfoNO changeInfo = 2;          //场景中的变动信息
+}
+
+message CancelSceneShareRequest {
+    required int32 state = 1;                           //请求要取消的分享状态
+}
+
+message HappyMoveInfoNO {
+    optional ScenePosNO initPos = 1;                        //初始位置信息
+    optional ScenePosNO targetPos = 2;                      //目标位置信息
+    optional int32 moveStartTime = 3;                       //开始移动的时间
+}
+
+message JoinSceneRequest {
+    optional int32 channelId = 1;                       //场景频道的Id，如果不传或者传0，就表示要随机一条线
+    required int32 sceneDefineId = 2;                   //场景的配置Id
+    required ScenePosNO pos = 3;                        //进入场景的位置
+    optional string userId = 4;                         //要进入的场景是哪个玩家的
+    optional bool isNpc = 5;                            //是否是NPC
+    optional bool isSingle = 6;                         //单人场景（这个标志是true的情况下，就说明是任务场景，isNpc这种字段会被自动忽略）
+    optional int32 teamId = 7;                          //组队队伍ID(队伍ID=0:即创建队伍，队伍ID>0:加入指定队伍)
+}
+
+message SceneRoleInfoFieldNO {
+    required int32 type = 1;                            //类型
+    repeated bytes protoMsg = 2;                        //对应的bytes
+    repeated int32 intValue = 3;                        //int类型的值
+    repeated string strValue = 4;                       //string类型的值
+    repeated float floatValue = 5;                      //float类型的值
+}
+
+message SceneFollowerInfoNO {
+    required int32 followItemType = 1;
+    optional PetInfoNO petInfo = 2;
+    optional ElfInfoNO elfInfo = 3;
+}
+
+message MoveReply {
+     
+}
+
+message SceneChangeInfoNO {
+    required int32 type = 1;                            //类型对应的解析字段不同
+                                                        //  1：对应joinRoleInfo
+                                                        //  2：对应changeRoleInfo
+                                                        //  3：对应leaveSceneUserId
+    optional SceneRoleInfoNO joinRoleInfo = 2;          //进入场景的信息
+    optional SceneRoleInfoNO changeRoleInfo = 3;        //角色变更的信息
+    optional string leaveSceneUserId = 4;               //离开场景的角色Id
+}
+
+message GetRoleInSceneInfoReply {
+    optional int32 sceneDefineId = 1;                   //当前所在的场景Id
+    optional int32 channelId = 2;                       //当前所在的线的Id
+    optional string userId = 3;                         //当前所在的场景是属于哪个玩家的
+}
+
+message SceneStateInfoPush {
+    repeated SceneStateInfoNO sceneStateInfo = 1;       //场景状态新增或更新信息
+    repeated string keys = 2;                           //要清除的状态的Key
+    optional int32 uniqueId = 3;
+}
+
+message KickSceneTeamUserReply {
+     
+}
+
+message CancelRoleHeadBubbleReply {
+     
+}
+
+message StartSceneTeamCopyRequest {
+     
+}
+
+message NpcControlInfoSyncReply {
+     
+}
+
+message MakeBubbleReply {
+     
+}
+
+message RoleHeadBubbleReply {
+     
+}
+
+message NpcControlInfoSyncRequest {
+    optional int32 controlType = 1;                     //控制类型
+    repeated string params = 2;                         //前端的自定义参数
+    optional int32 moveType = 3;                        //移动的类型，依赖前端上行
+    repeated ScenePosNO targetPos = 4;                  //移动的目标位置
+}
+
+message GodFlowerInfoNO {
+    required int32 blood = 1;                               //当前剩余血量
+    required GodFlowerMoveInfoNO moveInfo = 2;              //移动位置信息
+    optional int32 clothesId = 3;                           //衣服ID
+    optional int32 weakStartTime = 4;                       //虚弱开始时间
+    optional int32 skillStartTime = 5;                      //龙卷风技能释放开始时间
+    optional int32 shield = 6;                              //盾
+}
+
+message InSceneInfoNO {
+    optional int32 sceneDefineId = 1;                   //当前所在的场景Id
+    optional int32 channelId = 2;                       //当前所在的线的Id
+    optional string userId = 3;                         //当前所在的场景是属于哪个玩家的
+}
+
+message SceneRoleStateInfoNO {
+    optional string id = 1;                             //userId
+    required int32 state = 2;                           //状态
+    repeated string params = 3;                         //之前客户端上行发的全部的参数
+    optional int32 leftNum = 4;                         //剩余的数量
+                                                        //响应参数的描述
+                                                        //状态1:分享披萨/烟花，参数3,4都会返回，3是披萨/烟花的Id，4是披萨/烟花的剩余数量
+                                                        //状态2:分享表情，参数3会返回，3是表情的Id
+                                                        //状态3:抢占凳子，参数3会返回，3是(凳子的Id,朝向)
+                                                        //状态4:获取分享，参数3会返回，3是披萨/烟花的Id
+}
+
+message SceneGameVarNO {
+    repeated string params = 1;
+}
+
+message CouncilDonateAllShareRewardsNO {
+    repeated CouncilDonateShareRewardsNO allRewards = 1;       //所有的奖励信息
+}
+
+message UserVarNo {
+    optional string key = 1;
+    optional string var = 2;
+}
+
+message BroadcastStateReply {
+     
+}
+
+message SceneRoleHeadBubbleInfoNO {
+    optional int32 key = 1;                             //对应的类型
+    repeated int32 value = 2;                           //对应的值
+}
+
+message HappyBoxInfoNO {
+    repeated HappyBoxRewardNO boxRewardInfos = 1;           //宝箱信息
+}
+
+message GetSceneTeamInfoReply {
+    optional int32 type = 1;                            //类型
+    repeated SceneTeamNO teamInfos = 2;                 //队伍信息列表
+}
+
+message SceneStateInfoNO {
+    optional string key = 1;                            //Key
+    optional int32 type = 2;                            //类型
+    repeated SceneRoleInfoFieldNO fields = 3;
+}
+
+message LeaveSceneReply {
+     
+}
+
+message LeaveSceneRequest {
+     
+}
+
+message CancelSceneShareReply {
+     
+}
+
+message BroadcastStateInfoPush {
+    repeated BroadcastStateInfoNO state = 1;            //广播信息
+}
+
+message HappyBoxRewardNO {
+    optional int32 boxId = 1;                               //宝箱唯一ID
+    optional ScenePosNO pos = 2;                            //位置
+    optional int32 boxEndTime = 3;                          //宝箱结束时间
+    optional int32 drawNum = 4;                             //已领取人数
+    optional bool isDrawn = 5;                              //是否已经领取
+}
+
+message FriendshipCheckIndexNO {
+    repeated TinyGameTeamInfo teamInfo = 1;
+}
+
+message GetSceneTeamInfoRequest {
+    required int32 type = 1;                            //组队玩法类型(对应枚举EnumDef.yaml SceneTeamType)
+}
+
+message SceneEntryPosNO {
+    required int32 entryType = 1;               //入口类型(当前1:梦幻宫殿)
+    repeated int32 areaIds = 2;                 //位置ID
+}
+
+message GetCurrentSceneRequest {
+     
+}
+
+message SceneEntryInfoNO {
+    repeated SceneEntryPosNO entryPos = 1;      //入口坐标信息集合
+}
+
+message GodFlowerMoveInfoNO {
+    optional ScenePosNO initPos = 1;                        //初始位置信息
+    optional ScenePosNO targetPos = 2;                      //目标位置信息
+    optional int32 moveStartTime = 3;                       //开始移动的时间
+}
+
+message TinyGameTeamInfo {
+    optional string userId = 1;
+    optional int32 index = 2;
+}
+
+message MoveRequest {
+    optional int32 moveType = 1;                        //移动类型
+    repeated ScenePosNO targetPos = 2;                  //移动的目标位置
+}
+
+message PublicSceneChannelNO {
+    optional int32 channelId = 1; // 编号
+    optional int32 userNum   = 2; // 玩家数的百分比, 范围0~100`
+}
+
+message SceneTeamNO {
+    optional int32 teamId = 1;                                      //队伍ID
+    optional int32 state = 2;                                       //队伍状态(1:准备，2:进行中，3:胜利结束，4:失败结束)
+    optional int32 teamType = 3;                                    //组队玩法类型
+    optional RoleSimpleInfoNO captainRoleInfo = 4;                  //队长信息
+    optional int32 teamMemberNums = 5;                              //队伍人数
+    repeated SceneTeammateNO teammateInfos = 6;                     //队员信息
+}
+
+message StartSceneTeamCopyReply {
+     
+}
+
+message GetPublicSceneChannelsReply {
+    repeated PublicSceneChannelNO channels = 1; // 线路
+}
+
+message KickSceneTeamUserRequest {
+    required string uId = 1;                            //被踢的人角色ID
+}
+
+message CancelRoleHeadBubbleRequest {
+    required int32 id = 1;                              //对应的状态Id
+}
+
+message CouncilDonateShareRewardsNO {
+    optional int32 pos = 1;                                 //奖励位置
+    optional string rewardsId = 2;                          //奖励id
+    repeated string userIdList = 3;                         //奖励领取Id列表
+}
+
+message SceneMoveInfoNO {
+    optional int32 moveStartMillis = 1;                 //移动的开始时间，用于计算位置变化信息
+    optional int32 moveType = 2;                        //0:普通移动 其它是特殊移动
+    repeated ScenePosNO targetPos = 3;                  //移动的目标位置
+}
+
+message GetRoleInSceneInfoRequest {
+    required string userId = 1;                         //要查询的账号Id
+}
+
+message GetPublicSceneChannelsRequest {
+    required int32 index = 1;                           //当前是第几页的（index从0开始）
+    required int32 pageCount = 2;                       //单页需要拿多少个（不过发多少，后端会限制，最多50个，防止作弊，导致循环过多）
+}
+
+message HappyInfoNO {
+    required int32 blood = 1;                               //当前剩余血量
+    required HappyMoveInfoNO moveInfo = 2;                  //哈皮移动位置信息
+    optional int32 clothesId = 3;                           //衣服ID
+    optional int32 weakStartTime = 4;                       //虚弱开始时间
+    optional int32 skillStartTime = 5;                      //技能释放开始时间
+}
+
+message NpcControlInfoNO {
+    optional string controlUId = 1;                     //新的控制权的玩家是谁
+    optional int32 controlType = 2;                     //新的控制权的控制类型
+    optional SceneMoveInfoNO moveInfo = 3;              //演奏小弟当前移动信息
+    optional int32 startTime = 4;
+    repeated string params = 5;
+}
+
+message ScenePosNO {
+    required float posX = 1;                            //角色横坐标
+    required float posY = 2;                            //角色纵坐标
+    optional float posZ = 3;                            //角色的Z坐标
+}
+
+message SceneEntryInfoPush {
+    repeated SceneEntryPosNO sceneEntryPos = 1;         //场景新增或者更新的入口信息
+    repeated int32 removeTypes = 2;                     //移除的场景入口类型
+}
+
+message SceneShareDropPush {
+    optional int32 changeId = 1;
+}
+
+message SceneShareReply {
+    repeated string params = 1;
+    optional int32 changeSetId = 2;                     //结果变更集
+}
+
+message GodFlowerBoxRewardNO {
+    optional int32 boxId = 1;                               //宝箱唯一ID
+    optional ScenePosNO pos = 2;                            //位置
+    optional int32 boxEndTime = 3;                          //宝箱结束时间
+    optional int32 drawNum = 4;                             //已领取人数
+    optional bool isDrawn = 5;                              //是否已经领取
+}
+
+message GodFlowerBoxInfoNO {
+    repeated GodFlowerBoxRewardNO boxRewardInfos = 1;           //宝箱信息
+}
+
+message RoleHeadBubbleRequest {
+    required int32 id = 1;                              //对应的状态Id
+    repeated int32 params = 2;                          //前端的上行参数，
+                                                        //第一个元素：状态控制标记。>0就是开启一个状态，小于0就是取消
+                                                        //第二个元素：就是要倒计时的时间
+}
+

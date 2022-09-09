@@ -1,0 +1,99 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "BackpackExtensionProto";
+
+
+message ExtendBackpackCapacityReply {
+    optional int32 extendBackpackLevel = 1;                 //背包的扩展等级
+}
+
+message ReduceTiredValueReply {
+    optional int32 changeSetId = 1;                         //结果集
+}
+
+message ExchangeReqNo {
+    required int32 exchangeId = 1;                          //物品ID/兑换组ID
+    required int32 count = 2;                               //兑换数量
+}
+
+message GainLimitChangePush {
+    repeated GainLimitInfoNO changeInfo = 1;
+}
+
+message SellItemRequest {
+    repeated SellItemInfoNO sellItem = 1;                   //要出售的物品
+}
+
+message GetAllItemsReply {
+    repeated ItemBaseInfoNO itemInfo = 1;                   //背包里的道具
+    optional int32 extendBackpackLevel = 2;                 //背包扩展的等级
+    repeated GainLimitInfoNO limitInfo = 3;                 //限制信息
+}
+
+message ExtendBackpackCapacityRequest {
+     
+}
+
+message ReduceTiredValueRequest {
+     
+}
+
+message ItemBaseInfoNO {
+    required int32 id = 1;                                  //物品的模板Id
+    required int32 num = 2;                                 //物品的数量(可用数量，并不是实际减少或增加)
+    optional int32 gainTime = 3;                            //变动时间
+    optional int32 expireTime = 4;                          //过期时间
+    optional int32 totalNum = 5;                            //总数量(真实数量)
+    optional int32 uId = 6;                                 //物品的唯一Id(前端不需要这个东东暂时)
+}
+
+message UseItemRequest {
+    required int32 defineId = 1;                            //要使用的物品Id
+    optional int32 count = 2;                               //使用物品的数量
+    optional string params = 3;                             //选择的奖励池Id(对于多礼包选1的宝箱才有意义,其他类型完全忽略)
+}
+
+message GetAllItemsRequest {
+     
+}
+
+message HolidayRequest {
+     
+}
+
+message UseItemReply {
+    optional int32 changeSetId = 1;                         //获取奖励物品的变更集Id
+}
+
+message GainLimitInfoNO {
+    optional int32 limitId = 1;
+    optional int32 count = 2;
+}
+
+message SellItemReply {
+    optional int32 changeSetId = 1;                         //物品变动的结果集Id
+}
+
+message SellItemInfoNO {
+    required int32 id = 1;                                  //物品的Id
+    required int32 count = 2;                               //要出售的数量
+}
+
+message ExchangeItemRequest {
+    repeated ExchangeReqNo exchangeReqNo = 1;               //兑换请求集合
+    required bool single = 2;                               //是否单个兑换(true是，false兑换组兑换)
+}
+
+message ExchangeItemReply {
+    optional int32 changeSetId = 1;                         //结果集
+}
+
+message BackpackChangeInfoPush {
+    optional int32 changeSetId = 1;                         //变动结果集的唯一Id
+    repeated ItemBaseInfoNO itemInfo = 2;                   //变动信息
+    repeated ItemBaseInfoNO mailItem = 3;                   //被迫加入邮件中的物品
+}
+
+message HolidayReply {
+    optional int32 changeSetId = 1;                         //结果集
+}
+

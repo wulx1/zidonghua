@@ -1,0 +1,64 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "SceneInteractiveExtensionProto";
+
+
+message PurikuraImageNO {
+    required string imageStr  = 1;        //图像ID
+    required int32 takeTime = 2;          //拍摄时间
+}
+
+message GetPurikuraImageInfosRequest {
+     
+}
+
+message SimpleInteractionInfoNo {
+    required int32 type = 1;            //类型(对应场景交互表)
+    optional int32 endTime = 2;         //结束时间（刷新CD奖励返回）
+}
+
+message SceneInteractivePlayReply {
+    optional SimpleInteractionInfoNo cdInfo = 1;                   //返回来的CD
+    optional int32 changeSetId = 2;                                //结果集
+}
+
+message TakePurikuraRequest {
+    required int32 itemId = 1; //贴纸ID
+}
+
+message CottonMakeReply {
+    optional int32 changeSet = 1;                     //结果集
+}
+
+message CottonMakeRequest {
+     
+}
+
+message SceneBindTroublePush {
+     
+}
+
+message SceneTroubleRewardPush {
+    required int32 changeSetId = 1;                   //结果集
+}
+
+message GetPurikuraImageInfosReply {
+    repeated PurikuraImageNO purikuraImages = 1;      //图像信息
+}
+
+message TakePurikuraReply {
+    required int32 changeSet = 1; //结果集
+}
+
+message SceneInteractiveInfoRequest {
+     
+}
+
+message SceneInteractivePlayRequest {
+    required int32 type = 1;                                       //交互类型（对应交单场景交互表）
+    required bool isReward = 2;                                    //是否发奖励（因为有可能只玩了但是不给奖的）
+}
+
+message SceneInteractiveInfoReply {
+    repeated SimpleInteractionInfoNo cdInfoList = 1;     //简单交互场景数据
+}
+

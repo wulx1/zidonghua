@@ -1,0 +1,402 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "TinyGameExtensionProto";
+import "UserExtension.proto";
+import "SceneExtension.proto";
+
+enum HandleWheatType {
+    HAND_LEFT = 1;
+    HAND_RIGHT = 2;
+    HAND_BACKPACK = 3;
+}
+
+message FlowerCloudLootChairRequest {
+    optional int32 index = 1;
+}
+
+message FlowerCloudRoundCalculatePush {
+    repeated string userId = 1;     //淘汰的玩家
+    optional string key = 2;        //游戏唯一标识
+    optional bool lastRound = 3;    //是否最后一回合
+}
+
+message TransferWheatPush {
+    optional WheatInfoNO transferInfo = 1;
+    optional int32 score = 2;
+    optional string key = 3;
+    optional WheatInfoNO addWheatInfo = 4;
+}
+
+message GetChallengeFightScoreInfoRequest {
+     
+}
+
+message ChooseFlagDirectionRequest {
+    optional int32 direction = 1;
+}
+
+message ExitGameRequest {
+     
+}
+
+message MoleAttackInfoPush {
+    repeated MoleAttackInfoNO gameInfo = 1;
+    optional string key = 2;
+    optional int64 startTime = 3;
+}
+
+message KickOutGameRequest {
+    optional string uId = 1;                            //要踢出游戏的玩家Id
+}
+
+message LaunchGameRequest {
+    required int32 gameId = 1;                          //发起的游戏的Id
+}
+
+message SpeedUpRequest {
+     
+}
+
+message TeamInfoNO {
+    optional int32 teamId = 1;
+    repeated string userId = 2;
+}
+
+message LaunchGameReply {
+    optional string key = 1;
+}
+
+message HitRiceCakesRequest {
+     
+}
+
+message BeehiveInfoNO {
+    optional int32 beehiveId = 1;
+    optional int32 honeyId = 2;
+}
+
+message RiceCakesStatePush {
+    optional int32 state = 1;       //被打中手、打中年糕、打中盘子、打裂盘子
+    optional int32 comboCount = 2;  //连击数
+    optional string key = 3; //创建者Id
+}
+
+message GetChallengeFightScoreRewardReply {
+    optional int32 changeId = 1;
+}
+
+message FlowerCloudChairInfoNO {
+    optional int32 index = 1;
+    optional bool trueChair = 2;
+}
+
+message TinyGamePrizePush {
+    optional int32 changeId = 1;                //物品变更Id
+    repeated TinyGameRankingNo rankingInfo = 2; //排名信息
+}
+
+message AttackMoleRequest {
+    optional int32 index = 1;
+}
+
+message WheatInfoNO {
+    optional string fromId = 1;
+    optional string toId = 2;
+    optional int32 wheatId = 3;
+}
+
+message TransferWheatRequest {
+    required HandleWheatType handle = 1;
+}
+
+message GetAttackMoleScoreRequest {
+     
+}
+
+message PutRiceCakesReply {
+     
+}
+
+message SnowballHitPersonRequest {
+    optional string hitUserId = 1;
+    optional int32 snowballId = 2;
+}
+
+message GetFightRankingListReply {
+    repeated FightRankingInfoNO rankInfo = 1;
+    optional FightRankingInfoNO userRankInfo = 2;
+}
+
+message MoleAttackResultPush {
+    optional string userId = 1;    //命中的玩家
+    optional int32 addScore = 2;   //打中地鼠加分，打中精灵减分
+    optional int32 index = 3;      //地洞的Index
+    optional bool isHit = 4;
+    optional string key = 5;
+}
+
+message SelectGridRequest {
+    optional int32 index = 1;
+}
+
+message ChooseBeehiveRequest {
+    optional int32 beehive = 1;
+    optional int32 playerCount = 2;
+}
+
+message ChooseFlagDirectionReply {
+     
+}
+
+message ThrowSnowballReply {
+    optional int32 snowballId = 1;
+}
+
+message SpeedUpReply {
+     
+}
+
+message KickOutGameReply {
+     
+}
+
+message GatherHoneyCalculatePush {
+    repeated ChooseBeehiveNO chooseInfo = 1;
+    repeated BeehiveInfoNO beehives = 2;
+    optional string key = 3;
+}
+
+message ShakingColaRequest {
+    optional bool isShaking = 1;    //本次摇不摇可乐，不摇视为PASS
+}
+
+message ReverseFlagScorePush {
+    repeated ReverseFlagScoreInfoNO scoreInfo = 1;
+    optional string key = 2;
+}
+
+message ReverseFlagStartPush {
+    required string key = 1;
+    optional int64 startTime = 2;
+    repeated ReverseFlagScoreInfoNO infos = 3;
+}
+
+message ThrowSnowballPush {
+    optional int64 time = 1;        //释放雪球时间
+    required ScenePosNO pos = 2;    //释放雪球位置
+    required ScenePosNO dir = 3;    //雪球滚方向
+    optional int32 snowballId = 4;
+    optional string userId = 5;
+    optional string key = 6;
+}
+
+message HitRiceCakesReply {
+    optional int32 hitState = 1;    //打中手、打中年糕、打中盘子、打裂盘子
+}
+
+message StartGameRequest {
+     
+}
+
+message SnowballPlayerSpeedUpPush {
+    optional string userId = 1;
+    optional string key = 2;
+}
+
+message ColaGameInfoNo {
+    optional string userId = 1;     //玩家Id
+    optional int32 score = 2;     //玩家当前积分
+}
+
+message PutRiceCakesRequest {
+     
+}
+
+message GetChallengeFightScoreRewardRequest {
+    optional int32 process = 1;     //要领取的奖励Id
+}
+
+message HandOutWheatPush {
+    repeated WheatInfoNO wheatIds = 1;
+    optional string key = 2;
+}
+
+message SelectGridReply {
+     
+}
+
+message WeedOutInfoPush {
+    repeated int32 redCell = 1;
+    repeated string loser = 2;
+    optional int32 playCount = 3;       //游戏轮数
+    optional string key = 4;
+}
+
+message StartFightInfoPush {
+    repeated PlayerGridInfoNO gridInfo = 1;
+    optional string key = 2;
+}
+
+message PlayerGridInfoNO {
+    required string userId = 1;
+    optional int32 index  = 2;
+}
+
+message JoinGameReply {
+    repeated TeamInfoNO teamInfo = 1;
+}
+
+message ThrowSnowballRequest {
+    optional int64 time = 1;        //释放雪球时间
+    required ScenePosNO pos = 2;    //释放雪球位置
+    required ScenePosNO dir = 3;    //雪球滚方向
+}
+
+message GetAttackMoleScoreReply {
+    repeated AttackScoreNO score = 1;
+}
+
+message FightRankingInfoNO {
+    optional RoleSimpleInfoNO roleInfo = 1;
+    optional int32 ranking = 2;
+    optional int32 score = 3;    
+}
+
+message ChooseBeehiveReply {
+     
+}
+
+message ReverseFlagScoreInfoNO {
+    optional string userId = 1;//用户Id
+    optional int32 score = 2;//分数变动
+    optional int32 blood = 3;//血量变动
+}
+
+message SnowballHitPersonPush {
+    optional string userId = 1;
+    optional string hitUserId = 2;
+    optional bool isOut = 3;
+    optional int32 snowballId = 4;
+    optional string key = 5;
+}
+
+message GetChallengeFightScoreInfoReply {
+    optional int32 score = 1;       //分数
+    repeated int32 process = 2;     //已领取的进度
+}
+
+message GameInfoNOPush {
+    required GameInfoNO gameInfo = 1;                   //游戏状态更新
+}
+
+message StartGameReply {
+     
+}
+
+message TransferWheatReply {
+     
+}
+
+message KickOutGamePush {
+    required string uId = 1;                            //从哪个人的游戏里被踢出
+}
+
+message ChooseBeehiveNO {
+    required string userId = 1;
+    optional int32 score = 2;
+    optional int32 beehive = 3;
+}
+
+message MoleAttackInfoNO {
+    optional int32 time = 1;        //出现时间
+    repeated MoleInfoNO moleInfo = 2;   //地鼠信息
+}
+
+message ShakingColaReply {
+     
+}
+
+message FlowerCloudChairRefreshPush {
+    repeated FlowerCloudChairInfoNO index = 1;
+    optional string key = 2;
+}
+
+message FlowerCloudLootChairReply {
+    optional bool trueChair = 1;
+}
+
+message AttackMoleReply {
+    optional int32 offset = 1;
+    optional int32 index = 2;
+}
+
+message SnowballHitPersonReply {
+     
+}
+
+message TinyGameRankingNo {
+    optional RoleSimpleInfoNO roleInfo = 1;    //玩家信息
+    optional int32 ranking = 2;          //排名
+    optional int32 score = 3;            //分数
+    optional int32 teamId = 4;           //队伍Id
+}
+
+message MoleInfoNO {
+    optional int32 index = 1;       //地鼠洞的index
+    optional bool mole = 2;         //true地鼠 false小精灵
+}
+
+message GetFightRankingListRequest {
+    optional int32 type = 1;//EnumDef.RankingTypeEnum 中的排行榜类型
+}
+
+message GameInfoNO {
+    required string creatorUId = 1;                     //游戏发起者的Id
+    repeated RoleSimpleInfoNO roleInfo = 2;                   //参与者(包含发起者)
+    optional int32 state = 3;                           //游戏状态(1:准备 2:游戏中 3:游戏结束 4:游戏中有人掉线结束)
+    optional int32 gameId = 4;                          //游戏Id(在X小游戏配置里)
+    optional int32 startTime = 5;                       //游戏开始时间
+    optional string key = 6;
+}
+
+message SelectGridInfoPush {
+    optional string userId = 1;
+    optional int32 newIndex = 2;
+    optional int32 oldIndex = 3;
+    optional string key = 4;
+}
+
+message ExitGameReply {
+     
+}
+
+message ColaGameInfoNoPush {
+    optional ColaGameInfoNo colaGameInfo = 1;   //上一个玩家的游戏信息
+    optional bool isExplode = 2;                //上一个玩家是否摇爆
+    optional string nextUserId = 3;             //下一个玩家Id
+}
+
+message RiceCakesStartPush {
+    optional string hitUserId = 1;
+    optional string putUserId = 2;
+    optional string key = 3;
+}
+
+message AttackScoreNO {
+    optional string userId = 1;
+    optional int32 score = 2;
+}
+
+message ChooseFlagDirectionPush {
+    optional string userId = 1;
+    optional int32 direction = 2;
+    optional string key = 3;
+    optional int32 playCount = 4;
+}
+
+message JoinGameRequest {
+    optional string uId = 1;                            //游戏发起者的Id
+    optional int32 gameId = 2;                          //游戏Id(系统游戏才发)
+    optional int32 teamId = 3;                          //队伍Id(队伍Id)
+    optional int32 index = 4;                           //加入游戏的index
+}
+

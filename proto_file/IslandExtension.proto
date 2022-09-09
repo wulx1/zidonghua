@@ -1,0 +1,238 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "IslandExtensionProto";
+import "HouseExtension.proto";
+import "BackpackExtension.proto";
+import "UserExtension.proto";
+import "TravellerExtension.proto";
+import "FoodExtension.proto";
+import "DragonChildExtension.proto";
+
+message IslandWorkShopNO {
+    optional int32 id    = 1; // 作坊ID
+    optional int32 level = 2; // 作坊等级
+}
+
+message ManorSpeedUpCropRequest {
+    optional int32 id = 1; // 唯一ID
+}
+
+message FriendTreeGainRequest {
+    repeated int32 treeUids = 1;       //收割的友情树ID集合
+}
+
+message FriendTreeFosterRequest {
+    optional string uid = 1;          //谁的友情树（自己的传空或者不传）
+    repeated int32 treeUids = 2;       //培育的友情树唯一ID集合
+    required int32 fosterId = 3;      //培育ID
+}
+
+message GetAllIslandDiaryRequest {
+     
+}
+
+message RubbishNO {
+    optional int32 id   = 1; // 唯一ID
+    optional int32 type = 2; // 类型
+}
+
+message ManorGatherCropRequest {
+    repeated int32 ids = 1; // 唯一ID
+}
+
+message IsLandFurnitureChangeClothesReply {
+     
+}
+
+message CropItemChangePush {
+    repeated ManorCropNO plants = 1; // 信息变更的作物
+}
+
+message ManorUnlockSectorRequest {
+    optional int32 id = 1; // 区域ID
+    optional bool useDiamond = 2;
+    optional bool isBuilding = 3;
+}
+
+message ManorPlantRequest {
+    repeated ManorCropNO plants = 1; // 在哪些土地上种哪些作物 (必须传唯一ID/物件类型)
+}
+
+message OpenButterflyViewReply {
+    optional int32 secondSinceLast = 1;     //距离上次打开界面相差的时间点
+    optional int32 visitorNum = 2;          //距离上次打开界面之后访问的人数
+    optional int32 gainHeart = 3;           //期间获取的爱心数量
+}
+
+message ManorPlantReply {
+    repeated ManorCropNO plants = 1; // 作物 (内含成熟时刻)
+}
+
+message CatchButterflyRequest {
+     
+}
+
+message ManorMoveAnimalReply {
+     
+}
+
+message ManorGetRubbishInfoReply {
+    repeated RubbishNO rubbishes = 1; // 所有垃圾
+    optional int64     time      = 2; // 出现下一堆垃圾的时刻 (Unix时间戳)
+}
+
+message OpenButterflyViewRequest {
+     
+}
+
+message DecorateIslandRequest {
+    repeated FurnitureInfoNO decoratedItems = 1; // 所有摆放物件
+    repeated int32           sellingItems   = 2; // 想卖掉的物件的类型
+    repeated int32           buyingItems    = 3; // 想购买的物件的类型
+}
+
+message FriendTreeNo {
+    optional int32 tid = 1;               //友情树唯一ID
+    optional int32 defineId = 2;          //友情树配置ID
+    optional int32 exp = 3;               //当前成长值总量
+    optional int32 todayExp = 4;          //今日成长量
+    optional int32 level = 5;             //当前等级
+    optional int64 lastFosterTime = 6;    //上次培育UNIX时间(浇水施肥)
+    repeated int32 useFosterItemIds = 7;  //使用的培育道具ID集合
+}
+
+message ManorGatherCropReply {
+    repeated ManorCropNO  crops = 1; // 养殖的物件 (内含新的成熟时刻)
+    repeated GatherGainNO gains = 2; // 每个养殖的物件分别获得的物品
+}
+
+message ManorUnlockSectorReply {
+     
+}
+
+message ManorCompleteUnlockSectorReply {
+     
+}
+
+message IsLandFurnitureChangeClothesRequest {
+    required int32 id = 1;              //家具唯一ID
+    repeated int32 clothes = 2;         //装扮Id
+}
+
+message TakeButterflyBoxHeartReply {
+    optional int32 changeSetId = 1;         //变动集的Id 
+}
+
+message FurnitureInfoChangePush {
+    repeated FurnitureInfoNO changeItems = 1;
+    repeated int32 remove = 2;
+    repeated HouseShowAreaInfo houseInfo = 3;
+}
+
+message GetIslandInfoReply {
+    repeated UnlockInfoNO     sectors        = 1;  // 已解锁的区域
+    repeated IslandWorkShopNO workShops      = 2;  // 作坊以及对应等级
+    repeated FurnitureInfoNO  decoratedItems = 3;  // 所有摆放物件 (家具/土地/动物/树)
+    repeated ManorCropNO      crops          = 4;  // 所有养殖物件 (作物/动物/树)
+    repeated RubbishNO        rubbishes      = 5;  // 所有垃圾
+    optional int64            rubbishTime    = 6;  // 出现下一堆垃圾的时刻 (Unix时间戳)
+    optional bool             isAllowToEat   = 7;  // 今日料理是否可用
+    repeated HouseShowAreaInfo houseInfo     = 8;  // 小屋信息
+    optional RoleInfoNO       roleInfo       = 9;  // 角色信息
+    optional ComfortValueNO   comfort        = 10; // (仅访问自己家会返回)舒适度相关数值
+    repeated FriendTreeNo     friendTrees    = 11; // 所有摆放的友情树
+    optional bool             catchButterfly = 12; // 是否能抓蝴蝶了
+    repeated UnlockInfoNO     building       = 13; // 已解锁的建筑
+    optional IslandDiaryInfoNO picture       = 14; // 上一次保存的小岛图片
+    optional int32            endSaveTime    = 15; // 开始保存小岛图片的倒计时的时间
+    repeated TravellerNO      travellerInfos = 16; // 上岛的旅行者信息集合
+    repeated FoodItemNO       foodItemInfos  = 17; // 小岛上面的料理信息
+    optional bool             takePhoto      = 18; // 是否需要拍照上报
+    optional InvestDetailInfo investInfo     = 19; // 龙娃投资信息
+}
+
+message ManorSpeedUpCropReply {
+    optional int32 currencyDecrement = 1; // 消耗了多少货币
+}
+
+message GetAllIslandDiaryReply {
+    repeated IslandDiaryInfoNO pictures = 1;
+}
+
+message ManorCompleteUnlockSectorRequest {
+    required int32 id = 1;
+    optional bool useDiamond = 2;
+    optional bool isBuilding = 3;
+}
+
+message IslandDiaryInfoNO {
+    optional int32 id = 1;
+    optional string imageId = 2;
+    optional int32 time = 3;
+}
+
+message ManorCleanRubbishRequest {
+    repeated int32 ids = 1; // 唯一ID
+}
+
+message FriendTreeGainReply {
+    optional int32 changeSetId = 1;     //结果集
+}
+
+message ManorMoveAnimalRequest {
+    repeated FurnitureInfoNO animals = 1; // 要移动的动物(必须传唯一ID/x/y/旋转)
+}
+
+message ManorCropNO {
+    optional int32 id              = 1; // 唯一ID (作物的唯一ID也就是土地的唯一ID)
+    optional int32 cropType        = 2; // 物件类型
+    optional int64 end             = 3; // 成熟的时刻 (Unix时间戳)
+    repeated ItemBaseInfoNO fixed  = 4; // 固定产出
+    repeated ItemBaseInfoNO random = 5; // 随机掉落(可能为nil)
+    optional int32 buffDefineId    = 6; // buff道具的ID
+    optional int32 finalState      = 7; // 最终成长的形态（只有变异物种才会有）
+}
+
+message UnlockInfoNO {
+    required int32 id = 1;//解锁区域/建筑id
+    optional int32 unlockTime = 2;//完成解锁时间(已经解锁的为0)
+}
+
+message GatherGainNO {
+    optional int32 id     = 1; // 物品ID
+    optional int32 num    = 2; // 物品数量
+    optional int32 cropId = 3; // 养殖物件的唯一ID
+}
+
+message DecorateIslandReply {
+    repeated FurnitureInfoNO decoratedItems = 1; // 所有摆放物件 (内含唯一ID)
+    repeated ManorCropNO     crops          = 2; // 所有养殖物件 (内含成熟时刻)
+    repeated FriendTreeNo    friendTrees    = 3; // 所有友情树
+    repeated FoodItemNO      foodItemInfos  = 4; // 所有料理
+}
+
+message FriendTreeFosterReply {
+    optional int32 changeSetId = 1;      //帮别人浇水有可能有奖励
+}
+
+message ManorGetRubbishInfoRequest {
+     
+}
+
+message GetIslandInfoRequest {
+    optional string userId = 1 [default = ""]; // 查看谁的小岛 (不传或者传空串表示自己)
+    optional bool   npc    = 2;                // 是否NPC
+}
+
+message TakeButterflyBoxHeartRequest {
+     
+}
+
+message CatchButterflyReply {
+    optional int32 changeSetId = 1;         //变动集的Id
+}
+
+message ManorCleanRubbishReply {
+    optional int32 changeSetId = 1; // 变动集的Id
+    optional int64 time  = 2; // 出现下一堆垃圾的时刻
+}
+

@@ -1,0 +1,103 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ElfExtensionProto";
+//精灵的状态
+enum ElfState {
+    ELF_IN_EGG = 0;               //没孵化出来
+    ELF_ON_ISLAND = 1;            //在小岛
+    ELF_IN_HOME = 2;              //在小屋
+    ELF_FOLLOW = 4;               //跟随中
+}
+
+message SelectElfEggReply {
+    required ElfInfoNO elfInfo = 1;                     //选择精灵蛋后的精灵信息
+}
+
+message GetElfInfoReply {
+    required ElfInfoNO elfInfo = 1;                     //精灵信息
+    optional int32 canDrawOthers = 2;                   //能否领取关注/好友精灵产出(1：能，0：不能，拜访别人的时候返回)
+}
+
+message DrawProduceRewardRequest {
+     
+}
+
+message GetElfInfoRequest {
+    optional string uid = 1;                            //查看的角色ID(查看自己不用传)
+}
+
+message ElfChangeNameReply {
+    optional int32 changeSetId = 1;                     //物品变动的Id
+}
+
+message ElfEditWelcomeNoticeReply {
+     
+}
+
+message ElfMoveInfoNO {
+    optional int32  id          = 1; // 唯一ID
+    optional int32  furnitureId = 2; // 家具Id
+    optional sint32 posX        = 3; // 横坐标
+    optional sint32 posY        = 4; // 纵坐标
+    optional sint32 rotation    = 5; // 角度（1：正向，-1：镜像）
+}
+
+message ElfChangeStateReply {
+     
+}
+
+message DrawProduceRewardReply {
+    required ElfInfoNO elfInfo = 1;                     //领取产出之后的精灵信息
+    required int32 changeSetId = 2;                     //物品变动的Id
+}
+
+message ElfChangeNameRequest {
+    required string name = 1;                           //更改的新名字
+}
+
+message DrawOthersRewardReply {
+    required int32 changeSetId = 1;                     //物品变动的Id
+}
+
+message ElfEggHatchReply {
+    optional ElfInfoNO elfInfo = 1;                     //孵化后的精灵信息
+    optional int32 changeSetId = 2;                     //孵化完成后的奖励
+}
+
+message ElfChangeStateRequest {
+    required ElfState state = 1;                        //切换的状态
+}
+
+message ElfInfoNO {
+    optional int32 elfId = 1;                           //精灵的Id
+    optional int32 state = 2;                           //状态(0:未完成孵化1:在小岛，2在小屋，4跟随中)
+    optional int32 hatchCD= 3;                          //孵蛋倒计时(s,0就是已完成孵蛋倒计时)
+    optional string elfName = 4;                        //精灵名字
+    optional int32 isModifyName = 5;                    //是否已经改过名(1：是，0：否)
+    optional string welcomeNotice = 6;                  //欢迎语
+    optional int64 birthDay = 7;                        //精灵生日(孵化完成时间)
+    optional int32 magicLevel = 8;                      //精灵魔法等级
+    optional int32 helpHatchTimes = 9;                 //帮助孵化次数
+    optional int32 exp = 10;                            //精灵魔法经验
+    optional bool canGetProduct = 11;                   //能不能获取精灵果
+}
+
+message ElfEggHatchRequest {
+     
+}
+
+message ElfEditWelcomeNoticeRequest {
+    required string noticeText = 1;                     //新欢迎语文本
+}
+
+message DrawOthersRewardRequest {
+    required string uid = 1;                           //领取目标UID
+}
+
+message SelectElfEggRequest {
+    required int32 elfId = 1;                           //精灵Id
+}
+
+message ElfInfoPush {
+    repeated ElfInfoNO elfInfo = 1;                     //更新的精灵信息，暂时只用于升级和进化
+}
+

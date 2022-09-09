@@ -1,0 +1,88 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "RechargeExtensionProto";
+import "BackpackExtension.proto";
+
+message PopGiftPush {
+    repeated PayGoodsInfoNO goods = 1;          //激活的弹窗礼包
+}
+
+message GetRechargeRewardInfoRequest {
+     
+}
+
+message GetPayOrderReply {
+    required string orderId = 1;                //游戏服订单Id
+    required string sign = 2;                   //对应的请求签名
+    required string callbackInfo = 3;           //通传字串
+}
+
+message RechargePush {
+    repeated ItemBaseInfoNO itemInfo = 1;       //变动信息
+}
+
+message GetThunderPayOrderRequest {
+    required int32 goodsId = 1;                 //购买的商品Id
+    repeated int32 params = 2;                  //选购礼包，所选的奖励项（以奖励配置中的id为准）
+}
+
+message GetPayGiftRequest {
+    required int32 goodsId = 1;                 //购买的礼包Id
+    repeated int32 params = 2;                  //选购礼包，所选的奖励项（以奖励配置中的id为准）
+    optional int32 buyCount = 3;                //购买数量
+}
+
+message ExchangeCurrencyRequest {
+    optional int32 exchangeId = 1;//兑换ID
+    optional int32 levelId = 2;//档次
+}
+
+message GetPayOrderRequest {
+    required int32 goodsId = 1;                 //购买的商品Id
+    repeated int32 params = 2;                  //选购礼包，所选的奖励项（以奖励配置中的id为准）
+}
+
+message PayGoodsInfoNO {
+    required int32 goodsId = 1;                 //物品的Id
+    required int32 buyTimes = 2;                //购买了多少次(日，周，月)
+    optional int32 totalBuyTimes = 3;           //在有效期内总共买了多少次(依据配置表里的startTime,endTime。也用来控制加倍标记)
+    optional int32 leftSecond = 4;              //距离不能购买还有多长时间(只针对《export_充值商店配置》中limitSecond字段配置大于0的才会有这个字段)
+}
+
+message GetThunderPayOrderReply {
+    required string orderId = 1;                //游戏服订单Id
+    required string notifyUrl = 2;              //服务端通知地址
+}
+
+message GetRechargeRewardInfoReply {
+    repeated RechargeRewardNo rewardInfos = 1;
+}
+
+message GetPayGoodsInfoReply {
+    repeated PayGoodsInfoNO payGoodsInfo = 1;   //物品购买的信息
+}
+
+message GetPayGoodsInfoRequest {
+     
+}
+
+message RechargeRewardNo {
+    required int32 id = 1;                      //奖励项id
+    required int32 status = 2;                  //状态：0=不可领取 1=可领取 2=已领取
+}
+
+message ReceiveRechargeRewardRequest {
+    required int32 id = 1;                      //奖励性id
+}
+
+message ExchangeCurrencyReply {
+    optional int32 changeId = 1;//变更ID
+}
+
+message GetPayGiftReply {
+    required int32 changeSetId = 1;             //对应的变动Id
+}
+
+message ReceiveRechargeRewardReply {
+    repeated ItemBaseInfoNO itemInfo = 1;       //变动信息
+}
+

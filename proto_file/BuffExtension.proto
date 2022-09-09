@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "BuffExtensionProto";
+
+
+message GetAllBuffRequest {
+     
+}
+
+message BuffChangePush {
+    repeated BuffInfoNO buff = 1;                       //更新的buff，只有新增的，至于过期的，需要前端自己根据发送的结束时间来判定
+}
+
+message BuffInfoNO {
+    optional int32 defineId = 1;                        //增加buff的道具Id
+    optional int32 endTime = 2;                         //buff失效时间
+}
+
+message GetAllBuffReply {
+    repeated BuffInfoNO buff = 1;                       //buff数据
+}
+

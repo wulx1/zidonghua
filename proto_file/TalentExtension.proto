@@ -1,0 +1,69 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "TalentExtensionProto";
+
+
+message ClientFinishTalentTargetRequest {
+    optional int32 targetId = 1;            //目标的类型
+}
+
+message GetQuestionRequest {
+    required int32 talentId = 1;            //爱好家的Id
+}
+
+message ClientFinishTalentTargetReply {
+    repeated TalentSimpleInfoNO talentSimpleInfo = 1;       //只会返回涉及到修改的爱好家的星分+点数
+}
+
+message TalentInfoPush {
+    repeated TalentSimpleInfoNO talentSimpleInfo = 1;     //只有目标触发了爱好家的星分+点数变动时才会有推送
+}
+
+message GetTalentStarRewardRequest {
+    optional int32 talentId = 1;            //爱好家的Id
+    optional bool finalReward = 2;          //是否领取的是最终奖励
+    optional int32 star = 3;                //对应的星级
+    optional int32 index = 4;               //对应领取的第几个奖励
+}
+
+message TalentSimpleInfoNO {
+    optional int32 talentId = 1;            //爱好家的Id
+    optional int32 score = 2;               //星分
+    optional int32 point = 3;               //点数
+    repeated int32 exRewardBitmap = 4;      //兑换奖励的bitmap
+    optional bool finalReward = 5;          //最终奖励是否领取过
+    optional int32 targetId = 6;            //引起积分点数变化的目标id,50_11推送时候用
+}
+
+message GetQuestionReply {
+    repeated int32 questions = 1;           //选中的所有问题
+}
+
+message AnswerReply {
+    optional TalentSimpleInfoNO talentSimpleInfo = 1;       //如果考核通过，就推送一个新激活的爱好家
+}
+
+message GetTalentInfoRequest {
+     
+}
+
+message AnswerRequest {
+    required int32 talentId = 1;            //爱好家的Id
+    repeated int32 answerIndex = 2;         //前端选中的所有答案
+}
+
+message ClearTalentRedPointParamsRequest {
+    optional int32 params = 1;      //要清除的红点参数
+}
+
+message GetTalentStarRewardReply {
+    optional int32 changeSetId = 1;         //变动集Id
+}
+
+message GetTalentInfoReply {
+    repeated TalentSimpleInfoNO talentSimpleInfo = 1;       //爱好家的简要信息（只会下发已经存在的爱好家）
+}
+
+message ClearTalentRedPointParamsReply {
+     
+}
+

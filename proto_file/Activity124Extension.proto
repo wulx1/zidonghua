@@ -1,0 +1,22 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity124ExtensionProto";
+
+
+message GetFirstRecharge2InfoRequest {
+     
+}
+
+message GetFirstRecharge2RewardsReply {
+    optional int32 changeId = 1; //变动集
+}
+
+message GetFirstRecharge2RewardsRequest {
+    required int32 id = 1;     //第几天登录的奖励同配置id
+}
+
+message GetFirstRecharge2InfoReply {
+    optional int32 rechargeNum = 1;                   //返回充值的数量
+    optional int32 signNum = 2;                     //登录次数
+    optional int32 getStep = 3;                     //领奖情况,1左移id位，即从倒数第二位开始
+}
+

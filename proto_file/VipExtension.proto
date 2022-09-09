@@ -1,0 +1,30 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "VipExtensionProto";
+
+
+message VipInfoChangePush {
+    optional int32 changeSetId = 1;                    //结果集
+    optional int32 vipRemainTime = 2;                  //vip剩余时间（s）
+    optional int32 vipType = 3;                        //vip类型（月卡季卡年卡）
+    optional bool dayDrawn = 4;                        //今天是否已领取
+}
+
+message GetVipCardInfoRequest {
+     
+}
+
+message GetVipCardInfoReply {
+    optional int32 vipRemainTime = 1;                  //vip剩余时间（s）
+    optional int32 vipType = 2;                        //vip类型（月卡季卡年卡）
+    optional bool dayDrawn = 3;                        //今天是否已领取
+    optional int32 maxRechargeVipType = 4;             //Vip最大充值类型(礼包充值包含低一档奖励)
+}
+
+message DrawVipDailyRewardReply {
+    optional int32 changeSetId = 1;                     //结果集
+}
+
+message DrawVipDailyRewardRequest {
+     
+}
+

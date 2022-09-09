@@ -1,0 +1,51 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "MailExtensionProto";
+
+
+message GetItemResult {
+    required int32 mailId = 1;         //邮件Id
+    optional int32 changeId = 2;       //变更结果Id
+}
+
+message ItemInfo {
+    required int32 itemId = 1;     //物品Id
+    required int32 count = 2;          //数量
+}
+
+message MailInfoNO {
+    required int32 mailId = 1;         //邮件Id
+    optional int32 mailTypeId = 2;     //邮件模板Id 0为自定义
+    required int32 sendTime = 3;       //邮件发送时间
+    required int32 overTime = 4;       //邮件过期时间
+    repeated ItemInfo itemInfo = 5;    //发送物品
+    optional string mailTitle = 6;     //邮件标题
+    optional string mailText = 7;      //邮件文本
+    required int32 mailState = 8;      //邮件状态 1 未领取  2 已领取  3 没有奖励
+    optional string author = 9;        //署名（没有返回前端用默认值）
+}
+
+message GetMailListRequest {
+     
+}
+
+message GetItemReply {
+    repeated GetItemResult result = 1;  //邮件领取结果
+    optional bool isAllSucceed = 2;         //是否全部成功领取
+}
+
+message DeleteMailRequest {
+    repeated int32 mailId = 1;
+}
+
+message GetMailListReply {
+    repeated MailInfoNO mail = 1;      
+}
+
+message DeleteMailReply {
+     
+}
+
+message GetItemRequest {
+    repeated int32 mailId = 1;  //邮件Id 
+}
+

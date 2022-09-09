@@ -1,0 +1,20 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity103ExtensionProto";
+
+
+message Get103RewardRequest {
+    optional bool extra = 1;                //是否有额外奖励
+}
+
+message GetHotSpringSnowCountReply {
+    optional int32 count = 1;
+}
+
+message Get103RewardReply {
+    optional int32 changeSetId = 1;         //物品的变动集Id
+}
+
+message GetHotSpringSnowCountRequest {
+     
+}
+

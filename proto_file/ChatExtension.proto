@@ -1,0 +1,194 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ChatExtensionProto";
+import "UserExtension.proto";
+
+message LoadChatChannelMessageReply {
+    repeated ChatChannelMessageInfoNO channelMsg = 1;   //如果没有任何未读消息，不会下发这个数据结构。前端要注意判断nil
+}
+
+message GetLoopMarqueeMessageReply {
+    repeated MarqueeMessageInfoNO marqueeInfos = 1;     //循环的跑马灯信息
+}
+
+message ChatMessageInfoNO {
+    optional RoleSimpleInfoNO senderInfo = 1;           //发送者的信息(系统频道不带这个内容)
+    optional RoleSimpleInfoNO receiverInfo = 2;         //接受者的信息(非私聊消息不带在这个内容)
+    optional int32 time = 3;                            //发送消息所带的时间戳(前端用于消息排序)
+    optional string content = 4;                        //聊天信息
+    optional string custom = 5;                         //前端的扩展消息(分享的内容)
+    optional int32 msgType = 6;                         //消息内容的类型
+    optional int32 templateId = 7;                      //消息模板ID
+    repeated string fills = 8;                          //填充的参数数组
+    optional int32 sceneChatRoomId = 9;                 //场景聊天室ID(场景返回，需要归类到房间里面)
+}
+
+message SelectWorldChannelReply {
+    optional int32 channel = 1;                         //分配的频道
+}
+
+message CreateSceneChatRoomRequest {
+    optional string title = 1;                          //聊天室名字
+    optional string password = 2;                       //聊天室密码
+}
+
+message GetSceneChatRoomUserInfoRequest {
+    required int32 chatRoomId = 1;                      //聊天室ID
+}
+
+message GetLoopMarqueeMessageRequest {
+     
+}
+
+message KickOutChatRoomUserRequest {
+    required string uId = 1;                            //被踢玩家ID
+}
+
+message ChangeSceneChatRoomReply {
+    optional bool isRemove = 1;
+    //后端用
+    repeated int64 oldRoomUser = 2;
+    repeated int64 newRoomUser = 3;
+    optional int32 oldRoomId = 4;
+    optional string roomName = 5;
+}
+
+message MarqueeMessagePush {
+    repeated MarqueeMessageInfoNO marqueeInfos = 1;     //新增跑马灯信息
+    repeated string removeIds = 2;                      //移除的跑马灯ID(客服后台跑马灯，优先级为1的)
+}
+
+message SendChatMessageRequest {
+    required int32 templateId = 1;                      //模板ID
+    repeated int32 channels = 2;                        //发送的频道
+    repeated string fills = 3;                          //填充
+    repeated string recieverUids = 4;                   //接受者ID集合
+}
+
+message GetSceneChatRoomInfoRequest {
+     
+}
+
+message SceneChatRoomPush {
+    optional SceneChatRoomInfoNO chatRoom = 1;          //新增的聊天室
+    repeated SceneChatRoomInfoNO changeChatRoom = 2;    //发生信息变更的聊天室
+    optional int32 removeChatRoomId = 3;                //移除的聊天室ID
+}
+
+message ChatReply {
+     
+}
+
+message ChatRequest {
+    required int32 channel = 1;                         //发起聊天的频道
+    optional string userId = 2;                         //私聊的用户Id
+    optional string content = 3;                        //聊天的消息
+    optional string custom = 4;                         //前端的扩展消息(分享的内容)
+    optional int32 msgType = 5;                         //消息内容的类型
+}
+
+message ChangeSceneChatRoomRequest {
+    required int32 chatRoomId = 1;                      //聊天室ID（退出传0）
+    optional string password = 2;                       //密码
+}
+
+message GetSceneChatRoomUserInfoReply {
+    repeated RoleSimpleInfoNO roomUserInfos = 1;        //聊天室玩家信息
+}
+
+message ChatRoomUserInfoNO {
+    repeated int64 oldRoomUser = 1;
+    repeated int64 newRoomUser = 2;
+    optional int32 oldRoomId = 3;
+}
+
+message GetTemplateMessageInfoReply {
+    repeated TemplateMessageInfoNO templateInfos = 1;   //模板消息集合
+}
+
+message SceneChatRoomInfoNO {
+    optional int32 chatRoomId = 1;                      //聊天室ID
+    optional string title = 2;                          //标题
+    optional int32 numbers = 3;                         //人数
+    optional RoleSimpleInfoNO roomOwner = 4;            //房主
+    optional int32 createTime = 5;                      //创建时间
+    optional bool isNeedPassword = 6;                   //是否有密码
+}
+
+message GetTemplateMessageInfoRequest {
+    repeated int32 templateIds = 1;                      //查询的模板ID集合
+}
+
+message ChatChannelMessagePush {
+    repeated ChatChannelMessageInfoNO channelMsg = 1;   //频道消息
+}
+
+message LoadChatChannelMessageRequest {
+    optional int32 channel = 1;                         //频道
+}
+
+message CreateSceneChatRoomReply {
+    required SceneChatRoomInfoNO createRoom = 1;        //创建的房间
+}
+
+message MessageFillsInfoNO {
+    repeated string fills = 1;                          //普通字符串填充
+    repeated QualityFillsInfoNO qualityFills = 2;       //品质数组填充
+}
+
+message SelectWorldChannelRequest {
+    optional int32 channel = 1;                         //选择的频道
+}
+
+message QualityFillsInfoNO {
+    required int32 id = 1;                              //物品ID
+    required int32 quality = 2;                         //物品品质
+    required int32 num = 3;                             //数量
+}
+
+message KickOutChatRoomUserReply {
+     
+}
+
+message GetSceneChatRoomInfoReply {
+    repeated SceneChatRoomInfoNO roomInfos = 1;         //房间信息
+}
+
+message ClientLocalStoragePlayerInfo {
+    required int32 writeTime = 1;                       //写入缓存时间
+    required string userId = 2;                         //用户Id
+    optional int32 sex = 3;                             //性别
+    optional int32 level = 4;                           //等级
+    optional string nickName = 5;                       //昵称
+}
+
+message SceneChatRoomBeKickedPush {
+     
+}
+
+message TemplateMessageInfoNO {
+    required int32 templateId = 1;                      //模板ID
+    optional int32 sendTimes = 2;                       //今天已发送次数
+    repeated string sendUids = 3;                       //已转发用户UID集合(不支持同一玩家多次转发的时候返回)
+    repeated string lastSendTimeInfos = 4;               //上次转发时间(渠道_时间)
+}
+
+message MarqueeMessageInfoNO {
+    required string marqueeId = 1;                      //跑马灯ID
+    required int32 type = 2;                            //跑马灯类型
+    optional int32 priority = 3;                        //优先级
+    optional int32 startTime = 4;                       //生效时间
+    optional int32 endTime = 5;                         //结束时间
+    optional int32 interval = 6;                        //间隔(s)
+    optional string content = 7;                        //灯内容
+    optional MessageFillsInfoNO fillsInfo = 8;          //填充对象
+}
+
+message SendChatMessageReply {
+     
+}
+
+message ChatChannelMessageInfoNO {
+    required int32 channel = 1;                         //频道
+    repeated ChatMessageInfoNO chatMsg = 2;             //该频道未读的聊天信息
+}
+

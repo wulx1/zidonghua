@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity128ExtensionProto";
+
+
+message GetAct128SignInfoReply {
+    optional int32 signNum = 1;       //签到天数
+    optional int32 rewardsInfo = 2;     //领取过奖励id
+}
+
+message GetAct128RewardsRequest {
+    required int32 rewardsId = 1;       //领取的奖励Id
+}
+
+message GetAct128RewardsReply {
+    optional int32 changeId = 1;    //变动集Id
+}
+
+message GetAct128SignInfoRequest {
+     
+}
+

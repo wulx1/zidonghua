@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity126ExtensionProto";
+
+
+message GetRewardsInfoReply {
+    optional int32 isGetToday = 1;       //今天是否已经领取了(返回1表示领取了)
+    optional int32 RewardsInfo = 2;     //本周领奖记录，只返回领过奖励的id
+}
+
+message GetRewardsRequest {
+    required int32 rewardsId = 1;       //领取的奖励Id
+}
+
+message GetRewardsInfoRequest {
+     
+}
+
+message GetRewardsReply {
+    optional int32 changeId = 1;    //变动集Id
+}
+

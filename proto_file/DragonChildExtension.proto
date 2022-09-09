@@ -1,0 +1,43 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "DragonChildExtensionProto";
+
+
+message InvestItemReply {
+    optional int32 changeId = 1;
+}
+
+message GetInvestInfoRequest {
+     
+}
+
+message InvestInfoNO {
+    optional int32 investId = 1;
+    optional int32 itemId = 2;
+    optional int32 count = 3;
+    optional int32 investTime = 4;
+}
+
+message InvestDetailInfo {
+    optional InvestInfoNO thisWeekInvest = 1;      //本轮已投资信息
+    repeated InvestInfoNO notGetInvest = 2;        //未领奖投资  
+    repeated InvestInfoNO sailingHistory = 3;      //航海历史
+    optional int32 thisWeekInvestId = 4;           //本轮投资信息
+}
+
+message InvestItemRequest {
+    optional int32 itemId = 1;
+    optional int32 count = 2;
+}
+
+message GetInvestRewardReply {
+    optional int32 changeId = 1;
+}
+
+message GetInvestInfoReply {
+    optional InvestDetailInfo info = 1;
+}
+
+message GetInvestRewardRequest {
+    optional int32 investTime = 1;
+}
+

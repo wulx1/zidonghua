@@ -1,0 +1,113 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "OrderExtensionProto";
+import "UserExtension.proto";
+
+message RejectOrderRequest {
+    optional int32 type = 1;               // 提交类型(1:npc,2:好友,3:晶钻)
+    optional string id  = 2;               // 唯一ID
+}
+
+message OrderItemNO {
+    optional bool   npc            = 1;  // 是否NPC委托
+    optional string id             = 3;  // 唯一ID
+    optional int32  state          = 4;  // 委托的状态, 1已发布2已提交3已领取4已撤下5等待中
+    optional int64  createTime     = 11; // (真人)这个委托生成的时刻
+    optional int32  itemId         = 12; // (真人)想要的物品ID
+    optional int32  itemCount      = 13; // (真人)想要的物品数量
+    optional int32  currency       = 14; // (真人)获得货币数量
+    optional int64  endWaitingTime = 20; // (NPC)结束等待状态的时刻(UNIX时间戳)
+    optional int32  poolId         = 21; // (NPC)配置表物品池ID
+    optional CommitterInfoNO committerInfo = 24;    //提交者信息
+    optional RoleSimpleInfoNO roleSimpleInfo = 25;
+}
+
+message CommitOrderRequest {
+    optional int32 type = 1;               // 提交类型(1:npc,2:好友,3:晶钻)
+    optional string id  = 2;                // 唯一ID
+    optional string content = 3;            // 完成委托的留言
+}
+
+message CommitOrderReply {
+    optional OrderItemNO newOrder = 1;      // 新的委托, nil表示没有新的委托
+    optional int32 changeSetId = 2;         // 物品变动Id
+    optional OrderItemNO diamondOrder = 3;  // 刷新的晶砖订单, nil表示没有新的委托
+}
+
+message FinishOrderReply {
+    optional RoleInfoNO committer = 1; // 提交者的玩家信息
+}
+
+message CreateOrderRequest {
+    optional int32 itemId    = 1; // 想要的物品ID
+    optional int32 itemCount = 2; // 想要的物品数量
+    optional int32 currency  = 3; // 单价货币
+}
+
+message RejectAllOrderReply {
+    repeated OrderItemNO newOrders = 1; // 新的委托
+}
+
+message ClearNpcOrderWaitingRequest {
+    optional string id = 1; // 唯一ID
+}
+
+message FinishOrderRequest {
+     
+}
+
+message BuyCommitTimesRequest {
+     
+}
+
+message GetOrderInfoRequest {
+     
+}
+
+message CommitterInfoNO {
+    optional string uid             = 1;    //提交者唯一ID
+    optional string nickname        = 2;    //提交者名字
+    optional int32  modelId         = 3;    //模型Id
+    repeated int32 clothes          = 4;    //衣服
+    optional string content         = 5;    //完成委托的留言
+}
+
+message RejectAllOrderRequest {
+     
+}
+
+message CreateOrderReply {
+     
+}
+
+message GetOrderInfoReply {
+    repeated OrderItemNO orders          = 1;    // 包括NPC和真人
+    optional OrderItemNO mine            = 2;    // 自己的委托
+    optional bool hadExpire              = 3;    // 是否有过期的好友订单
+    required int32 finishTimes           = 4;    // 已发布订单次数
+    required int32 commitRemainTimes     = 5;    // 剩余接收订单次数
+    required int32 buyCommitTimes        = 6;    // 已购买接收订单次数
+    optional int32 lastCommitRecoverTime = 7;    // 上次恢复接收订单次数时间
+    optional OrderItemNO diamondOrder    = 8;    // 晶砖订单
+    optional int32 diamondOrderOutDateTime = 9;  // 晶砖订单过期时间
+}
+
+message RejectOrderReply {
+    optional OrderItemNO newOrder = 1; // 新的委托, nil表示没有新的委托
+}
+
+message CancelOrderReply {
+     
+}
+
+message ClearNpcOrderWaitingReply {
+    optional OrderItemNO newOrder = 1; // 新的委托
+}
+
+message CancelOrderRequest {
+     
+}
+
+message BuyCommitTimesReply {
+     
+}
+

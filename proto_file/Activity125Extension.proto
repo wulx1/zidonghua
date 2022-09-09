@@ -1,0 +1,42 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity125ExtensionProto";
+
+
+message GetGameInfoRequest {
+     
+}
+
+message GetGameInfoReply {
+    optional int32 freeNum = 1;               //剩余免费获取次数
+    optional int32 pos = 2;                     //当前位置
+    optional int32 points = 3;                  //累计点数
+    repeated int32 rewardsIsGet = 4;            //累计奖励获取情况
+    optional int32 leftScond = 5;             //活动剩余时间
+    optional int32 dailyLeftRollTimes = 6;      //今日剩余投掷次数
+}
+
+message StartRollRequest {
+     
+}
+
+message StartRollReply {
+    repeated int32 rollPoint = 1;
+}
+
+message GetPointsRewardsReply {
+    optional int32 changeId = 1;
+}
+
+message BuyDiceRequest {
+    required int32 Id = 1;    //购买物品id，暂时只有骰子id可用
+    required int32 count = 2;   //购买数量
+}
+
+message BuyDiceReply {
+    optional int32 changeId = 3; //变更集
+}
+
+message GetPointsRewardsRequest {
+    required int32 rewardsId = 1;
+}
+

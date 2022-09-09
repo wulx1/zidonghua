@@ -1,0 +1,113 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "FriendshipCheckExtensionProto";
+import "UserExtension.proto";   
+
+message FriendshipCheckChooseSkinPush {
+    optional string userId = 1;
+    optional int32 skinId = 2;
+}
+
+message ChooseRoleSkinRequest {
+    optional int32 skinId = 1;
+}
+
+message FriendshipCheckNpcSyncRequest {
+    repeated FriendshipCheckNpcIndexNO index = 1;
+}
+
+message StartFriendshipCheckReply {
+     
+}
+
+message FriendshipGameStateSyncRequest {
+    optional int32 state = 1;
+}
+
+message CompleteFriendshipCheckRequest {
+    optional string friendId = 1;
+}
+
+message ChooseRoleSkinReply {
+    optional int32 skinId = 1;
+}
+
+message ExitFriendshipCheckTeamRequest {
+     
+}
+
+message FriendshipGameStateSyncReply {
+     
+}
+
+message FriendshipCheckNpcSyncReply {
+     
+}
+
+message FriendshipCheckSkinInfoNO {
+    optional string userId = 1;
+    optional int32 skinId = 2;
+}
+
+message FriendshipCheckSkinInfoList {
+    repeated FriendshipCheckSkinInfoNO infoNO = 1;
+}
+
+message FriendshipCheckNpcSyncPush {
+    repeated FriendshipCheckNpcIndexNO index = 1;
+}
+
+message FriendshipCheckTeamInfoPush {
+    repeated RoleSimpleInfoNO roleInfo = 1;
+}
+
+message FriendshipCheckNpcIndexNO {
+    optional float posX = 1;
+    optional float posY = 2;
+    optional float posZ = 3;
+    
+    optional float targetX = 4;
+    optional float targetY = 5;
+    optional float targetZ = 6;
+    
+    optional int32 id = 7;
+}
+
+message JoinFriendshipCheckRequest {
+    optional int32 levelId = 1;
+    optional string friendId = 2;
+    optional int32 index = 3;
+}
+
+message ChangeFriendshipNpcSyncUserRequest {
+     
+}
+
+message FriendshipGameStateSyncPush {
+    optional int32 state = 1;
+}
+
+message ChangeFriendshipNpcSyncUserReply {
+     
+}
+
+message CompleteFriendshipCheckReply {
+     
+}
+
+message JoinFriendshipCheckReply {
+     
+}
+
+message StartFriendshipCheckRequest {
+     
+}
+
+message ExitFriendshipCheckTeamReply {
+     
+}
+
+message FriendshipCheckStartPush {
+    optional string sceneOwnerId = 1;
+    optional int32 sceneId = 2;
+}
+

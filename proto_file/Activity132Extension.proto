@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity132ExtensionProto";
+
+
+message GetAct132InfoRequest {
+     
+}
+
+message GetAct132InfoReply {
+    optional int32 score = 1; //积分数量
+    optional int32 rewardsInfo = 2; //积分累计奖励领取状况
+}
+
+message GetAct132RewardsRequest {
+    required int32 rewardsId = 1;
+}
+
+message GetAct132RewardsReply {
+    optional int32 changeId = 1;
+}
+

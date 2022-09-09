@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "ExternalShareExtensionProto";
+
+
+message GetExternalShareInfoRequest {
+    required int32 shareId = 1; //分享类型id
+}
+
+message GetExternalShareInfoReply {
+    optional int32 totalTimes = 1; //总共次数
+    optional int32 dayTimes = 2; //今日次数
+}
+
+message ExternalShareRequest {
+    required int32 shareId = 1;       //领取的奖励Id
+}
+
+message ExternalShareReply {
+    optional int32 changeId = 1;    //变动集Id
+}
+

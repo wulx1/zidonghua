@@ -1,0 +1,21 @@
+option java_package = "com.bt.pjaobi.cmd.proto";
+option java_outer_classname = "Activity117ExtensionProto";
+
+
+message GetSevenDayTaskProcessInfoReply {
+    optional int32 process = 1;
+    repeated int32 getAwardIndex = 2;
+}
+
+message GetSevenDayTaskProcessAwardRequest {
+    optional int32 process = 1;
+}
+
+message GetSevenDayTaskProcessInfoRequest {
+     
+}
+
+message GetSevenDayTaskProcessAwardReply {
+    optional int32 changeId = 1;
+}
+
